@@ -1,0 +1,411 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f7fc;
+    color: #111827;
+}
+
+.pagina {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+
+.lado-esquerdo {
+    width: 27%;
+    min-height: 100vh;
+    padding: 50px;
+    color: white;
+
+    background-color: #4032a8;
+    
+    background-size: 24px 24px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo h1 {
+    font-size: 22px;
+    letter-spacing: 0.5px;
+}
+
+.icone-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background-color: #544cac;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.icone-logo span {
+    width: 20px;
+    height: 4px;
+    border-radius: 3px;
+    background-color: white;
+}
+
+
+
+.apresentacao {
+    margin-top: 80px;
+    max-width: 410px;
+}
+
+.icone-seguranca {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 18px;
+    background-color: #544cac;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 38px;
+    margin-bottom: 30px;
+}
+
+.apresentacao h2 {
+    font-size: 30px;
+    line-height: 1.3;
+    margin-bottom: 28px;
+}
+
+.apresentacao p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: #d9d5ff;
+}
+
+
+
+.equipe {
+    margin-top: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.foto {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+
+    background-color: #7770dc;
+    border: 2px solid #4032a8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    
+}
+
+.foto:first-child {
+    margin-left: 0;
+}
+
+.equipe span {
+    margin-left: 10px;
+    font-size: 13px;
+    color: #d9d5ff;
+}
+
+
+
+footer {
+    margin-top: auto;
+    color: #aaa4e9;
+    font-size: 13px;
+}
+
+
+
+
+.lado-direito {
+    width: 73%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #f8f8fc;
+}
+
+.area-login {
+    width: 465px;
+}
+
+
+
+.titulo-login {
+    margin-bottom: 45px;
+}
+
+.titulo-login h2 {
+    font-size: 29px;
+    margin-bottom: 12px;
+}
+
+.titulo-login p {
+    font-size: 16px;
+    color: #6b7280;
+}
+
+
+
+
+.formulario {
+    width: 100%;
+}
+
+.campo {
+    margin-bottom: 26px;
+}
+
+.campo label {
+    display: block;
+
+    font-size: 14px;
+    font-weight: bold;
+    color: #374151;
+
+    margin-bottom: 10px;
+}
+
+.campo-input {
+    height: 51px;
+    width: 100%;
+
+    background-color: white;
+    border: 1px solid #ddddE8;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 15px;
+}
+
+.icone {
+    color: #9ca3af;
+    font-size: 18px;
+    margin-right: 13px;
+}
+
+.campo-input input {
+    border: none;
+    outline: none;
+
+    width: 100%;
+    height: 100%;
+
+    font-size: 15px;
+    color: #374151;
+}
+
+
+
+.mostrar-senha {
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+.opcoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 3px;
+    margin-bottom: 28px;
+}
+
+.lembrar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 15px;
+    color: #4b5563;
+
+    cursor: pointer;
+}
+
+.lembrar input {
+    width: 19px;
+    height: 19px;
+
+    accent-color: #5141f2;
+}
+
+.opcoes a,
+.criar-conta a {
+    color: #4935f2;
+    text-decoration: none;
+    font-weight: 500;   
+}
+
+
+
+.botao-entrar {
+    width: 100%;
+    height: 50px;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: #5038f4;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.botao-entrar:hover {
+    background-color: #422ce0;
+}
+
+
+.criar-conta {
+    text-align: center;
+
+    margin-top: 40px;
+
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+
+@media (max-width: 900px) {
+
+    .pagina {
+        flex-direction: column;
+    }
+
+    .lado-esquerdo {
+        width: 100%;
+        min-height: auto;
+
+        padding: 35px 40px;
+    }
+
+    .apresentacao {
+        margin-top: 60px;
+        max-width: 600px;
+    }
+
+    .apresentacao h2 {
+        font-size: 27px;
+    }
+
+    footer {
+        margin-top: 50px;
+    }
+
+    .lado-direito {
+        width: 100%;
+        min-height: 600px;
+
+        padding: 50px 30px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .lado-esquerdo {
+        padding: 30px 25px;
+    }
+
+    .logo h1 {
+        font-size: 20px;
+    }
+
+    .apresentacao {
+        margin-top: 45px;
+    }
+
+    .apresentacao h2 {
+        font-size: 25px;
+    }
+
+    .apresentacao p {
+        font-size: 15px;
+    }
+
+    .equipe {
+        margin-top: 25px;
+    }
+
+    .lado-direito {
+        padding: 45px 25px;
+    }
+
+    .area-login {
+        width: 100%;
+    }
+
+    .titulo-login {
+        margin-bottom: 35px;
+    }
+
+    .titulo-login h2 {
+        font-size: 25px;
+    }
+
+    .opcoes {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .opcoes a {
+        text-align: right;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .lado-esquerdo {
+        padding: 25px 20px;
+    }
+
+    .lado-direito {
+        padding: 40px 20px;
+    }
+
+    .opcoes {
+        flex-direction: column;
+    }
+
+    .opcoes a {
+        text-align: left;
+    }
+}
