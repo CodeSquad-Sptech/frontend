@@ -1,98 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentinela - Upload</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto - Upload</title>
 
-    <link rel="stylesheet" href="upload.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="upload.css" />
+  </head>
+  <body>
     <header class="cabecalho">
-
-        <div class="logo">
-            <div class="icone-logo">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <h1>SENTINELA</h1>
+      <div class="logo">
+        <div class="icone-logo">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
 
-        <div class="usuario">
-            <div class="foto-usuario">VC</div>
-            <span>Vitor</span>
-        </div>
+        <h1>Projeto</h1>
+      </div>
 
+      <div class="usuario">
+        <div class="foto-usuario">VC</div>
+        <span>Vitor</span>
+      </div>
     </header>
 
-
     <main class="conteudo">
+      <div class="titulo">
+        <h2>Enviar arquivos</h2>
+        <p>Adicione os arquivos que deseja analisar no sistema.</p>
+      </div>
 
-        <div class="titulo">
-            <h2>Enviar arquivos</h2>
-            <p>
-                Adicione os arquivos que deseja analisar no sistema.
-            </p>
+      <section class="area-upload">
+        <div class="icone-upload">↑</div>
+
+        <h3>Envie seus arquivos</h3>
+
+        <p>Arraste seus arquivos para esta área ou clique no botão abaixo.</p>
+
+        <div class="botao-arquivo">Escolher arquivo</div>
+
+        <span class="formatos"> PDF, PNG, JPG ou XLSX — até 10 MB </span>
+      </section>
+
+      <section class="arquivos">
+        <h3>Arquivos recentes</h3>
+
+        <div class="arquivo">
+          <div class="icone-arquivo">PDF</div>
+
+          <div class="informacoes">
+            <strong>relatorio-vendas.pdf</strong>
+            <span>2.4 MB</span>
+          </div>
+
+          <span class="status">Enviado</span>
         </div>
 
+        <div class="arquivo">
+          <div class="icone-arquivo">XLS</div>
 
-        <section class="area-upload">
+          <div class="informacoes">
+            <strong>vendas-agosto.xlsx</strong>
+            <span>1.8 MB</span>
+          </div>
 
-            <div class="icone-upload">
-                ↑
-            </div>
-
-            <h3>Envie seus arquivos</h3>
-
-            <p>
-                Arraste seus arquivos para esta área
-                ou clique no botão abaixo.
-            </p>
-
-            <div class="botao-arquivo">
-                Escolher arquivo
-            </div>
-
-            <span class="formatos">
-                PDF, PNG, JPG ou XLSX — até 10 MB
-            </span>
-
-        </section>
-
-
-        <section class="arquivos">
-
-            <h3>Arquivos recentes</h3>
-
-            <div class="arquivo">
-                <div class="icone-arquivo">PDF</div>
-
-                <div class="informacoes">
-                    <strong>relatorio-vendas.pdf</strong>
-                    <span>2.4 MB</span>
-                </div>
-
-                <span class="status">Enviado</span>
-            </div>
-
-
-            <div class="arquivo">
-                <div class="icone-arquivo">XLS</div>
-
-                <div class="informacoes">
-                    <strong>vendas-agosto.xlsx</strong>
-                    <span>1.8 MB</span>
-                </div>
-
-                <span class="status">Enviado</span>
-            </div>
-
-        </section>
-
+          <span class="status">Enviado</span>
+        </div>
+      </section>
     </main>
-
-</body>
+  </body>
 </html>
