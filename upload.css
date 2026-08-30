@@ -1,0 +1,313 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f6f6fb;
+    color: #202020;
+}
+
+
+.cabecalho {
+    height: 75px;
+    background-color: white;
+    border-bottom: 1px solid #e4e4e4;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 60px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo h1 {
+    font-size: 20px;
+    color: #4032a8;
+}
+
+.icone-logo {
+    width: 40px;
+    height: 40px;
+    background-color: #4032a8;
+    border-radius: 9px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.icone-logo span {
+    width: 19px;
+    height: 4px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+
+.usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #555;
+    font-size: 14px;
+}
+
+.foto-usuario {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+
+    background-color: #6255d5;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+
+
+.conteudo {
+    width: 900px;
+    max-width: 90%;
+
+    margin: 55px auto;
+}
+
+.titulo {
+    margin-bottom: 30px;
+}
+
+.titulo h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.titulo p {
+    color: #777;
+    font-size: 15px;
+}
+
+
+.area-upload {
+    background-color: white;
+
+    border: 2px solid #c9c5e8;
+    border-radius: 10px;
+
+    padding: 55px 30px;
+
+    text-align: center;
+}
+
+.icone-upload {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+    background-color: #eeecff;
+
+    color: #5038f4;
+
+    font-size: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.area-upload h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.area-upload p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+
+    margin-bottom: 22px;
+}
+
+
+.botao-arquivo {
+    display: inline-block;
+
+    padding: 11px 22px;
+
+    background-color: #5038f4;
+    color: white;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.botao-arquivo:hover {
+    background-color: #422de0;
+}
+
+.formatos {
+    display: block;
+
+    margin-top: 17px;
+
+    color: #999;
+    font-size: 12px;
+}
+
+
+.arquivos {
+    margin-top: 40px;
+}
+
+.arquivos h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.arquivo {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+
+    border-radius: 8px;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+.icone-arquivo {
+    width: 42px;
+    height: 42px;
+
+    background-color: #eeeaff;
+    color: #5038f4;
+
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.informacoes {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 13px;
+
+    gap: 5px;
+}
+
+.informacoes strong {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.informacoes span {
+    color: #999;
+    font-size: 12px;
+}
+
+.status {
+    margin-left: auto;
+
+    color: #39844b;
+    background-color: #e9f7ec;
+
+    padding: 5px 10px;
+
+    border-radius: 15px;
+
+    font-size: 11px;
+}
+
+
+@media (max-width: 700px) {
+
+    .cabecalho {
+        padding: 0 25px;
+    }
+
+    .usuario span {
+        display: none;
+    }
+
+    .conteudo {
+        margin-top: 40px;
+    }
+
+    .titulo h2 {
+        font-size: 24px;
+    }
+
+    .area-upload {
+        padding: 45px 20px;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .cabecalho {
+        height: 65px;
+        padding: 0 18px;
+    }
+
+    .logo h1 {
+        font-size: 17px;
+    }
+
+    .icone-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .conteudo {
+        max-width: 92%;
+        margin: 30px auto;
+    }
+
+    .area-upload {
+        padding: 35px 15px;
+    }
+
+    .area-upload h3 {
+        font-size: 18px;
+    }
+
+    .arquivo {
+        padding: 12px;
+    }
+
+    .status {
+        display: none;
+    }
+}
