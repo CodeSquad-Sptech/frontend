@@ -1,0 +1,137 @@
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.menu img {
+    cursor: pointer;
+    height: 3vw;
+}
+
+.sino img {
+    cursor: pointer;
+    height: 3.7vw;
+}
+
+.switch img {
+    cursor: pointer;
+    height: 3.7vw;
+}
+
+.pfp img {
+    cursor: pointer;
+    height: 3.7vw;
+}
+
+.resto {
+    display: flex;
+    align-items: center;
+}
+
+.corpo {
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    margin-top: 5vw;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 7vw;
+    padding-right: 7vw;
+}
+
+.kpi-cursos {
+    display: flex;
+    flex-direction: column;
+    height: 45vw;
+    width: 16vw;
+    border: 0.16vw solid black;
+    border-radius: 2.5vw;
+    align-items: center;
+    padding: 1vw;
+    gap: 1.5vw;
+}
+
+.select-cursos select {
+    background-color: white;
+    border: 0.16vw solid black;
+    height: 3vw;
+    width: 14vw;
+    border-radius: 0.5vw;
+    text-align: center;
+}
+
+.lista-curso {
+    display: flex;
+    gap: 1vw;
+    flex-direction: column;
+    align-items: center;
+}
+
+.caixa-curso {
+    display: flex;
+    height: 7vw;
+    width: 14vw;
+    border: 0.16vw solid black;
+    border-radius: 0.5vw;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.grafico {
+    height: 30vw;
+    width: 55vw;
+}
+
+.mid {
+    margin-top: 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5vw;
+}
+
+.box-kpi {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.border-kpi {
+    border: 0.16vw solid black;
+    border-radius: 1vw;
+    height: 8vw;
+    width: 17vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graficos-bot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    margin-top: 4vw;
+}
+
+.graficos {
+    height: 27vw;
+    width: 25vw;
+    border: 0.16vw solid black;
+    padding: 3vw;
+    border-radius: 4vw;
+}
+
+.especial {
+    height: 12vw;
+    padding-bottom: 10.5vw;
+    padding-top: 10.5vw;
+}
