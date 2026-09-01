@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <header class="head">
+        <div class="menu">
+            <img src="img\Captura de tela 2026-08-30 221500.png" alt="">
+        </div>
+        <div class="resto">
+            <div class="sino">
+                <img src="img\Captura de tela 2026-08-30 232901.png" alt="">
+            </div>
+            <div class="switch">
+                <img src="img\Captura de tela 2026-08-30 232907.png" alt="">
+            </div>
+            <div class="pfp">
+                <img src="img\Captura de tela 2026-08-30 232910.png" alt="">
+            </div>
+        </div>
+    </header>
+    <main class="corpo">
+        <div class="top">
+            <div class="kpi-cursos">
+                <div class="select-cursos">
+                    <select name="" id="cursos">
+                        <option value="1">Curso</option>
+                    </select>
+                </div>
+                <div class="lista-curso">
+                    <div class="caixa-curso">
+                        <span>
+                            texto temporario
+                        </span>
+                    </div>
+                    <div class="caixa-curso">
+                        <span>
+                            texto temporario
+                        </span>
+                    </div>
+                    <div class="caixa-curso">
+                        <span>
+                            texto temporario
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="grafico">
+                <canvas id="grafico1"></canvas>
+            </div>
+        </div>
+        <div class="mid">
+            <div class="box-kpi">
+                <span>X</span>
+                <span>texto temporario</span>
+                <div class="border-kpi">
+                    <span>texto temporario</span>
+                </div>
+            </div>
+            <div class="box-kpi">
+                <span>X</span>
+                <span>texto temporario</span>
+                <div class="border-kpi">
+                    <span>texto temporario</span>
+                </div>
+            </div>
+            <div class="box-kpi">
+                <span>X</span>
+                <span>texto temporario</span>
+                <div class="border-kpi">
+                    <span>texto temporario</span>
+                </div>
+            </div>
+            <div class="box-kpi">
+                <span>X</span>
+                <span>texto temporario</span>
+                <div class="border-kpi">
+                    <span>texto temporario</span>
+                </div>
+            </div>
+        </div>
+        <div class="bot">
+            <div class="graficos-bot">
+                <div class="graficos">
+                    <canvas id="grafico2"></canvas>
+                </div>
+                <div class="graficos">
+                    <canvas id="grafico3"></canvas>
+                </div>
+                <div class="graficos especial">
+                    <canvas id="grafico4"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script>
+    const ctx = document.getElementById("grafico1").getContext('2d');
+    const ctx1 = document.getElementById("grafico2").getContext('2d');
+    const ctx2 = document.getElementById("grafico3").getContext('2d');
+    const ctx3 = document.getElementById("grafico4").getContext('2d');
+
+    const myChart = new Chart(ctx, {
+        type: 'line', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
+        data: {
+            labels: ['2022', '2023', '2024', '2025', '2026'], // X-axis labels
+            datasets: [{
+                label: 'Evolução da evazão',
+                data: [8, 18, 20, 34, 36], // Y-axis values
+                backgroundColor: 'rgba(54, 162, 235, 0.5)', // Fill color
+                borderColor: 'rgba(54, 162, 235, 1)', // Border color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true, // Scale smoothly with window resizing
+            scales: {
+                y: {
+                    beginAtZero: true // Ensure the Y-axis starts at 0
+                }
+            }
+        }
+    });
+
+    const myChart2 = new Chart(ctx1, {
+        type: 'bar', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
+        data: {
+            labels: ['17-19', '19-21', '22-25', '29-30', '31-30', '40+'], // X-axis labels
+            datasets: [{
+                label: 'PERFIL POR IDADE',
+                data: [4000, 2500, 3200, 1700, 2200, 1200], // Y-axis values
+                backgroundColor: 'rgba(54, 162, 235, 0.5)', // Fill color
+                borderColor: 'rgba(54, 162, 235, 1)', // Border color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            responsive: true, // Scale smoothly with window resizing
+            scales: {
+                y: {
+                    beginAtZero: true // Ensure the Y-axis starts at 0
+                }
+            }
+        }
+    });
+    const myChart3 = new Chart(ctx2, {
+        type: 'bar', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
+        data: {
+            labels: ['Brancos', 'Negros', 'Pardos', 'Amarelos', 'Vermelhos', 'Não declarado'], // X-axis labels
+            datasets: [{
+                label: 'ETNIA DOS ALUNOS EVADIDOS',
+                data: [4000, 2500, 3200, 1700, 2200, 1200], // Y-axis values
+                backgroundColor: 'rgba(54, 162, 235, 0.5)', // Fill color
+                borderColor: 'rgba(54, 162, 235, 1)', // Border color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            responsive: true, // Scale smoothly with window resizing
+            scales: {
+                y: {
+                    beginAtZero: true // Ensure the Y-axis starts at 0
+                }
+            }
+        }
+    });
+    const myChart4 = new Chart(ctx3, {
+        type: 'bar', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
+        data: {
+            labels: ['Masculino', 'Feminido'], // X-axis labels
+            datasets: [{
+                label: 'PERFIL POR SEXO',
+                data: [4000, 2500], // Y-axis values
+                backgroundColor: 'rgba(54, 162, 235, 0.5)', // Fill color
+                borderColor: 'rgba(54, 162, 235, 1)', // Border color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            responsive: true, // Scale smoothly with window resizing
+            scales: {
+                y: {
+                    beginAtZero: true // Ensure the Y-axis starts at 0
+                }
+            }
+        }
+    });
+</script>
+
+</html>
