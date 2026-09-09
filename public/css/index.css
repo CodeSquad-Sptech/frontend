@@ -90,17 +90,11 @@ header {
 }
 
 .logo img {
-  width: 45px;
-  height: 40px;
+  width: 130px;
+  height: 60px;
   object-fit: contain;
 }
 
-.logo span {
-  color: var(--azul-escuro);
-  font-family: 'Sora', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-}
 
 
 /* LINKS DO MENU */

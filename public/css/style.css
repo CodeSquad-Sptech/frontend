@@ -1,3 +1,17 @@
+:root {
+  --azul-escuro: #0B1B3F;
+  --azul-escuro-2: #13275A;
+  --azul: #2E5BD7;
+  --laranja: #F5A623;
+  --verde: #1FA98B;
+  --fundo: #F6F7FB;
+  --branco: #FFFFFF;
+  --texto: #101828;
+  --texto-claro: #5B6472;
+  --borda: #E3E6ED;
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +37,7 @@ body {
     padding: 50px;
     color: white;
 
-    background-color: #4032a8;
+    background-color:var(--azul-escuro);
     
     background-size: 24px 24px;
 
@@ -46,7 +60,7 @@ body {
     width: 44px;
     height: 44px;
     border-radius: 12px;
-    background-color: #544cac;
+    background-color: white;
 
     display: flex;
     flex-direction: column;
@@ -59,7 +73,7 @@ body {
     width: 20px;
     height: 4px;
     border-radius: 3px;
-    background-color: white;
+    background-color: black;
 }
 
 
@@ -74,7 +88,7 @@ body {
     height: 58px;
 
     border-radius: 18px;
-    background-color: #544cac;
+    background-color:black;
 
     display: flex;
     align-items: center;
@@ -93,7 +107,7 @@ body {
 .apresentacao p {
     font-size: 17px;
     line-height: 1.65;
-    color: #d9d5ff;
+    color: white;
 }
 
 
@@ -109,8 +123,8 @@ body {
     height: 32px;
     border-radius: 50%;
 
-    background-color: #7770dc;
-    border: 2px solid #4032a8;
+    background-color: var(--laranja);
+    border: 2px solid white;
 
     display: flex;
     justify-content: center;
@@ -259,12 +273,12 @@ footer {
     width: 19px;
     height: 19px;
 
-    accent-color: #5141f2;
+    accent-color: var(--laranja);
 }
 
 .opcoes a,
 .criar-conta a {
-    color: #4935f2;
+    color:black;
     text-decoration: none;
     font-weight: 500;   
 }
@@ -278,7 +292,7 @@ footer {
     border: none;
     border-radius: 10px;
 
-    background-color: #5038f4;
+    background-color: var(--laranja);
     color: white;
 
     font-size: 16px;
