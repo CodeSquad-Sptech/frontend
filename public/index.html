@@ -1,81 +1,429 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSquad — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <title>AquaTech | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="public\css\style.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">AquaTech</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>
-            <a href="simulador.html">Simulador</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
-    </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023-2026</h4>
-      </div>
-    </div>
-  </body>
 
+<header>
+    <nav class="container menu">
+        <a href="#" class="logo">
+            <img src="./assets/imgs/logoCodeSquad.png" alt="Logo CodeSquad">
+            <span>CodeSquad</span>
+        </a>
+
+        <ul class="links-menu" id="linksMenu">
+            <li><a href="#problema">Problema</a></li>
+            <li><a href="#solucao">Solução</a></li>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#equipe">Equipe</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+
+        <a href="./login.html" class="botao-contato">Login</a>
+
+        <button class="botao-menu" id="botaoMenu" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+</header>
+
+
+<section class="inicio">
+    <div class="container conteudo-inicio">
+
+        <div>
+
+            <h1>Sistema de Gestão Escolar</h1>
+
+            <p class="descricao-inicio">
+                Conheça o software que une inteligência de dados
+                e controle estratégico para as faculdades.
+            </p>
+
+
+            <div class="botoes-inicio">
+                <a href="#como-funciona" class="botao botao-principal">
+                    Ver como funciona
+                </a>
+
+                <a href="#contato" class="botao botao-secundario">
+                    Entrar em contato
+                </a>
+            </div>
+
+            <div class="estatisticas">
+                <div>
+                    <b>58,3%</b>
+                    <span>desistência acumulada no Brasil</span>
+                </div>
+
+                <div>
+                    <b>79,3%</b>
+                    <span>das matrículas estão na rede privada</span>
+                </div>
+
+                <div>
+                    <b>7,9 mi</b>
+                    <span>alunos matriculados em 2023</span>
+                </div>
+            </div>
+        </div>
+
+          <div class="imagem-inicio">
+        <img src="./assets/imgs/imagemBanner.png" alt="Imagem ilustrativa do sistema">
+    </div>
+
+
+
+    </div>
+</section>
+
+
+<section id="problema" class="problema">
+    <div class="container conteudo-problema">
+
+        <div>
+            <div class="numero-destaque">4/10</div>
+
+            <p>
+                é quantos alunos que ingressam no ensino superior
+                desistem antes de concluir o curso.
+            </p>
+        </div>
+
+        <div>
+            <h2>
+                O problema não é falta de dado.
+                É falta de tempo pra olhar pra ele.
+            </h2>
+
+            <p>
+                Coordenação e secretaria já registram tudo —
+                mas em planilhas soltas, sem cruzamento e sem alerta.
+                A evasão só vira número depois que já aconteceu.
+            </p>
+
+            <blockquote>
+                “A gente só fica sabendo que o aluno evadiu depois
+                que ele já foi embora. Não temos dado nenhum que
+                aponte o risco antes disso.”
+
+                <footer>
+                    — Diretor de instituição de ensino superior,
+                    em entrevista para o projeto
+                </footer>
+            </blockquote>
+        </div>
+
+    </div>
+</section>
+
+
+<section id="solucao">
+    <div class="container">
+
+        <div class="cabecalho-secao">
+            <span class="subtitulo">A solução</span>
+
+            <h2>
+                Um painel que junta o que já existe, espalhado
+            </h2>
+
+            <p>
+                O CodeSquad não pede novo processo —
+                ele lê os dados acadêmicos que a instituição
+                já coleta e devolve indicadores prontos pra decisão.
+            </p>
+        </div>
+
+        <div class="recurso">
+            <div class="icone-recurso">01</div>
+
+            <div>
+                <h3>Dashboard interativo</h3>
+
+                <p>
+                    Evasão, matrícula e conclusão filtradas por curso,
+                    turma, disciplina e período (tudo numa tela só).
+                </p>
+            </div>
+        </div>
+
+        <div class="recurso">
+            <div class="icone-recurso">02</div>
+
+            <div>
+                <h3>Pontos de atenção por curso e turma</h3>
+
+                <p>
+                    Cruza matrícula, trancamento e cancelamento pra mostrar onde a evasão se concentra: por curso, modalidade ou período.
+                </p>
+            </div>
+        </div>
+
+        <div class="recurso">
+            <div class="icone-recurso">03</div>
+
+            <div>
+                <h3>Importação simples</h3>
+
+                <p>
+                    Sobe uma planilha .xlsx da secretaria e o sistema
+                    organiza os dados automaticamente.
+                </p>
+            </div>
+        </div>
+
+        <div class="recurso">
+            <div class="icone-recurso">04</div>
+
+            <div>
+                <h3>Um painel por papel</h3>
+
+                <p>
+                    Coordenador, secretaria e diretoria acessam
+                    informações de acordo com suas permissões.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section id="como-funciona" class="como-funciona">
+    <div class="container">
+
+        <div class="cabecalho-secao">
+
+            <h2>Da planilha ao alerta</h2>
+
+            <p>
+                O caminho que o dado percorre até virar uma decisão.
+            </p>
+        </div>
+
+        <div class="etapas">
+
+            <div class="etapa">
+                <div class="numero-etapa">1</div>
+
+                <h3>Dados</h3>
+
+                <p>
+                    Dados acadêmicos enviados pela instituição.
+                </p>
+            </div>
+
+            <div class="etapa">
+                <div class="numero-etapa">2</div>
+
+                <h3>Tratamento</h3>
+
+                <p>
+                    O processo ETL organiza e transforma os dados.
+                </p>
+            </div>
+
+            <div class="etapa">
+                <div class="numero-etapa">3</div>
+
+                <h3>Banco de dados</h3>
+
+                <p>
+                    MySQL armazena os dados de forma estruturada.
+                </p>
+            </div>
+
+            <div class="etapa">
+                <div class="numero-etapa">4</div>
+
+                <h3>Indicadores</h3>
+
+                <p>
+                    O sistema transforma os dados em informações úteis.
+                </p>
+            </div>
+
+            <div class="etapa">
+                <div class="numero-etapa">5</div>
+
+                <h3>Decisão</h3>
+
+                <p>
+                    A equipe acadêmica utiliza os indicadores para agir.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section id="equipe" class="equipe">
+    <div class="container">
+
+        <div class="cabecalho-secao">
+            <span class="subtitulo">Quem construiu</span>
+            <h2>Equipe CodeSquad</h2>
+            <p>
+                Seis pessoas, cada uma cuidando de uma parte
+                do projeto — do banco de dados ao front-end.
+            </p>
+        </div>
+
+        <div class="lista-equipe">
+
+            <div class="membro">
+                <div class="avatar">
+                    <div class="avatar-fallback">EV</div>
+                    <img
+                        class="avatar-photo"
+                        src="./assets/imgs/rostoEverton.png"
+                        alt="Everton"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+                <h3>Everton</h3>
+                <div class="empresa">Dev Team</div>
+                <span class="funcao">Data</span>
+            </div>
+
+            <div class="membro">
+                <div class="avatar">
+                    <div class="avatar-fallback">GE</div>
+                    <img
+                        class="avatar-photo"
+                        src="./assets/imgs/rostoGeovana.png"
+                        alt="Geovanna"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+                <h3>Geovanna</h3>
+                <div class="empresa">Stefanini</div>
+                <span class="funcao">Docs</span>
+            </div>
+
+            <div class="membro">
+                <div class="avatar">
+                    <div class="avatar-fallback">JU</div>
+                    <img
+                        class="avatar-photo"
+                        src="./assets/imgs/rostoJulia.png"
+                        alt="Julia"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+                <h3>Julia</h3>
+                <div class="empresa">PwC</div>
+                <span class="funcao">Scrum Master</span>
+            </div>
+
+            <div class="membro">
+                <div class="avatar">
+                    <div class="avatar-fallback">LC</div>
+                    <img
+                        class="avatar-photo"
+                        src="./assets/imgs/rostoLucas.png"
+                        alt="Lucas"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+                <h3>Lucas</h3>
+                <div class="empresa">Indra Group</div>
+                <span class="funcao">Product Owner</span>
+            </div>
+
+            <div class="membro">
+                <div class="avatar">
+                    <div class="avatar-fallback">PT</div>
+                    <img
+                        class="avatar-photo"
+                        src="./assets/imgs/rostoPietro.png"
+                        alt="Pietro"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+                <h3>Pietro</h3>
+                <div class="empresa">Stefanini</div>
+                <span class="funcao">Front-end</span>
+            </div>
+
+            <div class="membro">
+                <div class="avatar">
+                    <div class="avatar-fallback">VT</div>
+                    <img
+                        class="avatar-photo"
+                        src="./assets/imgs/rostoVitor.png"
+                        alt="Vitor"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+                <h3>Vitor</h3>
+                <div class="empresa">C6 Bank</div>
+                <span class="funcao">Full Stack</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<footer id="contato" class="rodape">
+    <div class="container">
+
+        <div class="conteudo-rodape">
+
+            <div>
+                <h2><br>Quer conhecer o projeto?</h2>
+
+                <p>
+                    Fale com a equipe para conhecer o sistema
+                    e entender como ele pode ajudar instituições de ensino.
+                </p>
+            </div>
+
+            <a href="mailto:contato@codesquad.com" class="botao botao-principal">
+                Falar com o time
+            </a>
+
+        </div>
+
+        <div class="final-rodape">
+        </div>
+
+    </div>
+</footer>
+
+
+<script>
+    const botaoMenu = document.getElementById("botaoMenu");
+    const linksMenu = document.getElementById("linksMenu");
+
+    botaoMenu.addEventListener("click", function () {
+        linksMenu.classList.toggle("aberto");
+    });
+
+    const links = linksMenu.querySelectorAll("a");
+
+    links.forEach(function (link) {
+        link.addEventListener("click", function () {
+            linksMenu.classList.remove("aberto");
+        });
+    });
+</script>
+
+</body>
 </html>
+
