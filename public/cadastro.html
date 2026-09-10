@@ -1,96 +1,99 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evolua - Cadastro</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evolua - Cadastro</title>
+  <link rel="stylesheet" href="../public/css/style.css" />
+</head>
+<body>
+  <main class="pagina">
+    <section class="lado-esquerdo">
+      <div class="logo">
+        <div class="icone-logo">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <h1>Evolua</h1>
+      </div>
 
-    <link rel="stylesheet" href="../public/css/style.css" />
-  </head>
-  <body>
-    <main class="pagina">
-      <section class="lado-esquerdo">
-        <div class="logo">
-          <div class="icone-logo">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+      <div class="apresentacao">
+        <h2>Comece a transformar dados em decisões.</h2>
+        <p>
+          Crie sua conta no Evolua e tenha acesso a uma plataforma desenvolvida
+          para organizar dados acadêmicos, acompanhar indicadores e apoiar
+          decisões no ensino superior público.
+        </p>
 
-          <h1>Evolua</h1>
+        <div class="equipe">
+          <div class="foto">JS</div>
+          <div class="foto">AB</div>
+          <div class="foto">RC</div>
+          <span>Desenvolvido pela equipe CodeSquad</span>
+        </div>
+      </div>
+
+      <footer>© 2026 CodeSquad. Todos os direitos reservados.</footer>
+    </section>
+
+    <section class="lado-direito">
+      <div class="area-login">
+        <div class="titulo-login">
+          <h2>Crie sua conta</h2>
+          <p>Preencha seus dados para começar a usar o Evolua.</p>
         </div>
 
-        <div class="apresentacao">
-        
-
-          <h2>Lorem ipsum dolor sit amet.</h2>
-
-          <p>
-           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias, quasi?
-          </p>
-
-          <div class="equipe">
-            <div class="foto">JS</div>
-            <div class="foto">AB</div>
-            <div class="foto">RC</div>
-
-            <span>+12 pessoas da sua equipe já usam</span>
-          </div>
-        </div>
-
-        <footer>© 2026 CodeSquad. Todos os direitos reservados.</footer>
-      </section>
-      <section class="lado-direito">
-        <div class="area-login">
-          <div class="titulo-login">
-            <h2>Bem-vindo</h2>
-
-            <p>Cadastre sua conta para acessar a Evolua</p>
+        <form class="formulario">
+          <div class="campo">
+            <label for="email">E-MAIL</label>
+            <div class="campo-input">
+              <span class="icone">✉</span>
+              <input
+                type="email"
+                id="email"
+                placeholder="voce@empresa.com"
+              />
+            </div>
           </div>
 
-          <form class="formulario">
-            <div class="campo">
-              <label for="email">E-MAIL</label>
-
-              <div class="campo-input">
-                <span class="icone">✉</span>
-
-                <input type="email" id="email" placeholder="voce@empresa.com" />
-              </div>
+          <div class="campo">
+            <label for="senha">SENHA</label>
+            <div class="campo-input">
+              <span class="icone">🔒︎</span>
+              <input
+                type="password"
+                id="senha"
+                placeholder="********"
+              />
+              <span class="mostrar-senha">◉</span>
             </div>
+          </div>
 
-            <div class="campo">
-              <label for="senha">SENHA</label>
-
-              <div class="campo-input">
-                <span class="icone">🔒︎</span>
-
-                <input type="password" id="senha" placeholder="*********" />
-
-                <span class="mostrar-senha">◉</span>
-              </div>
+          <div class="campo">
+            <label for="confirmar-senha">CONFIRMAR SENHA</label>
+            <div class="campo-input">
+              <span class="icone">🔒︎</span>
+              <input
+                type="password"
+                id="confirmar-senha"
+                placeholder="********"
+              />
+              <span class="mostrar-senha">◉</span>
             </div>
-            <div class="campo">
-              <label for="senha">CONFIRMAR SENHA</label>
+          </div>
 
-              <div class="campo-input">
-                <span class="icone">🔒︎</span>
+          <button class="botao-entrar" type="submit">
+            Criar conta
+          </button>
+        </form>
 
-                <input type="password" id="senha" placeholder="*********" />
-
-                <span class="mostrar-senha">◉</span>
-              </div>
-            </div>
-
-            <button class="botao-entrar">Entrar</button>
-          </form>
-
-          <p class="criar-conta">
-            Já tem uma conta?
-            <a href="./login.html">Acesse aqui</a>
-          </p>
-        </div>
-      </section>
-    </main>
-  </body>
+        <p class="criar-conta">
+          Já tem uma conta?
+          <a href="./login.html">Acesse aqui</a>
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
 </html>
