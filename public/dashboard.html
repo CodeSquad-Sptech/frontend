@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de evasão</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
@@ -27,6 +28,11 @@
         </div>
     </header>
     <main class="corpo">
+        <div class="cabecalho-dashboard">
+            <h1>Dashboard de evasão</h1>
+            <p>Acompanhe os principais indicadores e o perfil dos alunos.</p>
+        </div>
+
         <div class="top">
             <div class="kpi-cursos">
                 <h2>Cursos monitorados</h2>
@@ -49,42 +55,82 @@
                     <div class="caixa-curso alerta selecionado" data-curso="engenharia">
                         <span class="nome-curso">Engenharia de Software</span>
                         <span class="turma-curso">2ADS</span>
-                        <span class="taxa-curso">21,4% evasão</span>
                     </div>
                     <div class="caixa-curso alerta" data-curso="computacao">
                         <span class="nome-curso">Ciência da Computação</span>
                         <span class="turma-curso">3CC</span>
-                        <span class="taxa-curso">19,7% evasão</span>
                     </div>
-                    <div class="caixa-curso">
+                    <div class="caixa-curso alerta">
                         <span class="nome-curso">Administração</span>
                         <span class="turma-curso">1ADM</span>
-                        <span class="taxa-curso">14,8% evasão</span>
                     </div>
                     <div class="caixa-curso">
                         <span class="nome-curso">Direito</span>
                         <span class="turma-curso">4DIR</span>
-                        <span class="taxa-curso">11,2% evasão</span>
                     </div>
                     <div class="caixa-curso">
                         <span class="nome-curso">Pedagogia</span>
                         <span class="turma-curso">2PED</span>
-                        <span class="taxa-curso">9,6% evasão</span>
                     </div>
                     <div class="caixa-curso">
                         <span class="nome-curso">Enfermagem</span>
                         <span class="turma-curso">3ENF</span>
-                        <span class="taxa-curso">8,3% evasão</span>
                     </div>
                     <div class="caixa-curso">
                         <span class="nome-curso">Psicologia</span>
                         <span class="turma-curso">1PSI</span>
-                        <span class="taxa-curso">7,9% evasão</span>
                     </div>
                     <div class="caixa-curso">
                         <span class="nome-curso">Nutrição</span>
                         <span class="turma-curso">2NUT</span>
-                        <span class="taxa-curso">6,5% evasão</span>
+                    </div>
+                </div>
+            </div>
+            <div class="indicadores-gerais">
+                <h2>Indicadores gerais</h2>
+                <div class="indicador-geral">
+                    <div class="indicador-geral-topo">
+                        <span class="indicador-geral-nome">Matriculados</span>
+                        <span class="indicador-geral-valor">1.850</span>
+                    </div>
+                    <div class="indicador-geral-fundo">
+                        <div class="indicador-geral-barra indicador-geral-barra-matriculados"></div>
+                    </div>
+                </div>
+                <div class="indicador-geral">
+                    <div class="indicador-geral-topo">
+                        <span class="indicador-geral-nome">Matrículas trancadas</span>
+                        <span class="indicador-geral-valor">96</span>
+                    </div>
+                    <div class="indicador-geral-fundo">
+                        <div class="indicador-geral-barra indicador-geral-barra-trancadas"></div>
+                    </div>
+                </div>
+                <div class="indicador-geral">
+                    <div class="indicador-geral-topo">
+                        <span class="indicador-geral-nome">Alunos evadidos</span>
+                        <span class="indicador-geral-valor">428</span>
+                    </div>
+                    <div class="indicador-geral-fundo">
+                        <div class="indicador-geral-barra indicador-geral-barra-evasao"></div>
+                    </div>
+                </div>
+                <div class="indicador-geral">
+                    <div class="indicador-geral-topo">
+                        <span class="indicador-geral-nome">Concluintes</span>
+                        <span class="indicador-geral-valor">312</span>
+                    </div>
+                    <div class="indicador-geral-fundo">
+                        <div class="indicador-geral-barra indicador-geral-barra-concluintes"></div>
+                    </div>
+                </div>
+                <div class="indicador-geral">
+                    <div class="indicador-geral-topo">
+                        <span class="indicador-geral-nome">Taxa de evasão</span>
+                        <span class="indicador-geral-valor">21,4%</span>
+                    </div>
+                    <div class="indicador-geral-fundo">
+                        <div class="indicador-geral-barra indicador-geral-barra-taxa"></div>
                     </div>
                 </div>
             </div>
@@ -93,36 +139,11 @@
                 <canvas id="grafico1"></canvas>
             </div>
         </div>
-        <div class="mid">
-            <div class="box-kpi kpi-evasao">
-                <span class="kpi-valor">1.284</span>
-                <span class="kpi-label">Alunos evadidos em 2026</span>
-                <div class="border-kpi">
-                    <span class="kpi-detalhe">+18% em relação a 2025</span>
-                </div>
-            </div>
-            <div class="box-kpi kpi-taxa">
-                <span class="kpi-valor">18,4%</span>
-                <span class="kpi-label">Taxa de evasão geral</span>
-                <div class="border-kpi">
-                    <span class="kpi-detalhe">Meta institucional: 12%</span>
-                </div>
-            </div>
-            <div class="box-kpi kpi-trancadas">
-                <span class="kpi-valor">542</span>
-                <span class="kpi-label">Matrículas trancadas</span>
-                <div class="border-kpi">
-                    <span class="kpi-detalhe">Risco de evasão futura</span>
-                </div>
-            </div>
-            <div class="box-kpi kpi-concluintes">
-                <span class="kpi-valor">3.910</span>
-                <span class="kpi-label">Concluintes em 2026</span>
-                <div class="border-kpi">
-                    <span class="kpi-detalhe">81,6% de taxa de conclusão</span>
-                </div>
-            </div>
+
+        <div class="secao-titulo">
+            Perfil e características
         </div>
+
         <div class="bot">
             <div class="graficos-bot">
                 <div class="graficos">
@@ -140,27 +161,28 @@
             </div>
         </div>
     </main>
-</body>
+    <script>
+    let ctxEvolucao = document.getElementById("grafico1").getContext('2d');
+    let ctxIdade = document.getElementById("grafico2").getContext('2d');
+    let ctxEtnia = document.getElementById("grafico3").getContext('2d');
+    let ctxSocioeconomico = document.getElementById("grafico4").getContext('2d');
 
-<script>
-    const ctx = document.getElementById("grafico1").getContext('2d');
-    const ctx1 = document.getElementById("grafico2").getContext('2d');
-    const ctx2 = document.getElementById("grafico3").getContext('2d');
-    const ctx3 = document.getElementById("grafico4").getContext('2d');
-
-    const myChart = new Chart(ctx, {
-        type: 'line', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
+    let graficoEvolucao = new Chart(ctxEvolucao, {
+        type: 'line',
         data: {
             labels: ['2021', '2022', '2023', '2024', '2025', '2026'],
             datasets: [{
                 label: 'Taxa de evasão (%)',
-                data: [9.8, 11.2, 13.5, 15.8, 17.1, 18.4],
-                backgroundColor: 'rgba(46, 91, 215, 0.15)',
-                borderColor: 'rgba(46, 91, 215, 1)',
+                data: [12.4, 14.1, 16.8, 18.2, 19.1, 21.4],
+                backgroundColor: 'rgba(104, 70, 217, 0.15)',
+                borderColor: '#6846D9',
                 borderWidth: 2,
-                tension: 0.3,
+                tension: 0.35,
                 fill: true,
-                pointBackgroundColor: 'rgba(46, 91, 215, 1)'
+                pointBackgroundColor: '#FFFFFF',
+                pointBorderColor: '#6846D9',
+                pointBorderWidth: 3,
+                pointRadius: 4
             }]
         },
         options: {
@@ -170,72 +192,43 @@
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        callback: (value) => value + '%'
+                        font: {
+                            size: 12
+                        },
+                        callback: function (value) {
+                            return value + '%';
+                        }
+                    },
+                    grid: {
+                        color: '#F0EEF7'
                     }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 11
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
                 }
             }
         }
     });
 
-    const myChart2 = new Chart(ctx1, {
-        type: 'bar', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
+    let graficoIdade = new Chart(ctxIdade, {
+        type: 'bar',
         data: {
             labels: ['0-17', '18-24', '25-29', '30-34', '35-39', '40-49', '50-59', '60+'],
             datasets: [{
                 label: 'Alunos evadidos',
                 data: [12, 480, 310, 190, 110, 95, 60, 27],
-                backgroundColor: 'rgba(46, 91, 215, 0.5)',
-                borderColor: 'rgba(46, 91, 215, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            maintainAspectRatio: false,
-            responsive: true, // Scale smoothly with window resizing
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-    const myChart3 = new Chart(ctx2, {
-        type: 'bar', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
-        data: {
-            labels: ['Brancos', 'Pretos', 'Pardos', 'Amarelos', 'Indígenas', 'Não declarado'],
-            datasets: [{
-                label: 'Alunos evadidos',
-                data: [520, 310, 380, 40, 15, 19],
-                backgroundColor: 'rgba(225, 84, 61, 0.5)',
-                borderColor: 'rgba(225, 84, 61, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            maintainAspectRatio: false,
-            responsive: true, // Scale smoothly with window resizing
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-    const myChart4 = new Chart(ctx3, {
-        type: 'bar', // Options: 'line', 'pie', 'doughnut', 'radar', etc.
-        data: {
-            labels: ['Feminino', 'Masculino'],
-            datasets: [{
-                label: 'Alunos evadidos',
-                data: [690, 594],
                 backgroundColor: 'rgba(6, 182, 164, 0.5)',
                 borderColor: 'rgba(6, 182, 164, 1)',
                 borderWidth: 1
@@ -244,7 +237,59 @@
         options: {
             indexAxis: 'y',
             maintainAspectRatio: false,
-            responsive: true, // Scale smoothly with window resizing
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    let graficoEtnia = new Chart(ctxEtnia, {
+        type: 'bar',
+        data: {
+            labels: ['Brancos', 'Pretos', 'Pardos', 'Amarelos', 'Indígenas', 'Não declarado'],
+            datasets: [{
+                label: 'Alunos evadidos',
+                data: [520, 310, 380, 40, 15, 19],
+                backgroundColor: 'rgba(46, 91, 215, 0.5)',
+                borderColor: 'rgba(46, 91, 215, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    let graficoSocioeconomico = new Chart(ctxSocioeconomico, {
+        type: 'bar',
+        data: {
+            labels: ['Feminino', 'Masculino'],
+            datasets: [{
+                label: 'Alunos evadidos',
+                data: [690, 594],
+                backgroundColor: 'rgba(225, 84, 61, 0.5)',
+                borderColor: 'rgba(225, 84, 61, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            responsive: true,
             plugins: {
                 legend: { display: false }
             },
@@ -256,70 +301,77 @@
         }
     });
 
-    const dadosCursos = {
+    let dadosCursos = {
         engenharia: {
             nome: 'Engenharia de Software',
-            kpis: ['428', '21,4%', '96', '312'],
-            detalhes: ['+12% em relação a 2025', 'Meta do curso: 12%', 'Acompanhamento prioritário', '78,6% de taxa de conclusão'],
             evolucao: [12.4, 14.1, 16.8, 18.2, 19.1, 21.4],
             idade: [4, 166, 112, 68, 38, 24, 12, 4],
             etnia: [170, 96, 128, 12, 5, 17],
-            sexo: [232, 196]
+            sexo: [232, 196],
+            indicadoresGerais: ['1.850', '96', '428', '312', '21,4%']
         },
         computacao: {
             nome: 'Ciência da Computação',
-            kpis: ['356', '19,7%', '74', '286'],
-            detalhes: ['+8% em relação a 2025', 'Meta do curso: 12%', 'Risco moderado de evasão', '80,3% de taxa de conclusão'],
             evolucao: [10.2, 11.8, 14.3, 16.1, 17.5, 19.7],
             idade: [3, 142, 96, 54, 31, 18, 9, 3],
             etnia: [142, 82, 108, 10, 4, 10],
-            sexo: [190, 166]
+            sexo: [190, 166],
+            indicadoresGerais: ['1.620', '74', '356', '286', '19,7%']
         }
     };
 
-    const cardsCurso = document.querySelectorAll('.caixa-curso[data-curso]');
-    const seletorCursos = document.getElementById('cursos');
-    const cardsKpi = document.querySelectorAll('.box-kpi');
-    const tituloGraficoPrincipal = document.getElementById('titulo-grafico-principal');
+    let cardsCurso = document.querySelectorAll('.caixa-curso[data-curso]');
+    let seletorCursos = document.getElementById('cursos');
+    let indicadoresGerais = document.querySelectorAll('.indicador-geral-valor');
+    let tituloGraficoPrincipal = document.getElementById('titulo-grafico-principal');
 
     function atualizarDashboard(curso) {
-        const dados = dadosCursos[curso];
+        let dados = dadosCursos[curso];
 
         if (!dados) {
             return;
         }
 
-        cardsKpi.forEach((card, indice) => {
-            card.querySelector('span').textContent = dados.kpis[indice];
-            card.querySelector('.border-kpi span').textContent = dados.detalhes[indice];
+        indicadoresGerais.forEach(function (indicador, indice) {
+            indicador.textContent = dados.indicadoresGerais[indice];
         });
 
         tituloGraficoPrincipal.textContent = `Evolução da evasão - ${dados.nome} (%)`;
-        myChart.data.datasets[0].data = dados.evolucao;
-        myChart2.data.datasets[0].data = dados.idade;
-        myChart3.data.datasets[0].data = dados.etnia;
-        myChart4.data.datasets[0].data = dados.sexo;
+        graficoEvolucao.data.datasets[0].data = dados.evolucao;
+        graficoIdade.data.datasets[0].data = dados.idade;
+        graficoEtnia.data.datasets[0].data = dados.etnia;
+        graficoSocioeconomico.data.datasets[0].data = dados.sexo;
 
-        cardsCurso.forEach((card) => {
-            card.classList.toggle('selecionado', card.dataset.curso === curso);
+        cardsCurso.forEach(function (card) {
+            if (card.dataset.curso == curso) {
+                card.classList.add('selecionado');
+            } else {
+                card.classList.remove('selecionado');
+            }
         });
 
-        myChart.update();
-        myChart2.update();
-        myChart3.update();
-        myChart4.update();
+        graficoEvolucao.update();
+        graficoIdade.update();
+        graficoEtnia.update();
+        graficoSocioeconomico.update();
     }
 
-    cardsCurso.forEach((card) => {
-        card.addEventListener('click', () => {
-            const curso = card.dataset.curso;
-            seletorCursos.value = curso === 'engenharia' ? '1' : '2';
+    cardsCurso.forEach(function (card) {
+        card.addEventListener('click', function () {
+            let curso = card.dataset.curso;
+
+            if (curso == 'engenharia') {
+                seletorCursos.value = '1';
+            } else {
+                seletorCursos.value = '2';
+            }
+
             atualizarDashboard(curso);
         });
     });
 
-    seletorCursos.addEventListener('change', (evento) => {
-        const cursoSelecionado = {
+    seletorCursos.addEventListener('change', function (evento) {
+        let cursoSelecionado = {
             '1': 'engenharia',
             '2': 'computacao'
         }[evento.target.value];
@@ -329,5 +381,6 @@
         }
     });
 </script>
+</body>
 
 </html>
