@@ -370,14 +370,13 @@
         });
     });
 
-    seletorCursos.addEventListener('change', function (evento) {
-        let cursoSelecionado = {
-            '1': 'engenharia',
-            '2': 'computacao'
-        }[evento.target.value];
+    seletorCursos.addEventListener('change', function () {
+        let valorSelecionado = seletorCursos.value;
 
-        if (cursoSelecionado) {
-            atualizarDashboard(cursoSelecionado);
+        if (valorSelecionado == '1') {
+            atualizarDashboard('engenharia');
+        } else if (valorSelecionado == '2') {
+            atualizarDashboard('computacao');
         }
     });
 </script>
