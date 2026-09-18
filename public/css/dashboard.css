@@ -87,16 +87,62 @@ body {
     font-size: 13px;
 }
 
+.kpis-topo {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.kpi-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px;
+    background-color: #FFFFFF;
+    border: 1px solid #E3E6ED;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(16, 24, 40, 0.03);
+}
+
+.kpi-card-azul,
+.kpi-card-roxo,
+.kpi-card-vermelho,
+.kpi-card-verde,
+.kpi-card-amarelo {
+    border-top: 1px solid #E3E6ED;
+}
+
+.kpi-label {
+    color: #667085;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.kpi-valor {
+    color: #101828;
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.kpi-meta {
+    color: #667085;
+    font-size: 12px;
+}
+
 .top {
     display: grid;
-    grid-template-columns: minmax(240px, 1.15fr) minmax(190px, 0.85fr) minmax(0, 2fr);
+    grid-template-columns: minmax(240px, 1.15fr) minmax(0, 2fr);
     gap: 16px;
     width: 100%;
 }
 
 .kpi-cursos,
 .grafico,
-.indicadores-gerais,
 .graficos {
     background-color: #FFFFFF;
     border: 1px solid #E3E6ED;
@@ -203,86 +249,76 @@ body {
     flex-direction: column;
 }
 
-.indicadores-gerais {
-    height: 350px;
-    padding: 18px;
+.bot {
+    margin-top: 0;
 }
 
-.indicadores-gerais h2 {
-    margin: 0 0 25px;
+.graficos-bot {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: stretch;
+}
+
+.graficos-bot-primeira {
+    margin-bottom: 20px;
+}
+
+.graficos {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 340px;
+    padding: 18px 20px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.graficos-sexo {
+    flex: 0.9 1 0;
+    max-width: 440px;
+    height: 340px;
+    margin: 0 auto;
+}
+
+.graficos-trio {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+}
+
+.graficos-mini {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 6px 8px 4px;
+    display: flex;
+    flex-direction: column;
+    min-height: 90px;
+}
+
+.graficos-mini h4 {
+    margin: 0 0 6px;
     color: #101828;
-    font-size: 18px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.graficos h3 {
+    margin: 0 0 12px;
+    color: #101828;
+    font-size: 15px;
     font-weight: 600;
 }
 
-.indicador-geral {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-}
-
-.indicador-geral:last-child {
-    margin-bottom: 0;
-}
-
-.indicador-geral-topo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 6px;
-}
-
-.indicador-geral-nome {
-    color: #5B6472;
-    font-size: 13px;
-}
-
-.indicador-geral-valor {
-    color: #101828;
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.indicador-geral-fundo {
-    width: 100%;
-    height: 5px;
-    background-color: #EEEFF4;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.indicador-geral-barra {
-    height: 100%;
-    border-radius: 4px;
-}
-
-.indicador-geral-barra-evasao {
-    width: 85%;
-    background-color: #E1543D;
-}
-
-.indicador-geral-barra-trancadas {
-    width: 35%;
-    background-color: #8B5CF6;
-}
-
-.indicador-geral-barra-concluintes {
-    width: 62%;
-    background-color: #06B6A4;
-}
-
-.indicador-geral-barra-taxa {
-    width: 21%;
-    background-color: #E9A23B;
-}
-
-.indicador-geral-barra-matriculados {
-    width: 100%;
-    background-color: #2E5BD7;
-}
-
-.bot {
-    margin-top: 0;
+.grafico canvas,
+.graficos canvas,
+.graficos-mini canvas {
+    flex: 1;
+    min-height: 0;
 }
 
 .secao-titulo {
@@ -326,9 +362,12 @@ canvas {
 
 @media (max-width: 900px) {
     .kpi-cursos,
-    .grafico,
-    .indicadores-gerais {
+    .grafico {
         width: 100%;
+    }
+
+    .kpis-topo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .top {
@@ -341,6 +380,16 @@ canvas {
 
     .graficos {
         width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .kpis-topo {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-valor {
+        font-size: 24px;
     }
 }
 

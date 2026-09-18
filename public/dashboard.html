@@ -33,6 +33,34 @@
             <p>Acompanhe os principais indicadores e o perfil dos alunos.</p>
         </div>
 
+        <div class="kpis-topo">
+            <div class="kpi-card kpi-card-azul">
+                <span class="kpi-label">Matrículas</span>
+                <strong class="kpi-valor">1.850</strong>
+                <span class="kpi-meta">+2,4% no período</span>
+            </div>
+            <div class="kpi-card kpi-card-roxo">
+                <span class="kpi-label">Trancadas</span>
+                <strong class="kpi-valor">96</strong>
+                <span class="kpi-meta">-1,3% vs. mês anterior</span>
+            </div>
+            <div class="kpi-card kpi-card-vermelho">
+                <span class="kpi-label">Evadidos</span>
+                <strong class="kpi-valor">428</strong>
+                <span class="kpi-meta">+5,1% no semestre</span>
+            </div>
+            <div class="kpi-card kpi-card-verde">
+                <span class="kpi-label">Concluintes</span>
+                <strong class="kpi-valor">312</strong>
+                <span class="kpi-meta">+3,8% este ano</span>
+            </div>
+            <div class="kpi-card kpi-card-amarelo">
+                <span class="kpi-label">Taxa de evasão</span>
+                <strong class="kpi-valor">21,4%</strong>
+                <span class="kpi-meta">+1,8 p.p. no ano</span>
+            </div>
+        </div>
+
         <div class="top">
             <div class="kpi-cursos">
                 <h2>Cursos monitorados</h2>
@@ -86,54 +114,6 @@
                     </div>
                 </div>
             </div>
-            <div class="indicadores-gerais">
-                <h2>Indicadores gerais</h2>
-                <div class="indicador-geral">
-                    <div class="indicador-geral-topo">
-                        <span class="indicador-geral-nome">Matriculados</span>
-                        <span class="indicador-geral-valor">1.850</span>
-                    </div>
-                    <div class="indicador-geral-fundo">
-                        <div class="indicador-geral-barra indicador-geral-barra-matriculados"></div>
-                    </div>
-                </div>
-                <div class="indicador-geral">
-                    <div class="indicador-geral-topo">
-                        <span class="indicador-geral-nome">Matrículas trancadas</span>
-                        <span class="indicador-geral-valor">96</span>
-                    </div>
-                    <div class="indicador-geral-fundo">
-                        <div class="indicador-geral-barra indicador-geral-barra-trancadas"></div>
-                    </div>
-                </div>
-                <div class="indicador-geral">
-                    <div class="indicador-geral-topo">
-                        <span class="indicador-geral-nome">Alunos evadidos</span>
-                        <span class="indicador-geral-valor">428</span>
-                    </div>
-                    <div class="indicador-geral-fundo">
-                        <div class="indicador-geral-barra indicador-geral-barra-evasao"></div>
-                    </div>
-                </div>
-                <div class="indicador-geral">
-                    <div class="indicador-geral-topo">
-                        <span class="indicador-geral-nome">Concluintes</span>
-                        <span class="indicador-geral-valor">312</span>
-                    </div>
-                    <div class="indicador-geral-fundo">
-                        <div class="indicador-geral-barra indicador-geral-barra-concluintes"></div>
-                    </div>
-                </div>
-                <div class="indicador-geral">
-                    <div class="indicador-geral-topo">
-                        <span class="indicador-geral-nome">Taxa de evasão</span>
-                        <span class="indicador-geral-valor">21,4%</span>
-                    </div>
-                    <div class="indicador-geral-fundo">
-                        <div class="indicador-geral-barra indicador-geral-barra-taxa"></div>
-                    </div>
-                </div>
-            </div>
             <div class="grafico">
                 <h2 id="titulo-grafico-principal">Evolução da evasão - Engenharia de Software (%)</h2>
                 <canvas id="grafico1"></canvas>
@@ -145,7 +125,7 @@
         </div>
 
         <div class="bot">
-            <div class="graficos-bot">
+            <div class="graficos-bot graficos-bot-primeira">
                 <div class="graficos">
                     <h3>Perfil por idade - alunos evadidos</h3>
                     <canvas id="grafico2"></canvas>
@@ -154,9 +134,21 @@
                     <h3>Etnia dos alunos evadidos</h3>
                     <canvas id="grafico3"></canvas>
                 </div>
-                <div class="graficos especial">
-                    <h3>Perfil por sexo - alunos evadidos</h3>
-                    <canvas id="grafico4"></canvas>
+                <div class="graficos graficos-sexo">
+                    <div class="graficos-trio">
+                        <div class="graficos-mini">
+                            <h4>Sexo</h4>
+                            <canvas id="grafico4"></canvas>
+                        </div>
+                        <div class="graficos-mini">
+                            <h4>Apoio</h4>
+                            <canvas id="grafico5"></canvas>
+                        </div>
+                        <div class="graficos-mini">
+                            <h4>Escolaridade</h4>
+                            <canvas id="grafico6"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,6 +158,8 @@
     let ctxIdade = document.getElementById("grafico2").getContext('2d');
     let ctxEtnia = document.getElementById("grafico3").getContext('2d');
     let ctxSocioeconomico = document.getElementById("grafico4").getContext('2d');
+    let ctxApoio = document.getElementById("grafico5").getContext('2d');
+    let ctxEscolaridade = document.getElementById("grafico6").getContext('2d');
 
     let graficoEvolucao = new Chart(ctxEvolucao, {
         type: 'line',
@@ -281,15 +275,69 @@
             datasets: [{
                 label: 'Alunos evadidos',
                 data: [690, 594],
-                backgroundColor: 'rgba(225, 84, 61, 0.5)',
-                borderColor: 'rgba(225, 84, 61, 1)',
+                backgroundColor: ['rgba(255, 105, 180, 0.8)', 'rgba(255, 105, 180, 0.8)'],
+                borderColor: ['rgba(255, 105, 180, 1)', 'rgba(255, 105, 180, 1)'],
                 borderWidth: 1
             }]
         },
         options: {
             indexAxis: 'y',
-            maintainAspectRatio: false,
             responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    let graficoApoio = new Chart(ctxApoio, {
+        type: 'bar',
+        data: {
+            labels: ['Com apoio', 'Sem apoio'],
+            datasets: [{
+                label: 'Alunos evadidos',
+                data: [480, 804],
+                backgroundColor: ['rgba(46, 91, 215, 0.7)', 'rgba(233, 162, 59, 0.7)'],
+                borderColor: ['rgba(46, 91, 215, 1)', 'rgba(233, 162, 59, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    let graficoEscolaridade = new Chart(ctxEscolaridade, {
+        type: 'bar',
+        data: {
+            labels: ['Pública', 'Particular'],
+            datasets: [{
+                label: 'Alunos evadidos',
+                data: [812, 472],
+                backgroundColor: ['rgba(6, 182, 164, 0.7)', 'rgba(139, 92, 246, 0.7)'],
+                borderColor: ['rgba(6, 182, 164, 1)', 'rgba(139, 92, 246, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: { display: false }
             },
@@ -308,6 +356,8 @@
             idade: [4, 166, 112, 68, 38, 24, 12, 4],
             etnia: [170, 96, 128, 12, 5, 17],
             sexo: [232, 196],
+            apoio: [142, 286],
+            escolaridade: [318, 110],
             indicadoresGerais: ['1.850', '96', '428', '312', '21,4%']
         },
         computacao: {
@@ -316,6 +366,8 @@
             idade: [3, 142, 96, 54, 31, 18, 9, 3],
             etnia: [142, 82, 108, 10, 4, 10],
             sexo: [190, 166],
+            apoio: [128, 228],
+            escolaridade: [246, 110],
             indicadoresGerais: ['1.620', '74', '356', '286', '19,7%']
         }
     };
@@ -341,6 +393,8 @@
         graficoIdade.data.datasets[0].data = dados.idade;
         graficoEtnia.data.datasets[0].data = dados.etnia;
         graficoSocioeconomico.data.datasets[0].data = dados.sexo;
+        graficoApoio.data.datasets[0].data = dados.apoio;
+        graficoEscolaridade.data.datasets[0].data = dados.escolaridade;
 
         cardsCurso.forEach(function (card) {
             if (card.dataset.curso == curso) {
@@ -354,6 +408,8 @@
         graficoIdade.update();
         graficoEtnia.update();
         graficoSocioeconomico.update();
+        graficoApoio.update();
+        graficoEscolaridade.update();
     }
 
     cardsCurso.forEach(function (card) {
