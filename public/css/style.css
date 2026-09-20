@@ -193,6 +193,7 @@ footer {
     display: flex;
     align-items: center;
     padding: 0 15px;
+    gap: 8px;
 }
 
 .icone {
@@ -209,6 +210,21 @@ footer {
     font-size: 15px;
     color: #374151;
 }
+
+.icone-usuario {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-color: var(--texto-claro);
+ -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M19%2021v-2a4%204%200%200%200-4-4H9a4%204%200%200%200-4%204v2%27/%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%277%27%20r%3D%274%27/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M19%2021v-2a4%204%200%200%200-4-4H9a4%204%200%200%200-4%204v2%27/%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%277%27%20r%3D%274%27/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
 
 .mostrar-senha {
     color: #9ca3af;
@@ -267,6 +283,18 @@ footer {
     margin-top: 40px;
     color: #6b7280;
     font-size: 15px;
+}
+
+.campo label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.erro_campo {
+  color: #e53935;
+  font-size: 0.75em;
+  font-weight: 400;
 }
 
 @media (max-width: 900px) {

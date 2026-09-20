@@ -45,8 +45,21 @@
         </div>
 
         <form class="formulario">
+
           <div class="campo">
-            <label for="email">E-MAIL</label>
+            <label for="nome">NOME<span class="erro_campo" id="erro_nome"></span></label>
+            <div class="campo-input">
+              <span class="icone-usuario" ></span>
+              <input
+                type="text"
+                id="nome"
+                placeholder="Seu nome completo"
+              />
+            </div>
+          </div>
+          
+          <div class="campo">
+            <label for="email">E-MAIL<span class="erro_campo" id="erro_email"></span></label>
             <div class="campo-input">
               <span class="icone">✉</span>
               <input
@@ -54,11 +67,11 @@
                 id="email"
                 placeholder="voce@empresa.com"
               />
-            </div>
+            </div>         
           </div>
 
           <div class="campo">
-            <label for="senha">SENHA</label>
+            <label for="senha">SENHA<span class="erro_campo" id="erro_senha"></span></label>
             <div class="campo-input">
               <span class="icone">🔒︎</span>
               <input
@@ -67,37 +80,34 @@
                 placeholder="********"
               />
               <span class="mostrar-senha">◉</span>
-            </div>
+            </div>    
           </div>
 
           <div class="campo">
-            <label for="confirmar-senha">CONFIRMAR SENHA</label>
+            <label for="confirmar-senha">CONFIRMAR SENHA<span class="erro_campo" id="erro_confirmacao_senha"></span></label>
             <div class="campo-input">
               <span class="icone">🔒︎</span>
               <input
                 type="password"
-                id="confirmar-senha"
+                id="confirmacao_senha"
                 placeholder="********"
               />
               <span class="mostrar-senha">◉</span>
             </div>
-            
           </div>
+
             <div class="campo">
-            <label for="senha">CÓDIGO DE ACESSO</label>
+            <label for="senha">CÓDIGO DE ACESSO<span class="erro_campo" id="erro_codigo"></span></label>
             <div class="campo-input">
               <input
-                type="password"
-                id="senha"
+                type="text"
+                id="codigo"
                 placeholder="SPRINT1-CARAMICO"
               />
-           
             </div>
           </div>
 
-          
-
-          <button class="botao-entrar" type="submit">
+          <button class="botao-entrar" type="button" onclick="cadastrar()">
             Criar conta
           </button>
         </form>
@@ -111,3 +121,65 @@
   </main>
 </body>
 </html>
+
+<script>
+
+  function cadastrar() {
+    var nomeVar = nome.value;
+    var emailVar = email.value;
+    var senhaVar = senha.value;
+    var confirmacaoSenhaVar = confirmacao_senha.value;
+    var codigoVar = codigo.value;
+ 
+    limparErros();
+ 
+    var valido = true;
+ 
+    if (nomeVar == "") {
+      erro_nome.innerHTML = "ⓘ Informe seu nome.";
+      valido = false;
+    }
+ 
+    if (emailVar == "") {
+      erro_email.innerHTML = "ⓘ Informe seu e-mail.";
+      valido = false;
+    } else if(!emailVar.includes('@')){
+      erro_email.innerHTML = "ⓘ Informe um e-mail válido.";
+      valido = false;
+    }
+ 
+    if (senhaVar == "") {
+      erro_senha.innerHTML = "ⓘ Informe uma senha.";
+      valido = false;
+    }
+ 
+    if (confirmacaoSenhaVar == "") {
+      erro_confirmacao_senha.innerHTML = "ⓘ Confirme sua senha.";
+      valido = false;
+    } else if (senhaVar != confirmacaoSenhaVar) {
+      erro_confirmacao_senha.innerHTML = "ⓘ As senhas não coincidem.";
+      valido = false;
+    }
+ 
+    if (codigoVar == "") {
+      erro_codigo.innerHTML = "ⓘ Informe o código de acesso.";
+      valido = false;
+    }
+
+    if(valido){
+    window.location.href = "login.html"
+  }
+ 
+    return valido;
+  }
+ 
+  function limparErros() {
+    erro_nome.innerHTML = "";
+    erro_email.innerHTML = "";
+    erro_senha.innerHTML = "";
+    erro_confirmacao_senha.innerHTML = "";
+    erro_codigo.innerHTML = "";
+  }
+
+</script>
+
