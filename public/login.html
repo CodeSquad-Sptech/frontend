@@ -46,7 +46,7 @@
 
         <form class="formulario">
           <div class="campo">
-            <label for="email">E-MAIL</label>
+            <label for="email">E-MAIL<span class="erro_campo" id="erro_email"></span></label>
             <div class="campo-input">
               <span class="icone">✉</span>
               <input
@@ -58,7 +58,7 @@
           </div>
 
           <div class="campo">
-            <label for="senha">SENHA</label>
+            <label for="senha">SENHA<span class="erro_campo" id="erro_senha"></span></label>
             <div class="campo-input">
               <span class="icone">🔒︎</span>
               <input
@@ -79,7 +79,7 @@
             <a href="#">Esqueci minha senha</a>
           </div>
 
-          <button class="botao-entrar">Entrar</button>
+          <button class="botao-entrar" type="button" onclick="entrar()">Entrar</button>
         </form>
 
         <p class="criar-conta">
@@ -91,3 +91,37 @@
   </main>
 </body>
 </html>
+
+<script>
+ 
+  function entrar() {
+
+    var emailVar = email.value;
+    var senhaVar = senha.value;
+ 
+    limparErros();
+ 
+    var valido = true;
+ 
+    if (emailVar == "") {
+      erro_email.innerHTML = "ⓘ Informe seu e-mail.";
+      valido = false;
+    } else if (!emailVar.includes('@')) {
+      erro_email.innerHTML = "ⓘ Informe um e-mail válido.";
+      valido = false;
+    }
+ 
+    if (senhaVar == "") {
+      erro_senha.innerHTML = "ⓘ Informe sua senha.";
+      valido = false;
+    }
+ 
+    return valido;
+  }
+ 
+  function limparErros() {
+    erro_email.innerHTML = "";
+    erro_senha.innerHTML = "";
+  }
+ 
+</script>
