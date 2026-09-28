@@ -110,6 +110,7 @@
           <button class="botao-entrar" type="button" onclick="cadastrar()">
             Criar conta
           </button>
+          <span id="mensagem"></span>
         </form>
 
         <p class="criar-conta">
@@ -180,6 +181,45 @@
     erro_confirmacao_senha.innerHTML = "";
     erro_codigo.innerHTML = "";
   }
+
+      fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        confirmacaoSenhaServer: confirmacaoSenhaVar,
+        codigoServer: codigoVar
+      }),
+    })
+
+          .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          mensagem.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
 
 </script>
 
