@@ -1,157 +1,159 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evolua - Cadastro</title>
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body>
-    <main class="pagina">
-      <section class="lado-esquerdo">
-        <div class="logo">
-          <div class="icone-logo">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <h1>Evolua</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evolua - Cadastro</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <main class="pagina">
+    <section class="lado-esquerdo">
+      <div class="logo">
+        <div class="icone-logo">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <h1>Evolua</h1>
+      </div>
+
+      <div class="apresentacao">
+        <h2>Comece a transformar dados em decisões.</h2>
+        <p>
+          Crie sua conta no Evolua e tenha acesso a uma plataforma desenvolvida
+          para organizar dados acadêmicos, acompanhar indicadores e apoiar
+          decisões no ensino superior público.
+        </p>
+
+        <div class="equipe">
+          <div class="foto">JS</div>
+          <div class="foto">AB</div>
+          <div class="foto">RC</div>
+          <span>Desenvolvido pela equipe CodeSquad</span>
+        </div>
+      </div>
+
+      <footer>© 2026 CodeSquad. Todos os direitos reservados.</footer>
+    </section>
+
+    <section class="lado-direito">
+      <div class="area-login">
+        <div class="titulo-login">
+          <h2>Crie sua conta</h2>
+          <p>Preencha seus dados para começar a usar o Evolua.</p>
         </div>
 
-        <div class="apresentacao">
-          <h2>Comece a transformar dados em decisões.</h2>
-          <p>
-            Crie sua conta no Evolua e tenha acesso a uma plataforma
-            desenvolvida para organizar dados acadêmicos, acompanhar indicadores
-            e apoiar decisões no ensino superior público.
-          </p>
+        <form class="formulario">
 
-          <div class="equipe">
-            <div class="foto">JS</div>
-            <div class="foto">AB</div>
-            <div class="foto">RC</div>
-            <span>Desenvolvido pela equipe CodeSquad</span>
+          <div class="campo">
+            <label for="nome">NOME<span class="erro_campo" id="erro_nome"></span></label>
+            <div class="campo-input">
+              <span class="icone-usuario" ></span>
+              <input
+                type="text"
+                id="nome"
+                placeholder="Seu nome completo"
+              />
+            </div>
           </div>
-        </div>
-
-        <footer>© 2026 CodeSquad. Todos os direitos reservados.</footer>
-      </section>
-
-      <section class="lado-direito">
-        <div class="area-login">
-          <div class="titulo-login">
-            <h2>Crie sua conta</h2>
-            <p>Preencha seus dados para começar a usar o Evolua.</p>
+          
+          <div class="campo">
+            <label for="email">E-MAIL<span class="erro_campo" id="erro_email"></span></label>
+            <div class="campo-input">
+              <span class="icone">✉</span>
+              <input
+                type="email"
+                id="email"
+                placeholder="voce@empresa.com"
+              />
+            </div>         
           </div>
 
-          <form class="formulario">
-            <div class="campo">
-              <label for="nome"
-                >NOME<span class="erro_campo" id="erro_nome"></span
-              ></label>
-              <div class="campo-input">
-                <span class="icone-usuario"></span>
-                <input type="text" id="nome" placeholder="Seu nome completo" />
-              </div>
-            </div>
+          <div class="campo">
+            <label for="senha">SENHA<span class="erro_campo" id="erro_senha"></span></label>
+            <div class="campo-input">
+              <span class="icone">🔒︎</span>
+              <input
+                type="password"
+                id="senha"
+                placeholder="********"
+              />
+              <span class="mostrar-senha">◉</span>
+            </div>    
+          </div>
 
-            <div class="campo">
-              <label for="email"
-                >E-MAIL<span class="erro_campo" id="erro_email"></span
-              ></label>
-              <div class="campo-input">
-                <span class="icone">✉</span>
-                <input type="email" id="email" placeholder="voce@empresa.com" />
-              </div>
+          <div class="campo">
+            <label for="confirmar-senha">CONFIRMAR SENHA<span class="erro_campo" id="erro_confirmacao_senha"></span></label>
+            <div class="campo-input">
+              <span class="icone">🔒︎</span>
+              <input
+                type="password"
+                id="confirmacao_senha"
+                placeholder="********"
+              />
+              <span class="mostrar-senha">◉</span>
             </div>
-
-            <div class="campo">
-              <label for="senha"
-                >SENHA<span class="erro_campo" id="erro_senha"></span
-              ></label>
-              <div class="campo-input">
-                <span class="icone">🔒︎</span>
-                <input type="password" id="senha" placeholder="********" />
-                <span class="mostrar-senha">◉</span>
-              </div>
-            </div>
+          </div>
 
             <div class="campo">
-              <label for="confirmar-senha"
-                >CONFIRMAR SENHA<span
-                  class="erro_campo"
-                  id="erro_confirmacao_senha"
-                ></span
-              ></label>
-              <div class="campo-input">
-                <span class="icone">🔒︎</span>
-                <input
-                  type="password"
-                  id="confirmacao_senha"
-                  placeholder="********"
-                />
-                <span class="mostrar-senha">◉</span>
-              </div>
+            <label for="senha">CÓDIGO DE ACESSO<span class="erro_campo" id="erro_codigo"></span></label>
+            <div class="campo-input">
+              <input
+                type="text"
+                id="codigo"
+                placeholder="SPRINT1-CARAMICO"
+              />
             </div>
+          </div>
 
-            <div class="campo">
-              <label for="senha"
-                >CÓDIGO DE ACESSO<span
-                  class="erro_campo"
-                  id="erro_codigo"
-                ></span
-              ></label>
-              <div class="campo-input">
-                <input type="text" id="codigo" placeholder="SPRINT1-CARAMICO" />
-              </div>
-            </div>
+          <button class="botao-entrar" type="button" onclick="cadastrar()">
+            Criar conta
+          </button>
+          <span id="mensagem"></span>
+        </form>
 
-            <button class="botao-entrar" type="button" onclick="cadastrar()">
-              Criar conta
-            </button>
-            <span id="mensagem"></span>
-          </form>
-
-          <p class="criar-conta">
-            Já tem uma conta?
-            <a href="./login.html">Acesse aqui</a>
-          </p>
-        </div>
-      </section>
-    </main>
-  </body>
+        <p class="criar-conta">
+          Já tem uma conta?
+          <a href="./login.html">Acesse aqui</a>
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
 </html>
 
 <script>
+
   function cadastrar() {
     var nomeVar = nome.value;
     var emailVar = email.value;
     var senhaVar = senha.value;
     var confirmacaoSenhaVar = confirmacao_senha.value;
     var codigoVar = codigo.value;
-
+ 
     limparErros();
-
+ 
     var valido = true;
-
+ 
     if (nomeVar == "") {
       erro_nome.innerHTML = "ⓘ Informe seu nome.";
       valido = false;
     }
-
+ 
     if (emailVar == "") {
       erro_email.innerHTML = "ⓘ Informe seu e-mail.";
       valido = false;
-    } else if (!emailVar.includes("@")) {
+    } else if(!emailVar.includes('@')){
       erro_email.innerHTML = "ⓘ Informe um e-mail válido.";
       valido = false;
     }
-
+ 
     if (senhaVar == "") {
       erro_senha.innerHTML = "ⓘ Informe uma senha.";
       valido = false;
     }
-
+ 
     if (confirmacaoSenhaVar == "") {
       erro_confirmacao_senha.innerHTML = "ⓘ Confirme sua senha.";
       valido = false;
@@ -159,57 +161,62 @@
       erro_confirmacao_senha.innerHTML = "ⓘ As senhas não coincidem.";
       valido = false;
     }
-
+ 
     if (codigoVar == "") {
       erro_codigo.innerHTML = "ⓘ Informe o código de acesso.";
       valido = false;
     }
 
-    if (valido) {
-      fetch("/usuarios/cadastrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nomeServer: nomeVar,
-          emailServer: emailVar,
-          senhaServer: senhaVar,
-          confirmacaoSenhaServer: confirmacaoSenhaVar,
-          codigoServer: codigoVar,
-        }),
-      })
-        .then(function (resposta) {
-          console.log("resposta: ", resposta);
 
-          if (resposta.ok) {
-            mensagem.innerHTML =
-              "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-            setTimeout(() => {
-              window.location = "login.html";
-            }, "2000");
+    if(valido){
+          fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        confirmacaoSenhaServer: confirmacaoSenhaVar,
+        codigoServer: codigoVar
+      }),
+    })
 
-            limparFormulario();
-            finalizarAguardar();
-          } else {
-            resposta.text().then((textoDoErro) => {
-              erro_codigo.innerHTML = `ⓘ ${textoDoErro}`;
-            });
+          .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-            throw "Houve um erro ao tentar realizar o cadastro!";
-          }
-        })
+        if (resposta.ok) {
 
-        .catch(function (resposta) {
-          console.log(`#ERRO: ${resposta}`);
+          mensagem.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
           finalizarAguardar();
-        });
+        } else {
+           resposta.text().then(textoDoErro => {
+             erro_codigo.innerHTML = `ⓘ ${textoDoErro}`;
+    });
 
-      return false;
-    }
+    throw "Houve um erro ao tentar realizar o cadastro!";
+  }})
+
+
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+    
+
+    return false;
   }
-
+  }
+ 
   function limparErros() {
     erro_nome.innerHTML = "";
     erro_email.innerHTML = "";
@@ -217,4 +224,8 @@
     erro_confirmacao_senha.innerHTML = "";
     erro_codigo.innerHTML = "";
   }
+
+
+
 </script>
+
