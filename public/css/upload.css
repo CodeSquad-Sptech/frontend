@@ -218,6 +218,25 @@ h3 {
   font-weight: 700;
 }
 
+.acesso-negado {
+  margin-top: 70px;
+  text-align: center;
+}
+
+.acesso-negado h1 {
+  margin-bottom: 12px;
+}
+
+.acesso-negado p {
+  margin-bottom: 20px;
+  color: var(--texto-claro);
+}
+
+.acesso-negado a {
+  color: var(--azul);
+  font-weight: 700;
+}
+
 @media (max-width: 600px) {
   .cabecalho {
     padding: 0 20px;

@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evolua - Upload</title>
+  <script src="js/permissaoUpload.js" defer></script>
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="stylesheet" href="css/upload.css" />
+  <link rel="stylesheet" href="css/preferencias.css" />
 </head>
 <body>
   <header class="head">
@@ -13,7 +15,7 @@
       <button class="botao-menu" id="botaoMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuLateral">
         <img src="img/Captura de tela 2026-08-30 221500.png" alt="" />
       </button>
-      <span class="logo-texto">EVOLUA</span>
+      <span class="logo-texto" data-nome-empresa>EVOLUA</span>
     </div>
     <div class="resto">
       <div class="sino">
@@ -23,7 +25,7 @@
         <img src="img/Captura de tela 2026-08-30 232907.png" alt="Tema" />
       </div>
       <div class="pfp">
-        <img src="img/Captura de tela 2026-08-30 232910.png" alt="Perfil" />
+        <img data-foto-perfil src="img/Captura de tela 2026-08-30 232910.png" alt="Foto de perfil" />
       </div>
     </div>
   </header>
@@ -32,17 +34,18 @@
     <nav>
       <a href="./dashboard.html">Dashboard</a>
       <a href="./upload.html">Enviar arquivos</a>
+      <a href="./configuracao.html">Configurações</a>
       <button id="botaoSair" type="button">Sair</button>
     </nav>
   </aside>
 
-  <main class="conteudo">
+  <main class="conteudo" id="paginaUpload" hidden>
     <div class="titulo">
       <h2>Enviar arquivos</h2>
       <p>Adicione os arquivos que deseja analisar no sistema.</p>
     </div>
 
-    <section class="area-upload">
+    <section class="area-upload" id="areaEnvioArquivo">
       <div class="icone-upload">↑</div>
       <h3>Envie seus arquivos</h3>
       <p>Arraste seus arquivos para esta área ou clique no botão abaixo.</p>
@@ -72,44 +75,11 @@
       </div>
     </section>
   </main>
-  <script>
-    const botaoMenu = document.getElementById('botaoMenu');
-    const menuLateral = document.getElementById('menuLateral');
-    const fundoMenu = document.getElementById('fundoMenu');
-    const botaoSair = document.getElementById('botaoSair');
-
-    function fecharMenu() {
-      menuLateral.hidden = true;
-      fundoMenu.hidden = true;
-      botaoMenu.setAttribute('aria-expanded', 'false');
-      botaoMenu.setAttribute('aria-label', 'Abrir menu');
-    }
-
-    botaoMenu.addEventListener('click', function () {
-      const menuAberto = !menuLateral.hidden;
-
-      menuLateral.hidden = menuAberto;
-      fundoMenu.hidden = menuAberto;
-      botaoMenu.setAttribute('aria-expanded', String(!menuAberto));
-      botaoMenu.setAttribute('aria-label', menuAberto ? 'Abrir menu' : 'Fechar menu');
-    });
-
-    fundoMenu.addEventListener('click', fecharMenu);
-
-    document.addEventListener('keydown', function (evento) {
-      if (evento.key === 'Escape') {
-        fecharMenu();
-      }
-    });
-
-    menuLateral.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', fecharMenu);
-    });
-
-    botaoSair.addEventListener('click', function () {
-      sessionStorage.clear();
-      window.location.href = './login.html';
-    });
-  </script>
+  <main class="conteudo acesso-negado" id="acessoNegado" hidden>
+    <h1>Envio de arquivos restrito</h1>
+    <p>Você ainda não possui permissão para enviar arquivos. Solicite acesso ao administrador da sua instituição.</p>
+  </main>
+  <script src="js/preferencias.js"></script>
+  <script src="js/menu.js"></script>
 </body>
 </html>

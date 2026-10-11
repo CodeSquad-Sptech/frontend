@@ -1,7 +1,5 @@
 
 node_modules
-package.json
 .env.dev
+.env
 .gitignore
-/public/upload.html
-/public/upload.css

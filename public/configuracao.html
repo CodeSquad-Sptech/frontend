@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Evolua</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/configuracao.css">
+    <link rel="stylesheet" href="css/preferencias.css">
+</head>
+<body>
+    <header class="head">
+        <div class="menu">
+            <button class="botao-menu" id="botaoMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuLateral">
+                <img src="img/Captura de tela 2026-08-30 221500.png" alt="">
+            </button>
+            <span class="logo-texto" data-nome-empresa>EVOLUA</span>
+        </div>
+        <div class="resto">
+            <div class="sino">
+                <img src="img/Captura de tela 2026-08-30 232901.png" alt="Notificações">
+            </div>
+            <div class="switch">
+                <img src="img/Captura de tela 2026-08-30 232907.png" alt="Tema">
+            </div>
+            <div class="pfp">
+                <img data-foto-perfil src="img/Captura de tela 2026-08-30 232910.png" alt="Foto de perfil">
+            </div>
+        </div>
+    </header>
+
+    <div class="fundo-menu" id="fundoMenu" hidden></div>
+    <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal" hidden>
+        <nav>
+            <a href="./dashboard.html">Dashboard</a>
+            <a href="./upload.html">Enviar arquivos</a>
+            <a href="./configuracao.html" aria-current="page">Configurações</a>
+            <button id="botaoSair" type="button">Sair</button>
+        </nav>
+    </aside>
+
+    <main class="pagina-configuracao">
+        <header class="titulo-configuracao">
+            <h1>Configurações</h1>
+            <p>Personalize a aparência e as informações exibidas no seu navegador.</p>
+        </header>
+
+        <form class="cartao-configuracao" id="formPerfilEmpresa">
+            <h2>Perfil e empresa</h2>
+            <p class="rotulo-foto">Escolha uma foto de perfil</p>
+            <small class="ajuda-foto">Ou envie sua própria foto. Limite: 2 MB.</small>
+            <div class="opcoes-foto" id="opcoesFoto">
+                <button class="opcao-foto" type="button" data-foto="img/pessoa1.png" aria-label="Usar pessoa 1" aria-pressed="false">
+                    <img src="img/pessoa1.png" alt="">
+                </button>
+                <button class="opcao-foto" type="button" data-foto="img/pessoa2.png" aria-label="Usar pessoa 2" aria-pressed="false">
+                    <img src="img/pessoa2.png" alt="">
+                </button>
+                <button class="opcao-foto" type="button" data-foto="img/pessoa3.png" aria-label="Usar pessoa 3" aria-pressed="false">
+                    <img src="img/pessoa3.png" alt="">
+                </button>
+                <label class="opcao-foto opcao-enviar-foto" id="opcaoEnviarFoto" for="fotoPerfil" aria-label="Enviar uma foto">
+                    <span>+</span>
+                    <input id="fotoPerfil" type="file" accept="image/png,image/jpeg,image/webp">
+                </label>
+            </div>
+            <label for="nomeEmpresa">Nome da empresa</label>
+            <input id="nomeEmpresa" type="text" maxlength="45" placeholder="Ex.: EVOLUA" required>
+            <button class="botao-salvar" id="botaoSalvarPerfil" type="submit">Salvar</button>
+            <p class="mensagem-configuracao" id="mensagemPerfil" aria-live="polite"></p>
+        </form>
+
+        <form class="cartao-configuracao" id="formAparencia">
+            <h2>Aparência</h2>
+            <label for="tamanhoFonte">Tamanho da fonte</label>
+            <select id="tamanhoFonte">
+                <option value="pequena">Pequena</option>
+                <option value="media">Média</option>
+                <option value="grande">Grande</option>
+            </select>
+
+            <label for="tema">Tema</label>
+            <select id="tema">
+                <option value="claro">Claro</option>
+                <option value="escuro">Escuro</option>
+            </select>
+            <button class="botao-salvar" type="submit">Salvar</button>
+            <p class="mensagem-configuracao" id="mensagemAparencia" aria-live="polite"></p>
+        </form>
+
+        <section class="cartao-configuracao">
+            <h2>Administradores</h2>
+            <p class="descricao-admin">Esta lista é salva somente neste navegador e não altera permissões de acesso ao sistema.</p>
+            <form id="formAdministrador">
+                <label for="nomeAdministrador">Nome</label>
+                <input id="nomeAdministrador" type="text" maxlength="80" required>
+                <label for="emailAdministrador">E-mail</label>
+                <input id="emailAdministrador" type="email" maxlength="120" required>
+                <button class="botao-adicionar" type="submit">Adicionar administrador</button>
+            </form>
+            <p class="mensagem-configuracao" id="mensagemAdministrador" aria-live="polite"></p>
+            <ul class="lista-administradores" id="listaAdministradores"></ul>
+        </section>
+    </main>
+
+    <script src="js/preferencias.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/configuracao.js"></script>
+</body>
+</html>

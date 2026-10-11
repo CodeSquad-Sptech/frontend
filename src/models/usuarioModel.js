@@ -1,12 +1,64 @@
-const database = require("../database/config")
+const database = require("../config/config")
 
 function autenticar(email, senha) {
     const instrucaoSql = `
-        SELECT idUsuario, nome, email, fkInstituicao FROM usuario WHERE email = ? AND senha = ?;
+        SELECT usuario.idUsuario, usuario.nome, usuario.email, usuario.administrador,
+            usuario.fkInstituicao, configuracao.fotoPerfil, configuracao.tema,
+            configuracao.tamanhoFonte, instituicao.nome AS nomeInstituicao
+        FROM usuario
+        INNER JOIN instituicao ON instituicao.idInstituicao = usuario.fkInstituicao
+        LEFT JOIN configuracao ON configuracao.idUsuario = usuario.idUsuario
+        WHERE usuario.email = ? AND usuario.senha = ?;
     `;
     const valores = [email, senha];
 
     return database.executar(instrucaoSql, valores);
+}
+
+function obterConfiguracoes(idUsuario) {
+    const instrucaoSql = `
+        SELECT configuracao.fotoPerfil, configuracao.tema, configuracao.tamanhoFonte,
+            instituicao.nome AS nomeInstituicao
+        FROM usuario
+        INNER JOIN instituicao ON instituicao.idInstituicao = usuario.fkInstituicao
+        LEFT JOIN configuracao ON configuracao.idUsuario = usuario.idUsuario
+        WHERE usuario.idUsuario = ?;
+    `;
+
+    return database.executar(instrucaoSql, [idUsuario]);
+}
+
+function salvarPerfil(idUsuario, nomeInstituicao, fotoPerfil) {
+    const instrucaoSql = `
+        UPDATE instituicao
+        INNER JOIN usuario ON usuario.fkInstituicao = instituicao.idInstituicao
+        INNER JOIN configuracao ON configuracao.idUsuario = usuario.idUsuario
+        SET instituicao.nome = ?, configuracao.fotoPerfil = ?
+        WHERE usuario.idUsuario = ?;
+    `;
+
+    return database.executar(instrucaoSql, [nomeInstituicao, fotoPerfil, idUsuario]);
+}
+
+function salvarPreferencias(idUsuario, tema, tamanhoFonte) {
+    const instrucaoSql = `
+        INSERT INTO configuracao (idUsuario, tema, tamanhoFonte)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+            tema = VALUES(tema),
+            tamanhoFonte = VALUES(tamanhoFonte);
+    `;
+
+    return database.executar(instrucaoSql, [idUsuario, tema, tamanhoFonte]);
+}
+
+function criarConfiguracao(idUsuario) {
+    const instrucaoSql = `
+        INSERT IGNORE INTO configuracao (idUsuario)
+        VALUES (?);
+    `;
+
+    return database.executar(instrucaoSql, [idUsuario]);
 }
 
 function verificarCodigoInstituicao(codigo) {
@@ -29,6 +81,10 @@ function cadastrar(nome, email, senha, confirmacaoSenha, codigo) {
 
 module.exports = {
     autenticar,
+    obterConfiguracoes,
+    salvarPerfil,
+    salvarPreferencias,
+    criarConfiguracao,
     verificarCodigoInstituicao,
     cadastrar
 };
