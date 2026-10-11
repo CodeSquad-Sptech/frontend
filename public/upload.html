@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Evolua - Upload</title>
   <script src="js/permissaoUpload.js" defer></script>
   <link rel="stylesheet" href="css/dashboard.css" />
@@ -10,6 +11,8 @@
   <link rel="stylesheet" href="css/preferencias.css" />
 </head>
 <body>
+
+
   <header class="head">
     <div class="menu">
       <button class="botao-menu" id="botaoMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuLateral">
@@ -17,19 +20,20 @@
       </button>
       <span class="logo-texto" data-nome-empresa>EVOLUA</span>
     </div>
+
     <div class="resto">
       <div class="sino">
         <img src="img/Captura de tela 2026-08-30 232901.png" alt="Notificações" />
       </div>
-      <div class="switch">
-        <img src="img/Captura de tela 2026-08-30 232907.png" alt="Tema" />
-      </div>
+      
       <div class="pfp">
         <img data-foto-perfil src="img/Captura de tela 2026-08-30 232910.png" alt="Foto de perfil" />
       </div>
     </div>
   </header>
+
   <div class="fundo-menu" id="fundoMenu" hidden></div>
+
   <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal" hidden>
     <nav>
       <a href="./dashboard.html">Dashboard</a>
@@ -40,11 +44,6 @@
   </aside>
 
   <main class="conteudo" id="paginaUpload" hidden>
-    <div class="titulo">
-      <h2>Enviar arquivos</h2>
-      <p>Adicione os arquivos que deseja analisar no sistema.</p>
-    </div>
-
     <section class="area-upload" id="areaEnvioArquivo">
       <div class="icone-upload">↑</div>
       <h3>Envie seus arquivos</h3>
@@ -53,9 +52,9 @@
       <span class="formatos">XLSX — até 10 MB</span>
     </section>
 
+
     <section class="arquivos">
       <h3>Arquivos recentes</h3>
-
       <div class="arquivo">
         <div class="icone-arquivo">XLS</div>
         <div class="informacoes">
@@ -75,11 +74,9 @@
       </div>
     </section>
   </main>
-  <main class="conteudo acesso-negado" id="acessoNegado" hidden>
-    <h1>Envio de arquivos restrito</h1>
-    <p>Você ainda não possui permissão para enviar arquivos. Solicite acesso ao administrador da sua instituição.</p>
-  </main>
+
   <script src="js/preferencias.js"></script>
   <script src="js/menu.js"></script>
+
 </body>
 </html>

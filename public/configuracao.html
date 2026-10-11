@@ -20,9 +20,6 @@
             <div class="sino">
                 <img src="img/Captura de tela 2026-08-30 232901.png" alt="Notificações">
             </div>
-            <div class="switch">
-                <img src="img/Captura de tela 2026-08-30 232907.png" alt="Tema">
-            </div>
             <div class="pfp">
                 <img data-foto-perfil src="img/Captura de tela 2026-08-30 232910.png" alt="Foto de perfil">
             </div>
@@ -46,7 +43,7 @@
         </header>
 
         <form class="cartao-configuracao" id="formPerfilEmpresa">
-            <h2>Perfil e empresa</h2>
+            <h2>Perfil</h2>
             <p class="rotulo-foto">Escolha uma foto de perfil</p>
             <small class="ajuda-foto">Ou envie sua própria foto. Limite: 2 MB.</small>
             <div class="opcoes-foto" id="opcoesFoto">
@@ -64,10 +61,8 @@
                     <input id="fotoPerfil" type="file" accept="image/png,image/jpeg,image/webp">
                 </label>
             </div>
-            <label for="nomeEmpresa">Nome da empresa</label>
-            <input id="nomeEmpresa" type="text" maxlength="45" placeholder="Ex.: EVOLUA" required>
             <button class="botao-salvar" id="botaoSalvarPerfil" type="submit">Salvar</button>
-            <p class="mensagem-configuracao" id="mensagemPerfil" aria-live="polite"></p>
+            <p class="mensagem-configuracao" id="mensagemPerfil" aria-live="polite" hidden></p>
         </form>
 
         <form class="cartao-configuracao" id="formAparencia">
@@ -85,20 +80,19 @@
                 <option value="escuro">Escuro</option>
             </select>
             <button class="botao-salvar" type="submit">Salvar</button>
-            <p class="mensagem-configuracao" id="mensagemAparencia" aria-live="polite"></p>
+            <p class="mensagem-configuracao" id="mensagemAparencia" aria-live="polite" hidden></p>
         </form>
 
         <section class="cartao-configuracao">
             <h2>Administradores</h2>
-            <p class="descricao-admin">Esta lista é salva somente neste navegador e não altera permissões de acesso ao sistema.</p>
             <form id="formAdministrador">
-                <label for="nomeAdministrador">Nome</label>
-                <input id="nomeAdministrador" type="text" maxlength="80" required>
+                <label for="nomeEmpresa">Nome da empresa</label>
+                <input id="nomeEmpresa" type="text" maxlength="45" placeholder="Ex.: EVOLUA (opcional)">
                 <label for="emailAdministrador">E-mail</label>
                 <input id="emailAdministrador" type="email" maxlength="120" required>
                 <button class="botao-adicionar" type="submit">Adicionar administrador</button>
             </form>
-            <p class="mensagem-configuracao" id="mensagemAdministrador" aria-live="polite"></p>
+            <p class="mensagem-configuracao" id="mensagemAdministrador" aria-live="polite" hidden></p>
             <ul class="lista-administradores" id="listaAdministradores"></ul>
         </section>
     </main>

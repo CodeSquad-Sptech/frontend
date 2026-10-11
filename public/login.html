@@ -62,16 +62,11 @@
               <div class="campo-input">
                 <span class="icone">🔒︎</span>
                 <input type="password" id="senha" placeholder="********" />
-                <span class="mostrar-senha">◉</span>
+                <button class="mostrar-senha" type="button" data-campo-senha="senha" aria-label="Mostrar senha" aria-pressed="false">◉</button>
               </div>
             </div>
 
             <div class="opcoes">
-              <label class="lembrar">
-                <input type="checkbox" checked />
-                <span>Lembrar de mim</span>
-              </label>
-
               <a href="#">Esqueci minha senha</a>
             </div>
 
@@ -91,24 +86,40 @@
 </html>
 
 <script>
+  const camposSenha = document.querySelectorAll("[data-campo-senha]");
+
+  function alternarVisibilidadeSenha(evento) {
+    const botao = evento.currentTarget;
+    const campo = document.getElementById(botao.dataset.campoSenha);
+    const mostrar = campo.type === "password";
+
+    campo.type = mostrar ? "text" : "password";
+    botao.setAttribute("aria-pressed", String(mostrar));
+    botao.setAttribute("aria-label", mostrar ? "Ocultar senha" : "Mostrar senha");
+  }
+
+  camposSenha.forEach(function (botao) {
+    botao.addEventListener("click", alternarVisibilidadeSenha);
+  });
+
   function entrar() {
-    var emailVar = email.value;
-    var senhaVar = senha.value;
+    const emailVar = email.value;
+    const senhaVar = senha.value;
 
     limparErros();
 
-    var valido = true;
+    let valido = true;
 
     if (emailVar == "") {
-      erro_email.innerHTML = "ⓘ Informe seu e-mail.";
+      erro_email.textContent = "ⓘ Informe seu e-mail.";
       valido = false;
     } else if (!emailVar.includes("@")) {
-      erro_email.innerHTML = "ⓘ Informe um e-mail válido.";
+      erro_email.textContent = "ⓘ Informe um e-mail válido.";
       valido = false;
     }
 
     if (senhaVar == "") {
-      erro_senha.innerHTML = "ⓘ Informe sua senha.";
+      erro_senha.textContent = "ⓘ Informe sua senha.";
       valido = false;
     }
 
@@ -126,9 +137,7 @@
         .then(function (resposta) {
           if (!resposta.ok) {
             return resposta.text().then(function (texto) {
-
-              erro_senha.innerHTML = texto || "Não foi possível realizar o login.";
-
+              erro_senha.textContent = texto || "Não foi possível realizar o login.";
             });
           }
 
@@ -140,6 +149,7 @@
               sessionStorage.NOME_EMPRESA = json.nomeInstituicao;
               sessionStorage.FOTO_PERFIL = json.fotoPerfil;
               sessionStorage.TEMA = json.tema;
+              sessionStorage.MODO_ESCURO = json.modoEscuro;
               sessionStorage.TAMANHO_FONTE = json.tamanhoFonte;
 
               setTimeout(function () {
@@ -150,8 +160,7 @@
         .catch(function (erro) {
           console.error("Erro ao tentar realizar o login:", erro);
 
-          erro_senha.innerHTML = "Não foi possível conectar ao servidor. Tente novamente.";
-
+          erro_senha.textContent = "Não foi possível conectar ao servidor. Tente novamente.";
         });
 
       return false;
@@ -159,8 +168,8 @@
   }
 
   function limparErros() {
-    erro_email.innerHTML = "";
-    erro_senha.innerHTML = "";
+    erro_email.textContent = "";
+    erro_senha.textContent = "";
   }
   
 </script>

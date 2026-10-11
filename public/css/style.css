@@ -227,32 +227,26 @@ footer {
 
 
 .mostrar-senha {
+    padding: 0;
     color: #9ca3af;
     cursor: pointer;
     font-size: 16px;
+    border: 0;
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.mostrar-senha:focus-visible {
+    outline: 2px solid var(--azul);
+    outline-offset: 3px;
 }
 
 .opcoes {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 3px;
     margin-bottom: 28px;
-}
-
-.lembrar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    color: #4b5563;
-    cursor: pointer;
-}
-
-.lembrar input {
-    width: 19px;
-    height: 19px;
-    accent-color: var(--laranja);
 }
 
 .opcoes a,

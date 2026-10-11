@@ -1,0 +1,96 @@
+body[data-fonte="pequena"] {
+    font-size: 14px;
+}
+
+body[data-fonte="media"] {
+    font-size: 16px;
+}
+
+body[data-fonte="grande"] {
+    font-size: 18px;
+}
+
+body[data-tema="escuro"] {
+    color: #F2F4F7;
+    background-color: #101828;
+}
+
+body[data-tema="escuro"] .head,
+body[data-tema="escuro"] .menu-lateral,
+body[data-tema="escuro"] .kpi-card,
+body[data-tema="escuro"] .kpi-cursos,
+body[data-tema="escuro"] .grafico,
+body[data-tema="escuro"] .graficos,
+body[data-tema="escuro"] .caixa-curso,
+body[data-tema="escuro"] .cartao-configuracao,
+body[data-tema="escuro"] .area-upload,
+body[data-tema="escuro"] .arquivos,
+body[data-tema="escuro"] .arquivo {
+    color: #F2F4F7;
+    background-color: #1D2939;
+    border-color: #344054;
+}
+
+body[data-tema="escuro"] .menu-lateral a,
+body[data-tema="escuro"] .menu-lateral button,
+body[data-tema="escuro"] .cabecalho-dashboard h1,
+body[data-tema="escuro"] .titulo h2,
+body[data-tema="escuro"] .kpi-cursos h2,
+body[data-tema="escuro"] .grafico h2,
+body[data-tema="escuro"] .graficos h3,
+body[data-tema="escuro"] .graficos-mini h4,
+body[data-tema="escuro"] .secao-titulo,
+body[data-tema="escuro"] .kpi-valor,
+body[data-tema="escuro"] .caixa-curso .nome-curso,
+body[data-tema="escuro"] .informacoes strong,
+body[data-tema="escuro"] .titulo-configuracao h1,
+body[data-tema="escuro"] .cartao-configuracao h2,
+body[data-tema="escuro"] .cartao-configuracao > label,
+body[data-tema="escuro"] .rotulo-foto,
+body[data-tema="escuro"] .administrador-item strong {
+    color: #F2F4F7;
+}
+
+body[data-tema="escuro"] .menu-lateral a:hover,
+body[data-tema="escuro"] .menu-lateral button:hover {
+    background-color: #344054;
+}
+
+body[data-tema="escuro"] .cabecalho-dashboard p,
+body[data-tema="escuro"] .kpi-label,
+body[data-tema="escuro"] .kpi-meta,
+body[data-tema="escuro"] .caixa-curso .turma-curso,
+body[data-tema="escuro"] .titulo p,
+body[data-tema="escuro"] .informacoes span,
+body[data-tema="escuro"] .formatos,
+body[data-tema="escuro"] .titulo-configuracao p,
+body[data-tema="escuro"] .descricao-admin,
+body[data-tema="escuro"] .ajuda-foto,
+body[data-tema="escuro"] .administrador-item span {
+    color: #D0D5DD;
+}
+
+body[data-tema="escuro"] .aviso-exclusivo-admin {
+    color: #FDA29B;
+}
+
+body[data-tema="escuro"][data-administrador="false"] .titulo .aviso-exclusivo-admin {
+    color: #FDA29B;
+}
+
+body[data-tema="escuro"] .cartao-configuracao input[type="text"],
+body[data-tema="escuro"] .cartao-configuracao input[type="email"],
+body[data-tema="escuro"] .cartao-configuracao select,
+body[data-tema="escuro"] .select-cursos select,
+body[data-tema="escuro"] .select-cursos select option,
+body[data-tema="escuro"] #formAdministrador input {
+    color: #F2F4F7;
+    background-color: #101828;
+    border-color: #475467;
+}
+
+body[data-tema="escuro"] .administrador-item {
+    color: #F2F4F7;
+    background-color: #101828;
+    border-color: #344054;
+}

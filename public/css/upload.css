@@ -237,6 +237,30 @@ h3 {
   font-weight: 700;
 }
 
+.aviso-exclusivo-admin {
+  margin-bottom: 10px;
+  color: #B42318;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+body[data-administrador="false"] .somente-leitura {
+  background-color: #EAECF0;
+  filter: grayscale(1);
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+}
+
+body[data-administrador="false"] .somente-leitura .arquivo {
+  background-color: #EAECF0;
+}
+
+body[data-administrador="false"] .aviso-exclusivo-admin {
+  color: #B42318;
+}
+
 @media (max-width: 600px) {
   .cabecalho {
     padding: 0 20px;

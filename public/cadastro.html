@@ -79,7 +79,7 @@
                 id="senha"
                 placeholder="********"
               />
-              <span class="mostrar-senha">◉</span>
+              <button class="mostrar-senha" type="button" data-campo-senha="senha" aria-label="Mostrar senha" aria-pressed="false">◉</button>
             </div>    
           </div>
 
@@ -92,7 +92,7 @@
                 id="confirmacao_senha"
                 placeholder="********"
               />
-              <span class="mostrar-senha">◉</span>
+              <button class="mostrar-senha" type="button" data-campo-senha="confirmacao_senha" aria-label="Mostrar senha" aria-pressed="false">◉</button>
             </div>
           </div>
 
@@ -124,46 +124,61 @@
 </html>
 
 <script>
+  const camposSenha = document.querySelectorAll("[data-campo-senha]");
+
+  function alternarVisibilidadeSenha(evento) {
+    const botao = evento.currentTarget;
+    const campo = document.getElementById(botao.dataset.campoSenha);
+    const mostrar = campo.type == "password";
+
+    campo.type = mostrar ? "text" : "password";
+    botao.setAttribute("aria-pressed", String(mostrar));
+    botao.setAttribute("aria-label", mostrar ? "Ocultar senha" : "Mostrar senha");
+  }
+
+  camposSenha.forEach(function (botao) {
+    botao.addEventListener("click", alternarVisibilidadeSenha);
+  });
 
   function cadastrar() {
-    var nomeVar = nome.value;
-    var emailVar = email.value;
-    var senhaVar = senha.value;
-    var confirmacaoSenhaVar = confirmacao_senha.value;
-    var codigoVar = codigo.value;
+    const nomeVar = nome.value;
+    const emailVar = email.value;
+    const senhaVar = senha.value;
+    const confirmacaoSenhaVar = confirmacao_senha.value;
+    const codigoVar = codigo.value;
  
     limparErros();
  
-    var valido = true;
+    let valido = true;
  
     if (nomeVar == "") {
-      erro_nome.innerHTML = "ⓘ Informe seu nome.";
+      erro_nome.textContent = "ⓘ Informe seu nome.";
       valido = false;
     }
  
     if (emailVar == "") {
-      erro_email.innerHTML = "ⓘ Informe seu e-mail.";
+      erro_email.textContent = "ⓘ Informe seu e-mail.";
       valido = false;
     } else if(!emailVar.includes('@')){
-      erro_email.innerHTML = "ⓘ Informe um e-mail válido.";
+      erro_email.textContent = "ⓘ Informe um e-mail válido.";
       valido = false;
     }
  
     if (senhaVar == "") {
-      erro_senha.innerHTML = "ⓘ Informe uma senha.";
+      erro_senha.textContent = "ⓘ Informe uma senha.";
       valido = false;
     }
  
     if (confirmacaoSenhaVar == "") {
-      erro_confirmacao_senha.innerHTML = "ⓘ Confirme sua senha.";
+      erro_confirmacao_senha.textContent = "ⓘ Confirme sua senha.";
       valido = false;
     } else if (senhaVar != confirmacaoSenhaVar) {
-      erro_confirmacao_senha.innerHTML = "ⓘ As senhas não coincidem.";
+      erro_confirmacao_senha.textContent = "ⓘ As senhas não coincidem.";
       valido = false;
     }
  
     if (codigoVar == "") {
-      erro_codigo.innerHTML = "ⓘ Informe o código de acesso.";
+      erro_codigo.textContent = "ⓘ Informe o código de acesso.";
       valido = false;
     }
 
@@ -187,11 +202,11 @@
           .then(function (resposta) {
         if (!resposta.ok) {
           return resposta.text().then(function (textoDoErro) {
-            erro_codigo.innerHTML = "ⓘ " + (textoDoErro || "Não foi possível criar a conta.");
+            erro_codigo.textContent = "ⓘ " + (textoDoErro || "Não foi possível criar a conta.");
           });
         }
 
-        mensagem.innerHTML =
+        mensagem.textContent =
           "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
         setTimeout(function () {
@@ -200,7 +215,7 @@
       })
       .catch(function (resposta) {
         console.error("Erro ao tentar realizar o cadastro:", resposta);
-        erro_codigo.innerHTML = "ⓘ Não foi possível conectar ao servidor. Tente novamente.";
+        erro_codigo.textContent = "ⓘ Não foi possível conectar ao servidor. Tente novamente.";
       });
     
 
@@ -209,11 +224,11 @@
   }
  
   function limparErros() {
-    erro_nome.innerHTML = "";
-    erro_email.innerHTML = "";
-    erro_senha.innerHTML = "";
-    erro_confirmacao_senha.innerHTML = "";
-    erro_codigo.innerHTML = "";
+    erro_nome.textContent = "";
+    erro_email.textContent = "";
+    erro_senha.textContent = "";
+    erro_confirmacao_senha.textContent = "";
+    erro_codigo.textContent = "";
   }
 
 

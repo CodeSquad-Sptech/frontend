@@ -61,7 +61,11 @@ router.put(
     enviarFoto.single("foto"),
     usuarioController.salvarPerfil
 );
-router.put("/configuracoes/aparencia", exigirSessao, usuarioController.salvarPreferencias);
+router.put(
+    "/configuracoes/aparencia",
+    exigirSessao,
+    usuarioController.salvarPreferencias
+);
 
 router.use(function (erro, req, res, next) {
     if (erro instanceof multer.MulterError && erro.code == "LIMIT_FILE_SIZE") {
@@ -73,7 +77,7 @@ router.use(function (erro, req, res, next) {
     }
 
     console.error(erro);
-    return res.status(500).send("Não foi possível processar a imagem.");
+    return res.status(500).send("Erro no servidor.");
 });
 
 module.exports = router;

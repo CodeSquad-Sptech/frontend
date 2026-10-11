@@ -178,9 +178,21 @@
 }
 
 .mensagem-configuracao {
-    min-height: 1.4em;
     margin: 10px 0 0;
     color: #175CD3;
+}
+
+.aviso-somente-leitura {
+    margin-top: 10px !important;
+    color: #B42318 !important;
+    font-weight: 600;
+}
+
+body[data-administrador="false"] .cartao-configuracao.somente-leitura {
+    filter: grayscale(1);
+    opacity: 0.65;
+    pointer-events: none;
+    user-select: none;
 }
 
 @media (max-width: 600px) {

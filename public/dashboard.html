@@ -22,9 +22,6 @@
             <div class="sino">
                 <img src="img/Captura de tela 2026-08-30 232901.png" alt="Notificações">
             </div>
-            <div class="switch">
-                <img src="img/Captura de tela 2026-08-30 232907.png" alt="Tema">
-            </div>
             <div class="pfp">
                 <img data-foto-perfil src="img/Captura de tela 2026-08-30 232910.png" alt="Foto de perfil">
             </div>
@@ -204,6 +201,7 @@
             window.location.href = './login.html';
         });
     </script>
+    <script src="js/preferencias.js"></script>
     <script>
     let ctxEvolucao = document.getElementById("grafico1").getContext('2d');
     let ctxIdade = document.getElementById("grafico2").getContext('2d');
@@ -245,7 +243,7 @@
                         }
                     },
                     grid: {
-                        color: '#F0EEF7'
+                        color: document.body.dataset.tema == 'escuro' ? '#475467' : '#F0EEF7'
                     }
                 },
                 x: {

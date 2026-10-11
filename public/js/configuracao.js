@@ -14,8 +14,29 @@ const mensagemAdministrador = document.getElementById("mensagemAdministrador");
 const campoNomeAdministrador = document.getElementById("nomeAdministrador");
 const campoEmailAdministrador = document.getElementById("emailAdministrador");
 const botaoSalvarPerfil = document.getElementById("botaoSalvarPerfil");
+const usuarioAdministrador =
+    sessionStorage.ADMINISTRADOR == "1" ||
+    sessionStorage.ADMINISTRADOR == "true";
 let fotoSelecionada = sessionStorage.FOTO_PERFIL || "img/pessoa1.png";
 let arquivoFotoSelecionado = null;
+
+function mostrarMensagemConfiguracao(elemento, mensagem) {
+    elemento.textContent = mensagem;
+    elemento.hidden = !mensagem;
+}
+
+function configurarAcessoConfiguracoes() {
+    if (usuarioAdministrador) {
+        return;
+    }
+
+    const cartaoAdministradores = formularioAdministrador.closest(".cartao-configuracao");
+    cartaoAdministradores.classList.add("somente-leitura");
+    cartaoAdministradores.setAttribute("aria-disabled", "true");
+    cartaoAdministradores.querySelectorAll("button, input, select").forEach(function (campo) {
+        campo.disabled = true;
+    });
+}
 
 function mostrarFotoSelecionada(foto) {
     const botoesFoto = opcoesFoto.querySelectorAll("[data-foto]");
@@ -33,6 +54,12 @@ function mostrarFotoSelecionada(foto) {
     opcaoEnviarFoto.classList.toggle("selecionada", foto && !fotoEncontrada);
 }
 
+function atualizarTemaSelecionado() {
+    const tema = campoTema.value;
+
+    document.body.dataset.tema = tema;
+}
+
 function carregarCamposConfiguracao(configuracoes) {
     sessionStorage.NOME_EMPRESA = configuracoes.nomeInstituicao || "EVOLUA";
     sessionStorage.FOTO_PERFIL = configuracoes.fotoPerfil || "img/pessoa1.png";
@@ -47,21 +74,25 @@ function carregarCamposConfiguracao(configuracoes) {
     aplicarPreferencias();
 }
 
-async function carregarConfiguracoes() {
-    try {
-        const resposta = await fetch("/usuarios/configuracoes");
+function carregarConfiguracoes() {
+    fetch("/usuarios/configuracoes")
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                return resposta.text().then(function (mensagem) {
+                    throw new Error(mensagem);
+                });
+            }
 
-        if (!resposta.ok) {
-            throw new Error(await resposta.text());
-        }
-
-        carregarCamposConfiguracao(await resposta.json());
-    } catch (erro) {
-        console.error("Erro ao carregar configurações:", erro);
-        mensagemPerfil.innerHTML = protegerTextoHTML(
-            erro.message || "Não foi possível carregar as configurações."
-        );
-    }
+            return resposta.json();
+        })
+        .then(carregarCamposConfiguracao)
+        .catch(function (erro) {
+            console.error("Erro ao carregar configurações:", erro);
+            mostrarMensagemConfiguracao(
+                mensagemPerfil,
+                erro.message || "Não foi possível carregar as configurações."
+            );
+        });
 }
 
 function clicarNasOpcoesDeFoto(evento) {
@@ -72,26 +103,26 @@ function clicarNasOpcoesDeFoto(evento) {
         arquivoFotoSelecionado = null;
         campoFoto.value = "";
         mostrarFotoSelecionada(fotoSelecionada);
-        mensagemPerfil.innerHTML = "Foto selecionada. Clique em Salvar para aplicar.";
+        mostrarMensagemConfiguracao(mensagemPerfil, "");
     }
 }
 
 function escolherFoto() {
     const arquivo = campoFoto.files[0];
-    mensagemPerfil.innerHTML = "";
+    mostrarMensagemConfiguracao(mensagemPerfil, "");
 
     if (!arquivo) {
         return;
     }
 
     if (arquivo.size > 2 * 1024 * 1024) {
-        mensagemPerfil.innerHTML = "A imagem deve ter no máximo 2 MB.";
+        mostrarMensagemConfiguracao(mensagemPerfil, "A imagem deve ter no máximo 2 MB.");
         campoFoto.value = "";
         return;
     }
 
     if (!["image/jpeg", "image/png", "image/webp"].includes(arquivo.type)) {
-        mensagemPerfil.innerHTML = "Use uma imagem JPG, PNG ou WebP.";
+        mostrarMensagemConfiguracao(mensagemPerfil, "Use uma imagem JPG, PNG ou WebP.");
         campoFoto.value = "";
         return;
     }
@@ -99,13 +130,13 @@ function escolherFoto() {
     arquivoFotoSelecionado = arquivo;
     fotoSelecionada = null;
     mostrarFotoSelecionada("foto-enviada");
-    mensagemPerfil.innerHTML = "Foto selecionada. Clique em Salvar para aplicar.";
 }
 
-async function salvarPerfilEmpresa(evento) {
+function salvarPerfilEmpresa(evento) {
     evento.preventDefault();
+
     botaoSalvarPerfil.disabled = true;
-    mensagemPerfil.innerHTML = "";
+    mostrarMensagemConfiguracao(mensagemPerfil, "");
 
     const dados = new FormData();
     dados.append("nomeInstituicao", campoNomeEmpresa.value.trim());
@@ -116,64 +147,87 @@ async function salvarPerfilEmpresa(evento) {
         dados.append("fotoPerfil", fotoSelecionada);
     }
 
-    try {
-        const resposta = await fetch("/usuarios/configuracoes/perfil", {
+    fetch("/usuarios/configuracoes/perfil", {
             method: "PUT",
             body: dados
+        })
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                return resposta.text().then(function (mensagem) {
+                    throw new Error(mensagem);
+                });
+            }
+
+            return resposta.json();
+        })
+        .then(function (resultado) {
+            if (resultado.nomeInstituicao) {
+                sessionStorage.NOME_EMPRESA = resultado.nomeInstituicao;
+            }
+
+            sessionStorage.FOTO_PERFIL = resultado.fotoPerfil;
+            fotoSelecionada = resultado.fotoPerfil;
+            arquivoFotoSelecionado = null;
+
+            campoFoto.value = "";
+            mostrarFotoSelecionada(fotoSelecionada);
+            campoNomeEmpresa.value = sessionStorage.NOME_EMPRESA || "";
+            aplicarPreferencias();
+            mostrarMensagemConfiguracao(
+                mensagemPerfil,
+                resultado.nomeInstituicao
+                    ? "Foto e nome da empresa salvos."
+                    : "Foto salva. O nome da empresa foi mantido."
+            );
+        })
+        .catch(function (erro) {
+            console.error("Erro ao salvar perfil e empresa:", erro);
+            mostrarMensagemConfiguracao(
+                mensagemPerfil,
+                erro.message || "Não foi possível salvar o perfil e a empresa."
+            );
+        })
+        .finally(function () {
+            botaoSalvarPerfil.disabled = false;
         });
-
-        if (!resposta.ok) {
-            throw new Error(await resposta.text());
-        }
-
-        const resultado = await resposta.json();
-        sessionStorage.NOME_EMPRESA = resultado.nomeInstituicao;
-        sessionStorage.FOTO_PERFIL = resultado.fotoPerfil;
-        fotoSelecionada = resultado.fotoPerfil;
-        arquivoFotoSelecionado = null;
-        campoFoto.value = "";
-        mostrarFotoSelecionada(fotoSelecionada);
-        aplicarPreferencias();
-        mensagemPerfil.innerHTML = "Perfil e empresa salvos.";
-    } catch (erro) {
-        console.error("Erro ao salvar perfil e empresa:", erro);
-        mensagemPerfil.innerHTML = protegerTextoHTML(
-            erro.message || "Não foi possível salvar o perfil e a empresa."
-        );
-    } finally {
-        botaoSalvarPerfil.disabled = false;
-    }
 }
 
-async function salvarAparencia(evento) {
+function salvarAparencia(evento) {
     evento.preventDefault();
-    mensagemAparencia.innerHTML = "";
 
-    try {
-        const resposta = await fetch("/usuarios/configuracoes/aparencia", {
+    mostrarMensagemConfiguracao(mensagemAparencia, "");
+
+    fetch("/usuarios/configuracoes/aparencia", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 tema: campoTema.value,
                 tamanhoFonte: campoTamanhoFonte.value
             })
+        })
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                return resposta.text().then(function (mensagem) {
+                    throw new Error(mensagem);
+                });
+            }
+
+            return resposta.json();
+        })
+        .then(function (resultado) {
+            sessionStorage.TEMA = resultado.tema;
+            sessionStorage.MODO_ESCURO = resultado.modoEscuro;
+            sessionStorage.TAMANHO_FONTE = resultado.tamanhoFonte;
+            aplicarPreferencias();
+            mostrarMensagemConfiguracao(mensagemAparencia, "Aparência salva.");
+        })
+        .catch(function (erro) {
+            console.error("Erro ao salvar a aparência:", erro);
+            mostrarMensagemConfiguracao(
+                mensagemAparencia,
+                erro.message || "Não foi possível salvar a aparência."
+            );
         });
-
-        if (!resposta.ok) {
-            throw new Error(await resposta.text());
-        }
-
-        const resultado = await resposta.json();
-        sessionStorage.TEMA = resultado.tema;
-        sessionStorage.TAMANHO_FONTE = resultado.tamanhoFonte;
-        aplicarPreferencias();
-        mensagemAparencia.innerHTML = "Aparência salva.";
-    } catch (erro) {
-        console.error("Erro ao salvar a aparência:", erro);
-        mensagemAparencia.innerHTML = protegerTextoHTML(
-            erro.message || "Não foi possível salvar a aparência."
-        );
-    }
 }
 
 function carregarAdministradores() {
@@ -201,12 +255,13 @@ function mostrarAdministradores() {
         const botaoRemover = document.createElement("button");
 
         item.className = "administrador-item";
-        nome.innerHTML = protegerTextoHTML(administrador.nome);
-        email.innerHTML = protegerTextoHTML(administrador.email);
+        nome.textContent = administrador.nome;
+        email.textContent = administrador.email;
         botaoRemover.type = "button";
         botaoRemover.className = "botao-remover";
-        botaoRemover.innerHTML = "Remover";
+        botaoRemover.textContent = "Remover";
         botaoRemover.dataset.indice = indice;
+        botaoRemover.disabled = !usuarioAdministrador;
         item.append(nome, email, botaoRemover);
         listaAdministradores.appendChild(item);
     }
@@ -235,26 +290,35 @@ function emailJaCadastrado(administradores, email) {
 function adicionarAdministrador(evento) {
     evento.preventDefault();
 
+    if (!usuarioAdministrador) {
+        return;
+    }
+
     const nome = campoNomeAdministrador.value.trim();
     const email = campoEmailAdministrador.value.trim().toLowerCase();
     const administradores = carregarAdministradores();
 
     if (emailJaCadastrado(administradores, email)) {
-        mensagemAdministrador.innerHTML = "Esse e-mail já está na lista.";
+        mostrarMensagemConfiguracao(mensagemAdministrador, "Esse e-mail já está na lista.");
         return;
     }
 
     administradores.push({ nome: nome, email: email });
     salvarAdministradores(administradores);
     formularioAdministrador.reset();
-    mensagemAdministrador.innerHTML = "Administrador adicionado somente neste navegador.";
+    mostrarMensagemConfiguracao(
+        mensagemAdministrador,
+        "Administrador adicionado somente neste navegador."
+    );
 }
 
 opcoesFoto.addEventListener("click", clicarNasOpcoesDeFoto);
 campoFoto.addEventListener("change", escolherFoto);
+campoTema.addEventListener("change", atualizarTemaSelecionado);
 formularioPerfilEmpresa.addEventListener("submit", salvarPerfilEmpresa);
 formularioAparencia.addEventListener("submit", salvarAparencia);
 listaAdministradores.addEventListener("click", clicarNaListaDeAdministradores);
 formularioAdministrador.addEventListener("submit", adicionarAdministrador);
+configurarAcessoConfiguracoes();
 mostrarAdministradores();
 carregarConfiguracoes();

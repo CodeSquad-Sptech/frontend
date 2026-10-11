@@ -1,28 +1,72 @@
-const database = require("../config/config")
+const database = require("../config/config");
 
 function autenticar(email, senha) {
     const instrucaoSql = `
-        SELECT usuario.idUsuario, usuario.nome, usuario.email, usuario.administrador,
-            usuario.fkInstituicao, configuracao.fotoPerfil, configuracao.tema,
-            configuracao.tamanhoFonte, instituicao.nome AS nomeInstituicao
-        FROM usuario
-        INNER JOIN instituicao ON instituicao.idInstituicao = usuario.fkInstituicao
-        LEFT JOIN configuracao ON configuracao.idUsuario = usuario.idUsuario
-        WHERE usuario.email = ? AND usuario.senha = ?;
+        SELECT
+            u.idUsuario,
+            u.nome,
+            u.email,
+            u.administrador,
+            u.fkInstituicao,
+            i.nome AS nomeInstituicao,
+            c.fotoPerfil,
+            c.tamanhoFonte,
+            c.modoEscuro
+        FROM usuario u
+        JOIN instituicao i ON i.idInstituicao = u.fkInstituicao
+        LEFT JOIN configuracao c ON c.fkUsuario = u.idUsuario
+        WHERE u.email = ? AND u.senha = ?;
     `;
-    const valores = [email, senha];
 
-    return database.executar(instrucaoSql, valores);
+    return database.executar(instrucaoSql, [email, senha]);
+}
+
+function buscarInstituicaoPorCodigo(codigo) {
+    const instrucaoSql = `
+        SELECT idInstituicao
+        FROM instituicao
+        WHERE codigo = ?;
+    `;
+
+    return database.executar(instrucaoSql, [codigo]);
+}
+
+function cadastrar(nome, email, senha, idInstituicao) {
+    const instrucaoSql = `
+        INSERT INTO usuario (
+            nome,
+            email,
+            senha,
+            administrador,
+            ativo,
+            fkInstituicao
+        )
+        VALUES (?, ?, ?, 0, 1, ?);
+    `;
+
+    return database.executar(instrucaoSql, [nome, email, senha, idInstituicao]);
+}
+
+function criarConfiguracao(idUsuario) {
+    const instrucaoSql = `
+        INSERT INTO configuracao (fkUsuario)
+        VALUES (?);
+    `;
+
+    return database.executar(instrucaoSql, [idUsuario]);
 }
 
 function obterConfiguracoes(idUsuario) {
     const instrucaoSql = `
-        SELECT configuracao.fotoPerfil, configuracao.tema, configuracao.tamanhoFonte,
-            instituicao.nome AS nomeInstituicao
-        FROM usuario
-        INNER JOIN instituicao ON instituicao.idInstituicao = usuario.fkInstituicao
-        LEFT JOIN configuracao ON configuracao.idUsuario = usuario.idUsuario
-        WHERE usuario.idUsuario = ?;
+        SELECT
+            c.fotoPerfil,
+            c.tamanhoFonte,
+            c.modoEscuro,
+            i.nome AS nomeInstituicao
+        FROM usuario u
+        JOIN instituicao i ON i.idInstituicao = u.fkInstituicao
+        LEFT JOIN configuracao c ON c.fkUsuario = u.idUsuario
+        WHERE u.idUsuario = ?;
     `;
 
     return database.executar(instrucaoSql, [idUsuario]);
@@ -30,61 +74,41 @@ function obterConfiguracoes(idUsuario) {
 
 function salvarPerfil(idUsuario, nomeInstituicao, fotoPerfil) {
     const instrucaoSql = `
-        UPDATE instituicao
-        INNER JOIN usuario ON usuario.fkInstituicao = instituicao.idInstituicao
-        INNER JOIN configuracao ON configuracao.idUsuario = usuario.idUsuario
-        SET instituicao.nome = ?, configuracao.fotoPerfil = ?
-        WHERE usuario.idUsuario = ?;
+        UPDATE instituicao i
+        JOIN usuario u ON u.fkInstituicao = i.idInstituicao
+        LEFT JOIN configuracao c ON c.fkUsuario = u.idUsuario
+        SET i.nome = COALESCE(?, i.nome), c.fotoPerfil = ?
+        WHERE u.idUsuario = ?;
     `;
 
     return database.executar(instrucaoSql, [nomeInstituicao, fotoPerfil, idUsuario]);
 }
 
 function salvarPreferencias(idUsuario, tema, tamanhoFonte) {
+    const modoEscuro = tema == "escuro" ? 1 : 0;
+    const tamanhosFonte = {
+        pequena: 14,
+        media: 16,
+        grande: 20
+    };
     const instrucaoSql = `
-        INSERT INTO configuracao (idUsuario, tema, tamanhoFonte)
-        VALUES (?, ?, ?)
-        ON DUPLICATE KEY UPDATE
-            tema = VALUES(tema),
-            tamanhoFonte = VALUES(tamanhoFonte);
+        UPDATE configuracao
+        SET modoEscuro = ?, tamanhoFonte = ?
+        WHERE fkUsuario = ?;
     `;
 
-    return database.executar(instrucaoSql, [idUsuario, tema, tamanhoFonte]);
-}
-
-function criarConfiguracao(idUsuario) {
-    const instrucaoSql = `
-        INSERT IGNORE INTO configuracao (idUsuario)
-        VALUES (?);
-    `;
-
-    return database.executar(instrucaoSql, [idUsuario]);
-}
-
-function verificarCodigoInstituicao(codigo) {
-    const instrucaoSql = `
-        SELECT idInstituicao FROM instituicao WHERE codigo = ?;
-    `;
-    const valores = [codigo];
-
-    return database.executar(instrucaoSql, valores);
-}
-
-function cadastrar(nome, email, senha, confirmacaoSenha, codigo) {
-    const instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, confirmacaoSenha, administrador, ativo, fkInstituicao) VALUES (?, ?, ?, ?, 0, 1, (SELECT idInstituicao FROM instituicao WHERE codigo = ?));
-    `;
-    const valores = [nome, email, senha, confirmacaoSenha, codigo];
-
-    return database.executar(instrucaoSql, valores);
+    return database.executar(
+        instrucaoSql,
+        [modoEscuro, tamanhosFonte[tamanhoFonte], idUsuario]
+    );
 }
 
 module.exports = {
     autenticar,
+    buscarInstituicaoPorCodigo,
+    cadastrar,
+    criarConfiguracao,
     obterConfiguracoes,
     salvarPerfil,
-    salvarPreferencias,
-    criarConfiguracao,
-    verificarCodigoInstituicao,
-    cadastrar
+    salvarPreferencias
 };
