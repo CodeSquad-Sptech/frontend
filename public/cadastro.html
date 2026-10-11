@@ -185,31 +185,22 @@
     })
 
           .then(function (resposta) {
-        console.log("resposta: ", resposta);
+        if (!resposta.ok) {
+          return resposta.text().then(function (textoDoErro) {
+            erro_codigo.innerHTML = "ⓘ " + (textoDoErro || "Não foi possível criar a conta.");
+          });
+        }
 
-        if (resposta.ok) {
+        mensagem.innerHTML =
+          "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-          mensagem.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
-          limparFormulario();
-          finalizarAguardar();
-        } else {
-           resposta.text().then(textoDoErro => {
-             erro_codigo.innerHTML = `ⓘ ${textoDoErro}`;
-    });
-
-    throw "Houve um erro ao tentar realizar o cadastro!";
-  }})
-
-
+        setTimeout(function () {
+          window.location = "login.html";
+        }, 2000);
+      })
       .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
+        console.error("Erro ao tentar realizar o cadastro:", resposta);
+        erro_codigo.innerHTML = "ⓘ Não foi possível conectar ao servidor. Tente novamente.";
       });
     
 
@@ -228,4 +219,3 @@
 
 
 </script>
-

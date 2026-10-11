@@ -1,29 +1,34 @@
-var database = require("../database/config")
+const database = require("../database/config")
 
 function autenticar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
-    var instrucaoSql = `
-        SELECT idUsuario, nome, email, fkInstituicao FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+    const instrucaoSql = `
+        SELECT idUsuario, nome, email, fkInstituicao FROM usuario WHERE email = ? AND senha = ?;
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    const valores = [email, senha];
+
+    return database.executar(instrucaoSql, valores);
 }
 
-// Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
-function cadastrar(nome, email, senha, confirmacaoSenha, codigo) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, confirmacaoSenha, codigo);
-    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
-    var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, confirmacaoSenha, administrador, ativo, fkInstituicao) VALUES 
-        ('${nome}', '${email}', '${senha}', '${confirmacaoSenha}', 0, 1, (SELECT idInstituicao FROM instituicao WHERE codigo = '${codigo}'));
+function verificarCodigoInstituicao(codigo) {
+    const instrucaoSql = `
+        SELECT idInstituicao FROM instituicao WHERE codigo = ?;
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    const valores = [codigo];
+
+    return database.executar(instrucaoSql, valores);
+}
+
+function cadastrar(nome, email, senha, confirmacaoSenha, codigo) {
+    const instrucaoSql = `
+        INSERT INTO usuario (nome, email, senha, confirmacaoSenha, administrador, ativo, fkInstituicao) VALUES (?, ?, ?, ?, 0, 1, (SELECT idInstituicao FROM instituicao WHERE codigo = ?));
+    `;
+    const valores = [nome, email, senha, confirmacaoSenha, codigo];
+
+    return database.executar(instrucaoSql, valores);
 }
 
 module.exports = {
     autenticar,
+    verificarCodigoInstituicao,
     cadastrar
 };
