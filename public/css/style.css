@@ -37,7 +37,7 @@ body {
     background-color: var(--azul-escuro);
     background-image:
         linear-gradient(rgba(11, 27, 63, 0.88), rgba(11, 27, 63, 0.88)),
-        url("../assets/imgs/ImagemCadastro.png");
+        url("../img/ImagemCadastro.png");
     background-size: cover;
     background-position: center;
     display: flex;

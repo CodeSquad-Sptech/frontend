@@ -12,21 +12,31 @@
 <body>
     <header class="head">
         <div class="menu">
-            <img src="assets/imgDash/Captura de tela 2026-08-30 221500.png" alt="Menu">
+            <button class="botao-menu" id="botaoMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuLateral">
+                <img src="img/Captura de tela 2026-08-30 221500.png" alt="">
+            </button>
             <span class="logo-texto">EVOLUA</span>
         </div>
         <div class="resto">
             <div class="sino">
-                <img src="assets/imgDash/Captura de tela 2026-08-30 232901.png" alt="Notificações">
+                <img src="img/Captura de tela 2026-08-30 232901.png" alt="Notificações">
             </div>
             <div class="switch">
-                <img src="assets/imgDash/Captura de tela 2026-08-30 232907.png" alt="Tema">
+                <img src="img/Captura de tela 2026-08-30 232907.png" alt="Tema">
             </div>
             <div class="pfp">
-                <img src="assets/imgDash/Captura de tela 2026-08-30 232910.png" alt="Perfil">
+                <img src="img/Captura de tela 2026-08-30 232910.png" alt="Perfil">
             </div>
         </div>
     </header>
+    <div class="fundo-menu" id="fundoMenu" hidden></div>
+    <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal" hidden>
+        <nav>
+            <a href="./dashboard.html">Dashboard</a>
+            <a href="./upload.html">Enviar arquivos</a>
+            <button id="botaoSair" type="button">Sair</button>
+        </nav>
+    </aside>
     <main class="corpo">
         <div class="cabecalho-dashboard">
             <h1>Dashboard de evasão</h1>
@@ -153,6 +163,45 @@
             </div>
         </div>
     </main>
+    <script>
+        const botaoMenu = document.getElementById('botaoMenu');
+        const menuLateral = document.getElementById('menuLateral');
+        const fundoMenu = document.getElementById('fundoMenu');
+        const botaoSair = document.getElementById('botaoSair');
+
+        function fecharMenu() {
+            menuLateral.hidden = true;
+            fundoMenu.hidden = true;
+            botaoMenu.setAttribute('aria-expanded', 'false');
+            botaoMenu.setAttribute('aria-label', 'Abrir menu');
+        }
+
+        botaoMenu.addEventListener('click', function () {
+            const menuAberto = !menuLateral.hidden;
+
+            menuLateral.hidden = menuAberto;
+            fundoMenu.hidden = menuAberto;
+            botaoMenu.setAttribute('aria-expanded', String(!menuAberto));
+            botaoMenu.setAttribute('aria-label', menuAberto ? 'Abrir menu' : 'Fechar menu');
+        });
+
+        fundoMenu.addEventListener('click', fecharMenu);
+
+        document.addEventListener('keydown', function (evento) {
+            if (evento.key === 'Escape') {
+                fecharMenu();
+            }
+        });
+
+        menuLateral.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', fecharMenu);
+        });
+
+        botaoSair.addEventListener('click', function () {
+            sessionStorage.clear();
+            window.location.href = './login.html';
+        });
+    </script>
     <script>
     let ctxEvolucao = document.getElementById("grafico1").getContext('2d');
     let ctxIdade = document.getElementById("grafico2").getContext('2d');
@@ -435,6 +484,7 @@
             atualizarDashboard('computacao');
         }
     });
+
 </script>
 </body>
 

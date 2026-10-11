@@ -530,6 +530,14 @@ blockquote footer {
   object-fit: cover;
 }
 
+.avatar-photo-julia {
+  width: 90%;
+  height: 90%;
+  inset: 5%;
+  object-position: 85% center;
+  transform: translateY(5%);
+}
+
 .membro h3 {
   font-size: 1.02rem;
   font-weight: 600;

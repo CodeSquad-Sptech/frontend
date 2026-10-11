@@ -4,21 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evolua - Upload</title>
-  <link rel="stylesheet" href="../public/css/upload.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/upload.css" />
 </head>
 <body>
-  <header class="cabecalho">
-    <div class="logo">
-      <div class="icone-logo">
-        <img src="../public/assets/imgs/logoEvolua.png" alt="Logo Evolua" />
-      </div>
-   
+  <header class="head">
+    <div class="menu">
+      <button class="botao-menu" id="botaoMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuLateral">
+        <img src="img/Captura de tela 2026-08-30 221500.png" alt="" />
+      </button>
+      <span class="logo-texto">EVOLUA</span>
     </div>
-    <div class="usuario">
-      <div class="foto-usuario">VC</div>
-      <span>Vitor</span>
+    <div class="resto">
+      <div class="sino">
+        <img src="img/Captura de tela 2026-08-30 232901.png" alt="Notificações" />
+      </div>
+      <div class="switch">
+        <img src="img/Captura de tela 2026-08-30 232907.png" alt="Tema" />
+      </div>
+      <div class="pfp">
+        <img src="img/Captura de tela 2026-08-30 232910.png" alt="Perfil" />
+      </div>
     </div>
   </header>
+  <div class="fundo-menu" id="fundoMenu" hidden></div>
+  <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal" hidden>
+    <nav>
+      <a href="./dashboard.html">Dashboard</a>
+      <a href="./upload.html">Enviar arquivos</a>
+      <button id="botaoSair" type="button">Sair</button>
+    </nav>
+  </aside>
 
   <main class="conteudo">
     <div class="titulo">
@@ -56,5 +72,44 @@
       </div>
     </section>
   </main>
+  <script>
+    const botaoMenu = document.getElementById('botaoMenu');
+    const menuLateral = document.getElementById('menuLateral');
+    const fundoMenu = document.getElementById('fundoMenu');
+    const botaoSair = document.getElementById('botaoSair');
+
+    function fecharMenu() {
+      menuLateral.hidden = true;
+      fundoMenu.hidden = true;
+      botaoMenu.setAttribute('aria-expanded', 'false');
+      botaoMenu.setAttribute('aria-label', 'Abrir menu');
+    }
+
+    botaoMenu.addEventListener('click', function () {
+      const menuAberto = !menuLateral.hidden;
+
+      menuLateral.hidden = menuAberto;
+      fundoMenu.hidden = menuAberto;
+      botaoMenu.setAttribute('aria-expanded', String(!menuAberto));
+      botaoMenu.setAttribute('aria-label', menuAberto ? 'Abrir menu' : 'Fechar menu');
+    });
+
+    fundoMenu.addEventListener('click', fecharMenu);
+
+    document.addEventListener('keydown', function (evento) {
+      if (evento.key === 'Escape') {
+        fecharMenu();
+      }
+    });
+
+    menuLateral.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', fecharMenu);
+    });
+
+    botaoSair.addEventListener('click', function () {
+      sessionStorage.clear();
+      window.location.href = './login.html';
+    });
+  </script>
 </body>
 </html>

@@ -33,6 +33,18 @@ body {
     gap: 10px;
 }
 
+.botao-menu {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
 .menu .logo-texto {
     color: #6846D9;
     font-size: 18px;
@@ -44,7 +56,54 @@ body {
     width: 32px;
     height: 32px;
     object-fit: contain;
+}
+
+.fundo-menu {
+    position: fixed;
+    inset: 58px 0 0;
+    z-index: 9;
+    background: rgba(16, 24, 40, 0.35);
+}
+
+.menu-lateral {
+    position: fixed;
+    top: 58px;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: min(280px, 85vw);
+    padding: 18px 12px;
+    background: #FFFFFF;
+    box-shadow: 4px 0 16px rgba(16, 24, 40, 0.12);
+}
+
+.menu-lateral[hidden],
+.fundo-menu[hidden] {
+    display: none;
+}
+
+.menu-lateral nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-lateral a,
+.menu-lateral button {
+    padding: 12px 14px;
+    color: #101828;
+    background: transparent;
+    border: 0;
+    border-radius: 7px;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
     cursor: pointer;
+}
+
+.menu-lateral a:hover,
+.menu-lateral button:hover {
+    background: #F6F7FB;
 }
 
 .resto {
