@@ -55,7 +55,9 @@ function autenticar(req, res) {
         nome: usuario.nome,
         administrador: usuario.administrador,
         nomeInstituicao: usuario.nomeInstituicao,
-        fotoPerfil: usuario.fotoPerfil || "img/pessoa1.png",
+        fotoPerfil: usuario.fotoPerfil && usuario.fotoPerfil != "perfil_padrao.png"
+          ? usuario.fotoPerfil
+          : "img/usuarioSemFoto.png",
         modoEscuro: modoEscuro,
         tema: modoEscuro ? "escuro" : "claro",
         tamanhoFonte: converterTamanhoFonte(usuario.tamanhoFonte || 16)
@@ -77,7 +79,9 @@ function obterConfiguracoes(req, res) {
 
       return res.json({
         nomeInstituicao: resultado[0].nomeInstituicao,
-        fotoPerfil: resultado[0].fotoPerfil || "img/pessoa1.png",
+        fotoPerfil: resultado[0].fotoPerfil && resultado[0].fotoPerfil != "perfil_padrao.png"
+          ? resultado[0].fotoPerfil
+          : "img/usuarioSemFoto.png",
         modoEscuro: resultado[0].modoEscuro == 1,
         tema: resultado[0].modoEscuro == 1 ? "escuro" : "claro",
         tamanhoFonte: converterTamanhoFonte(resultado[0].tamanhoFonte || 16)
@@ -124,7 +128,8 @@ function salvarPerfil(req, res) {
   const fotosDisponiveis = [
     "img/pessoa1.png",
     "img/pessoa2.png",
-    "img/pessoa3.png"
+    "img/pessoa3.png",
+    "img/usuarioSemFoto.png"
   ];
   const fotoValida = fotosDisponiveis.includes(fotoPerfil) ||
     /^\/uploads\/perfil\/[a-f0-9-]+\.(jpg|png|webp)$/.test(fotoPerfil || "");

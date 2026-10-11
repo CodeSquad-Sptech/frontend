@@ -1,0 +1,33 @@
+#Ao usar, não esquece de tirar o copy do nome desse arquivo
+
+
+# --------------------------------------
+# Para usar no MySQL fora da VM:
+# --------------------------------------
+AMBIENTE_PROCESSO=desenvolvimento
+
+DB_HOST=localhost
+DB_DATABASE=Evolua
+DB_USER= **** # Nome_da_Base_do_seu_MYSQL
+DB_PASSWORD= *** # Sua_Senha_do_MYSQL
+DB_PORT=3306
+
+APP_PORT=3333
+APP_HOST=localhost
+
+
+
+
+# --------------------------------------
+# Para usar o MySQL na VM:
+# --------------------------------------
+# AMBIENTE_PROCESSO=desenvolvimento
+
+# DB_HOST=127.0.0.1
+# DB_DATABASE=Evolua
+# DB_USER=****
+# DB_PASSWORD=*****
+# DB_PORT=3307
+
+# APP_PORT=3333
+# APP_HOST=localhost

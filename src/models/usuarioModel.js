@@ -49,11 +49,14 @@ function cadastrar(nome, email, senha, idInstituicao) {
 
 function criarConfiguracao(idUsuario) {
     const instrucaoSql = `
-        INSERT INTO configuracao (fkUsuario)
-        VALUES (?);
+        INSERT INTO configuracao (fkUsuario, fotoPerfil)
+        VALUES (?, ?);
     `;
 
-    return database.executar(instrucaoSql, [idUsuario]);
+    return database.executar(
+        instrucaoSql,
+        [idUsuario, "img/usuarioSemFoto.png"]
+    );
 }
 
 function obterConfiguracoes(idUsuario) {

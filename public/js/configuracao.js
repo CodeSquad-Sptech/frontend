@@ -17,7 +17,7 @@ const botaoSalvarPerfil = document.getElementById("botaoSalvarPerfil");
 const usuarioAdministrador =
     sessionStorage.ADMINISTRADOR == "1" ||
     sessionStorage.ADMINISTRADOR == "true";
-let fotoSelecionada = sessionStorage.FOTO_PERFIL || "img/pessoa1.png";
+let fotoSelecionada = sessionStorage.FOTO_PERFIL || "img/usuarioSemFoto.png";
 let arquivoFotoSelecionado = null;
 
 function mostrarMensagemConfiguracao(elemento, mensagem) {
@@ -58,11 +58,12 @@ function atualizarTemaSelecionado() {
     const tema = campoTema.value;
 
     document.body.dataset.tema = tema;
+    atualizarIconesTema(tema);
 }
 
 function carregarCamposConfiguracao(configuracoes) {
     sessionStorage.NOME_EMPRESA = configuracoes.nomeInstituicao || "EVOLUA";
-    sessionStorage.FOTO_PERFIL = configuracoes.fotoPerfil || "img/pessoa1.png";
+    sessionStorage.FOTO_PERFIL = configuracoes.fotoPerfil || "img/usuarioSemFoto.png";
     sessionStorage.TEMA = configuracoes.tema || "claro";
     sessionStorage.TAMANHO_FONTE = configuracoes.tamanhoFonte || "media";
 
@@ -173,12 +174,7 @@ function salvarPerfilEmpresa(evento) {
             mostrarFotoSelecionada(fotoSelecionada);
             campoNomeEmpresa.value = sessionStorage.NOME_EMPRESA || "";
             aplicarPreferencias();
-            mostrarMensagemConfiguracao(
-                mensagemPerfil,
-                resultado.nomeInstituicao
-                    ? "Foto e nome da empresa salvos."
-                    : "Foto salva. O nome da empresa foi mantido."
-            );
+            mostrarMensagemConfiguracao(mensagemPerfil, "Foto salva.");
         })
         .catch(function (erro) {
             console.error("Erro ao salvar perfil e empresa:", erro);

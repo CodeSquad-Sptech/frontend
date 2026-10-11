@@ -47,14 +47,21 @@ body {
 
 .menu .logo-texto {
     color: #6846D9;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.015em;
 }
 
 .menu img {
     width: 32px;
     height: 32px;
+    object-fit: contain;
+}
+
+.menu .logo-evolua {
+    width: 42px;
+    height: 28px;
     object-fit: contain;
 }
 

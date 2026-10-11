@@ -15,6 +15,10 @@ body[data-tema="escuro"] {
     background-color: #101828;
 }
 
+body[data-tema="escuro"] .menu .logo-evolua {
+    filter: brightness(0) invert(1);
+}
+
 body[data-tema="escuro"] .head,
 body[data-tema="escuro"] .menu-lateral,
 body[data-tema="escuro"] .kpi-card,
