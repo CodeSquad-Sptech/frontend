@@ -8,3 +8,9 @@ tabela = pandas.read_csv("teste.csv", sep=";")
 tabela.to_excel("teste.xlsx", index=False)
 
 print("Conversão concluída!")
+
+
+
+
+#pip install pandas openpyxl
+#python conversor.py
