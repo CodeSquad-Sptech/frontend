@@ -19,8 +19,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 const usuarioRouter = require("./src/routes/usuarios");
+const dashboardRouter = require("./src/routes/dashboard");
 
 app.use("/usuarios", usuarioRouter);
+app.use("/dashboard", dashboardRouter); 
 
 app.listen(PORTA_APP, function () {
     console.log(`

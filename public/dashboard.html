@@ -7,36 +7,26 @@
     <title>Dashboard de evasão</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/preferencias.css">
 </head>
 
 <body>
     <header class="head">
         <div class="menu">
-            <button class="botao-menu" id="botaoMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuLateral">
-                <img data-icone-menu src="img/menuPreto.png" alt="">
-            </button>
-            <img class="logo-evolua" src="img/logoEvolua.png" alt="">
-            <span class="logo-texto" data-nome-empresa>EVOLUA</span>
+            <img src="assets/imgDash/Captura de tela 2026-08-30 221500.png" alt="Menu">
+            <span class="logo-texto">EVOLUA</span>
         </div>
         <div class="resto">
             <div class="sino">
-                <img data-icone-notificacao src="img/sinoPreto.png" alt="Notificações">
+                <img src="assets/imgDash/Captura de tela 2026-08-30 232901.png" alt="Notificações">
+            </div>
+            <div class="switch">
+                <img src="assets/imgDash/Captura de tela 2026-08-30 232907.png" alt="Tema">
             </div>
             <div class="pfp">
-                <img data-foto-perfil src="img/Captura de tela 2026-08-30 232910.png" alt="Foto de perfil">
+                <img src="assets/imgDash/Captura de tela 2026-08-30 232910.png" alt="Perfil">
             </div>
         </div>
     </header>
-    <div class="fundo-menu" id="fundoMenu" hidden></div>
-    <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal" hidden>
-        <nav>
-            <a href="./dashboard.html">Dashboard</a>
-            <a href="./upload.html">Enviar arquivos</a>
-            <a href="./configuracao.html">Configurações</a>
-            <button id="botaoSair" type="button">Sair</button>
-        </nav>
-    </aside>
     <main class="corpo">
         <div class="cabecalho-dashboard">
             <h1>Dashboard de evasão</h1>
@@ -46,28 +36,28 @@
         <div class="kpis-topo">
             <div class="kpi-card kpi-card-azul">
                 <span class="kpi-label">Matrículas</span>
-                <strong class="kpi-valor">1.850</strong>
-                <span class="kpi-meta">+2,4% no período</span>
+                <strong class="kpi-valor" id="kpi_matriculas">--</strong>
+                <span class="kpi-meta" id="meta_matriculas"></span>
             </div>
             <div class="kpi-card kpi-card-roxo">
                 <span class="kpi-label">Trancadas</span>
-                <strong class="kpi-valor">96</strong>
-                <span class="kpi-meta">-1,3% vs. mês anterior</span>
+                <strong class="kpi-valor" id="kpi_trancadas">--</strong>
+                <span class="kpi-meta" id="meta_trancadas"></span>
             </div>
             <div class="kpi-card kpi-card-vermelho">
                 <span class="kpi-label">Evadidos</span>
-                <strong class="kpi-valor">428</strong>
-                <span class="kpi-meta">+5,1% no semestre</span>
+                <strong class="kpi-valor" id="kpi_evadidos">--</strong>
+                <span class="kpi-meta" id="meta_evadidos"></span>
             </div>
             <div class="kpi-card kpi-card-verde">
                 <span class="kpi-label">Concluintes</span>
-                <strong class="kpi-valor">312</strong>
-                <span class="kpi-meta">+3,8% este ano</span>
+                <strong class="kpi-valor" id="kpi_concluintes">--</strong>
+                <span class="kpi-meta" id="meta_concluintes"></span>
             </div>
             <div class="kpi-card kpi-card-amarelo">
                 <span class="kpi-label">Taxa de evasão</span>
-                <strong class="kpi-valor">21,4%</strong>
-                <span class="kpi-meta">+1,8 p.p. no ano</span>
+                <strong class="kpi-valor" id="kpi_taxa">--</strong>
+                <span class="kpi-meta" id="meta_taxa"></span>
             </div>
         </div>
 
@@ -77,51 +67,9 @@
                 <div class="select-cursos">
                     <select name="cursos" id="cursos">
                         <option value="todos">Todos os cursos</option>
-                        <option value="1">Engenharia de Software</option>
-                        <option value="2">Ciência da Computação</option>
-                        <option value="3">Administração</option>
-                        <option value="4">Direito</option>
-                        <option value="5">Pedagogia</option>
-                        <option value="6">Enfermagem</option>
-                        <option value="7">Psicologia</option>
-                        <option value="8">Nutrição</option>
-                        <option value="9">Arquitetura e Urbanismo</option>
-                        <option value="10">Ciências Contábeis</option>
                     </select>
                 </div>
                 <div class="lista-curso">
-                    <div class="caixa-curso alerta selecionado" data-curso="engenharia">
-                        <span class="nome-curso">Engenharia de Software</span>
-                        <span class="turma-curso">2ADS</span>
-                    </div>
-                    <div class="caixa-curso alerta" data-curso="computacao">
-                        <span class="nome-curso">Ciência da Computação</span>
-                        <span class="turma-curso">3CC</span>
-                    </div>
-                    <div class="caixa-curso alerta">
-                        <span class="nome-curso">Administração</span>
-                        <span class="turma-curso">1ADM</span>
-                    </div>
-                    <div class="caixa-curso">
-                        <span class="nome-curso">Direito</span>
-                        <span class="turma-curso">4DIR</span>
-                    </div>
-                    <div class="caixa-curso">
-                        <span class="nome-curso">Pedagogia</span>
-                        <span class="turma-curso">2PED</span>
-                    </div>
-                    <div class="caixa-curso">
-                        <span class="nome-curso">Enfermagem</span>
-                        <span class="turma-curso">3ENF</span>
-                    </div>
-                    <div class="caixa-curso">
-                        <span class="nome-curso">Psicologia</span>
-                        <span class="turma-curso">1PSI</span>
-                    </div>
-                    <div class="caixa-curso">
-                        <span class="nome-curso">Nutrição</span>
-                        <span class="turma-curso">2NUT</span>
-                    </div>
                 </div>
             </div>
             <div class="grafico">
@@ -164,46 +112,6 @@
         </div>
     </main>
     <script>
-        const botaoMenu = document.getElementById('botaoMenu');
-        const menuLateral = document.getElementById('menuLateral');
-        const fundoMenu = document.getElementById('fundoMenu');
-        const botaoSair = document.getElementById('botaoSair');
-
-        function fecharMenu() {
-            menuLateral.hidden = true;
-            fundoMenu.hidden = true;
-            botaoMenu.setAttribute('aria-expanded', 'false');
-            botaoMenu.setAttribute('aria-label', 'Abrir menu');
-        }
-
-        botaoMenu.addEventListener('click', function () {
-            const menuAberto = !menuLateral.hidden;
-
-            menuLateral.hidden = menuAberto;
-            fundoMenu.hidden = menuAberto;
-            botaoMenu.setAttribute('aria-expanded', String(!menuAberto));
-            botaoMenu.setAttribute('aria-label', menuAberto ? 'Abrir menu' : 'Fechar menu');
-        });
-
-        fundoMenu.addEventListener('click', fecharMenu);
-
-        document.addEventListener('keydown', function (evento) {
-            if (evento.key === 'Escape') {
-                fecharMenu();
-            }
-        });
-
-        menuLateral.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', fecharMenu);
-        });
-
-        botaoSair.addEventListener('click', function () {
-            sessionStorage.clear();
-            window.location.href = './login.html';
-        });
-    </script>
-    <script src="js/preferencias.js"></script>
-    <script>
     let ctxEvolucao = document.getElementById("grafico1").getContext('2d');
     let ctxIdade = document.getElementById("grafico2").getContext('2d');
     let ctxEtnia = document.getElementById("grafico3").getContext('2d');
@@ -244,7 +152,7 @@
                         }
                     },
                     grid: {
-                        color: document.body.dataset.tema == 'escuro' ? '#475467' : '#F0EEF7'
+                        color: '#F0EEF7'
                     }
                 },
                 x: {
@@ -399,54 +307,155 @@
         }
     });
 
-    let dadosCursos = {
-        engenharia: {
-            nome: 'Engenharia de Software',
-            evolucao: [12.4, 14.1, 16.8, 18.2, 19.1, 21.4],
-            idade: [4, 166, 112, 68, 38, 24, 12, 4],
-            etnia: [170, 96, 128, 12, 5, 17],
-            sexo: [232, 196],
-            apoio: [142, 286],
-            escolaridade: [318, 110],
-            indicadoresGerais: ['1.850', '96', '428', '312', '21,4%']
-        },
-        computacao: {
-            nome: 'Ciência da Computação',
-            evolucao: [10.2, 11.8, 14.3, 16.1, 17.5, 19.7],
-            idade: [3, 142, 96, 54, 31, 18, 9, 3],
-            etnia: [142, 82, 108, 10, 4, 10],
-            sexo: [190, 166],
-            apoio: [128, 228],
-            escolaridade: [246, 110],
-            indicadoresGerais: ['1.620', '74', '356', '286', '19,7%']
-        }
-    };
-
-    let cardsCurso = document.querySelectorAll('.caixa-curso[data-curso]');
+    
     let seletorCursos = document.getElementById('cursos');
-    let indicadoresGerais = document.querySelectorAll('.indicador-geral-valor');
+    let listaCursos = document.querySelector('.lista-curso');
     let tituloGraficoPrincipal = document.getElementById('titulo-grafico-principal');
 
-    function atualizarDashboard(curso) {
-        let dados = dadosCursos[curso];
 
-        if (!dados) {
-            return;
+    function formatar(numero) {
+        return Number(numero).toLocaleString('pt-BR');
+    }
+
+    
+    function variacaoPercentual(atual, anterior) {
+        if (!anterior) {
+            return '';
+        }
+        let variacao = ((atual - anterior) / anterior) * 100;
+        let sinal = variacao >= 0 ? '+' : '';
+        return sinal + variacao.toFixed(1).replace('.', ',') + '% vs. ano anterior';
+    }
+
+    function carregarCursos() {
+        fetch('/dashboard/cursos')
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (cursos) {
+                        for (let i = 0; i < cursos.length; i++) {
+                            let nome = cursos[i].nome_curso;
+
+                          
+                            seletorCursos.innerHTML += `<option value="${nome}">${nome}</option>`;
+
+                         
+                            listaCursos.innerHTML += `
+                                <div class="caixa-curso" data-curso="${nome}">
+                                    <span class="nome-curso">${nome}</span>
+                                </div>`;
+                        }
+
+                       
+                        let cards = document.querySelectorAll('.caixa-curso');
+                        cards.forEach(function (card) {
+                            card.addEventListener('click', function () {
+                                seletorCursos.value = card.dataset.curso;
+                                atualizarDashboard(card.dataset.curso);
+                            });
+                        });
+                    });
+                }
+            })
+            .catch(function (erro) {
+                console.log('Erro ao carregar cursos: ' + erro);
+            });
+    }
+
+    function carregarEvolucao(curso) {
+        fetch('/dashboard/evolucao?curso=' + encodeURIComponent(curso))
+            .then(function (resposta) {
+                if (resposta.status == 200) {
+                    resposta.json().then(function (linhas) {
+                        let anos = [];
+                        let taxas = [];
+
+                        for (let i = 0; i < linhas.length; i++) {
+                            let matriculas = Number(linhas[i].matriculas);
+                            let concluintes = Number(linhas[i].concluintes);
+                            let evadidos = matriculas - concluintes;
+
+                            anos.push(linhas[i].ano);
+                            taxas.push(matriculas > 0 ? Number((evadidos / matriculas * 100).toFixed(1)) : 0);
+                        }
+
+                       
+                        graficoEvolucao.data.labels = anos;
+                        graficoEvolucao.data.datasets[0].data = taxas;
+                        graficoEvolucao.update();
+
+                     
+                        let atual = linhas[linhas.length - 1];
+                        let anterior = linhas.length > 1 ? linhas[linhas.length - 2] : null;
+
+                        let matAtual = Number(atual.matriculas);
+                        let tranAtual = Number(atual.trancadas);
+                        let concAtual = Number(atual.concluintes);
+                        let evaAtual = matAtual - concAtual;
+                        let taxaAtual = taxas[taxas.length - 1];
+
+                        document.getElementById('kpi_matriculas').innerHTML = formatar(matAtual);
+                        document.getElementById('kpi_trancadas').innerHTML = formatar(tranAtual);
+                        document.getElementById('kpi_evadidos').innerHTML = formatar(evaAtual);
+                        document.getElementById('kpi_concluintes').innerHTML = formatar(concAtual);
+                        document.getElementById('kpi_taxa').innerHTML = String(taxaAtual).replace('.', ',') + '%';
+
+                        if (anterior) {
+                            let matAnt = Number(anterior.matriculas);
+                            let concAnt = Number(anterior.concluintes);
+
+                            document.getElementById('meta_matriculas').innerHTML = variacaoPercentual(matAtual, matAnt);
+                            document.getElementById('meta_trancadas').innerHTML = variacaoPercentual(tranAtual, Number(anterior.trancadas));
+                            document.getElementById('meta_evadidos').innerHTML = variacaoPercentual(evaAtual, matAnt - concAnt);
+                            document.getElementById('meta_concluintes').innerHTML = variacaoPercentual(concAtual, concAnt);
+
+                            let diferenca = taxaAtual - taxas[taxas.length - 2];
+                            let sinal = diferenca >= 0 ? '+' : '';
+                            document.getElementById('meta_taxa').innerHTML = sinal + diferenca.toFixed(1).replace('.', ',') + ' p.p. no ano';
+                        }
+                    });
+                }
+            })
+            .catch(function (erro) {
+                console.log('Erro ao carregar evolução: ' + erro);
+            });
+    }
+
+    function carregarPerfil(curso) {
+        fetch('/dashboard/perfil?curso=' + encodeURIComponent(curso))
+            .then(function (resposta) {
+                if (resposta.status == 200) {
+                    resposta.json().then(function (p) {
+                        graficoIdade.data.datasets[0].data = [
+                            p.idade_0_17, p.idade_18_24, p.idade_25_29, p.idade_30_34,
+                            p.idade_35_39, p.idade_40_49, p.idade_50_59, p.idade_60_mais
+                        ];
+                        graficoEtnia.data.datasets[0].data = [
+                            p.etnia_branca, p.etnia_preta, p.etnia_parda,
+                            p.etnia_amarela, p.etnia_indigena, p.etnia_nao_declarada
+                        ];
+                        graficoSocioeconomico.data.datasets[0].data = [p.sexo_feminino, p.sexo_masculino];
+
+                        graficoIdade.update();
+                        graficoEtnia.update();
+                        graficoSocioeconomico.update();
+                    });
+                }
+            })
+            .catch(function (erro) {
+                console.log('Erro ao carregar perfil: ' + erro);
+            });
+    }
+
+    function atualizarDashboard(curso) {
+        if (curso == 'todos') {
+            tituloGraficoPrincipal.innerHTML = 'Evolução da evasão - Todos os cursos (%)';
+        } else {
+            tituloGraficoPrincipal.innerHTML = 'Evolução da evasão - ' + curso + ' (%)';
         }
 
-        indicadoresGerais.forEach(function (indicador, indice) {
-            indicador.innerHTML = protegerTextoHTML(dados.indicadoresGerais[indice]);
-        });
-
-        tituloGraficoPrincipal.innerHTML = protegerTextoHTML(`Evolução da evasão - ${dados.nome} (%)`);
-        graficoEvolucao.data.datasets[0].data = dados.evolucao;
-        graficoIdade.data.datasets[0].data = dados.idade;
-        graficoEtnia.data.datasets[0].data = dados.etnia;
-        graficoSocioeconomico.data.datasets[0].data = dados.sexo;
-        graficoApoio.data.datasets[0].data = dados.apoio;
-        graficoEscolaridade.data.datasets[0].data = dados.escolaridade;
-
-        cardsCurso.forEach(function (card) {
+        // marca o card selecionado
+        let cards = document.querySelectorAll('.caixa-curso');
+        cards.forEach(function (card) {
             if (card.dataset.curso == curso) {
                 card.classList.add('selecionado');
             } else {
@@ -454,38 +463,16 @@
             }
         });
 
-        graficoEvolucao.update();
-        graficoIdade.update();
-        graficoEtnia.update();
-        graficoSocioeconomico.update();
-        graficoApoio.update();
-        graficoEscolaridade.update();
+        carregarEvolucao(curso);
+        carregarPerfil(curso);
     }
 
-    cardsCurso.forEach(function (card) {
-        card.addEventListener('click', function () {
-            let curso = card.dataset.curso;
-
-            if (curso == 'engenharia') {
-                seletorCursos.value = '1';
-            } else {
-                seletorCursos.value = '2';
-            }
-
-            atualizarDashboard(curso);
-        });
-    });
-
     seletorCursos.addEventListener('change', function () {
-        let valorSelecionado = seletorCursos.value;
-
-        if (valorSelecionado == '1') {
-            atualizarDashboard('engenharia');
-        } else if (valorSelecionado == '2') {
-            atualizarDashboard('computacao');
-        }
+        atualizarDashboard(seletorCursos.value);
     });
 
+    carregarCursos();
+    atualizarDashboard('todos');
 </script>
 </body>
 
