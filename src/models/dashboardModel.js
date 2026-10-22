@@ -1,4 +1,4 @@
-var database = require("../database/config");
+const database = require("../config/config");
 
 
 function filtroCurso(nomeCurso) {

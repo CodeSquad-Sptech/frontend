@@ -20,9 +20,11 @@ app.use(cors());
 
 const usuarioRouter = require("./src/routes/usuarios");
 const dashboardRouter = require("./src/routes/dashboard");
+const logsRouter = require("./src/routes/logs.js");
 
 app.use("/usuarios", usuarioRouter);
 app.use("/dashboard", dashboardRouter); 
+app.use("/logs", logsRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

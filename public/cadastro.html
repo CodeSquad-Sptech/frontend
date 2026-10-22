@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Evolua - Cadastro</title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body>
   <main class="pagina">
     <section class="lado-esquerdo">
@@ -44,61 +46,44 @@
           <div class="campo">
             <label for="nome">NOME<span class="erro_campo" id="erro_nome"></span></label>
             <div class="campo-input">
-              <span class="icone-usuario" ></span>
-              <input
-                type="text"
-                id="nome"
-                placeholder="Seu nome completo"
-              />
+              <span class="icone-usuario"></span>
+              <input type="text" id="nome" placeholder="Seu nome completo" />
             </div>
           </div>
-          
+
           <div class="campo">
             <label for="email">E-MAIL<span class="erro_campo" id="erro_email"></span></label>
             <div class="campo-input">
               <span class="icone">✉</span>
-              <input
-                type="email"
-                id="email"
-                placeholder="voce@empresa.com"
-              />
-            </div>         
+              <input type="email" id="email" placeholder="voce@empresa.com" />
+            </div>
           </div>
 
           <div class="campo">
             <label for="senha">SENHA<span class="erro_campo" id="erro_senha"></span></label>
             <div class="campo-input">
               <span class="icone">🔒︎</span>
-              <input
-                type="password"
-                id="senha"
-                placeholder="********"
-              />
-              <button class="mostrar-senha" type="button" data-campo-senha="senha" aria-label="Mostrar senha" aria-pressed="false">◉</button>
-            </div>    
-          </div>
-
-          <div class="campo">
-            <label for="confirmar-senha">CONFIRMAR SENHA<span class="erro_campo" id="erro_confirmacao_senha"></span></label>
-            <div class="campo-input">
-              <span class="icone">🔒︎</span>
-              <input
-                type="password"
-                id="confirmacao_senha"
-                placeholder="********"
-              />
-              <button class="mostrar-senha" type="button" data-campo-senha="confirmacao_senha" aria-label="Mostrar senha" aria-pressed="false">◉</button>
+              <input type="password" id="senha" placeholder="********" />
+              <button class="mostrar-senha" type="button" data-campo-senha="senha" aria-label="Mostrar senha"
+                aria-pressed="false">◉</button>
             </div>
           </div>
 
-            <div class="campo">
+          <div class="campo">
+            <label for="confirmar-senha">CONFIRMAR SENHA<span class="erro_campo"
+                id="erro_confirmacao_senha"></span></label>
+            <div class="campo-input">
+              <span class="icone">🔒︎</span>
+              <input type="password" id="confirmacao_senha" placeholder="********" />
+              <button class="mostrar-senha" type="button" data-campo-senha="confirmacao_senha"
+                aria-label="Mostrar senha" aria-pressed="false">◉</button>
+            </div>
+          </div>
+
+          <div class="campo">
             <label for="senha">CÓDIGO DE ACESSO<span class="erro_campo" id="erro_codigo"></span></label>
             <div class="campo-input">
-              <input
-                type="text"
-                id="codigo"
-                placeholder="SPRINT1-CARAMICO"
-              />
+              <input type="text" id="codigo" placeholder="SPRINT1-CARAMICO" />
             </div>
           </div>
 
@@ -116,6 +101,7 @@
     </section>
   </main>
 </body>
+
 </html>
 
 <script>
@@ -141,29 +127,29 @@
     const senhaVar = senha.value;
     const confirmacaoSenhaVar = confirmacao_senha.value;
     const codigoVar = codigo.value;
- 
+
     limparErros();
- 
+
     let valido = true;
- 
+
     if (nomeVar == "") {
       erro_nome.textContent = "ⓘ Informe seu nome.";
       valido = false;
     }
- 
+
     if (emailVar == "") {
       erro_email.textContent = "ⓘ Informe seu e-mail.";
       valido = false;
-    } else if(!emailVar.includes('@')){
+    } else if (!emailVar.includes('@')) {
       erro_email.textContent = "ⓘ Informe um e-mail válido.";
       valido = false;
     }
- 
+
     if (senhaVar == "") {
       erro_senha.textContent = "ⓘ Informe uma senha.";
       valido = false;
     }
- 
+
     if (confirmacaoSenhaVar == "") {
       erro_confirmacao_senha.textContent = "ⓘ Confirme sua senha.";
       valido = false;
@@ -171,7 +157,7 @@
       erro_confirmacao_senha.textContent = "ⓘ As senhas não coincidem.";
       valido = false;
     }
- 
+
     if (codigoVar == "") {
       erro_codigo.textContent = "ⓘ Informe o código de acesso.";
       valido = false;
@@ -179,45 +165,57 @@
 
 
 
-    if(valido){
-          fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        confirmacaoSenhaServer: confirmacaoSenhaVar,
-        codigoServer: codigoVar
-      }),
-    })
-
-          .then(function (resposta) {
-        if (!resposta.ok) {
-          return resposta.text().then(function (textoDoErro) {
-            erro_codigo.textContent = "ⓘ " + (textoDoErro || "Não foi possível criar a conta.");
-          });
-        }
-
-        mensagem.textContent =
-          "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-        setTimeout(function () {
-          window.location = "login.html";
-        }, 2000);
+    if (valido) {
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeServer: nomeVar,
+          emailServer: emailVar,
+          senhaServer: senhaVar,
+          confirmacaoSenhaServer: confirmacaoSenhaVar,
+          codigoServer: codigoVar
+        }),
       })
-      .catch(function (resposta) {
-        console.error("Erro ao tentar realizar o cadastro:", resposta);
-        erro_codigo.textContent = "ⓘ Não foi possível conectar ao servidor. Tente novamente.";
-      });
-    
 
-    return false;
+        .then(function (resposta) {
+          if (!resposta.ok) {
+            return resposta.text().then(function (textoDoErro) {
+              erro_codigo.textContent = "ⓘ " + (textoDoErro || "Não foi possível criar a conta.");
+            });
+          }
+
+          mensagem.textContent =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(function () {
+            window.location = "login.html";
+          }, 2000);
+        })
+        .then(function () {
+          fetch("/logs/log", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              nivelServer: "Informação",
+              mensagemServer: `CADASTRO REALIZADO: email = ${emailVar} / codigo = ${codigoVar}`
+            })
+          })
+        })
+        .catch(function (resposta) {
+          console.error("Erro ao tentar realizar o cadastro:", resposta);
+          erro_codigo.textContent = "ⓘ Não foi possível conectar ao servidor. Tente novamente.";
+        });
+
+
+      return false;
+    }
   }
-  }
- 
+
   function limparErros() {
     erro_nome.textContent = "";
     erro_email.textContent = "";
