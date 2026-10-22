@@ -1,7 +1,10 @@
 var dashboardModel = require("../models/dashboardModel");
 
+
 function listarCursos(req, res) {
-    dashboardModel.listarCursos().then(function (resultado) {
+    var idInstituicao = req.sessao.fkInstituicao;
+
+    dashboardModel.listarCursos(idInstituicao).then(function (resultado) {
         res.status(200).json(resultado);
     }).catch(function (erro) {
         console.log(erro);
@@ -11,9 +14,10 @@ function listarCursos(req, res) {
 }
 
 function buscarEvolucao(req, res) {
+    var idInstituicao = req.sessao.fkInstituicao;
     var curso = req.query.curso;
 
-    dashboardModel.buscarEvolucao(curso).then(function (resultado) {
+    dashboardModel.buscarEvolucao(idInstituicao, curso).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -27,10 +31,12 @@ function buscarEvolucao(req, res) {
 }
 
 function buscarPerfil(req, res) {
+    var idInstituicao = req.sessao.fkInstituicao;
     var curso = req.query.curso;
 
-    dashboardModel.buscarPerfil(curso).then(function (resultado) {
-        if (resultado.length > 0) {
+    dashboardModel.buscarPerfil(idInstituicao, curso).then(function (resultado) {
+    
+        if (resultado.length > 0 && resultado[0].sexo_feminino !== null) {
             res.status(200).json(resultado[0]);
         } else {
             res.status(204).send("Nenhum resultado encontrado!");

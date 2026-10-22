@@ -7,6 +7,7 @@ function criarSessao(usuario) {
     const token = crypto.randomBytes(32).toString("hex");
     sessoes.set(token, {
         idUsuario: usuario.idUsuario,
+        fkInstituicao: usuario.fkInstituicao,
         administrador: usuario.administrador == 1,
         expiraEm: Date.now() + DURACAO_SESSAO
     });

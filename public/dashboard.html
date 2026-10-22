@@ -327,9 +327,21 @@
         return sinal + variacao.toFixed(1).replace('.', ',') + '% vs. ano anterior';
     }
 
+
+    function sessaoExpirada(resposta) {
+        if (resposta.status == 401) {
+            window.location = 'login.html';
+            return true;
+        }
+        return false;
+    }
+
     function carregarCursos() {
         fetch('/dashboard/cursos')
             .then(function (resposta) {
+                if (sessaoExpirada(resposta)) {
+                    return;
+                }
                 if (resposta.ok) {
                     resposta.json().then(function (cursos) {
                         for (let i = 0; i < cursos.length; i++) {
@@ -364,6 +376,9 @@
     function carregarEvolucao(curso) {
         fetch('/dashboard/evolucao?curso=' + encodeURIComponent(curso))
             .then(function (resposta) {
+                if (sessaoExpirada(resposta)) {
+                    return;
+                }
                 if (resposta.status == 200) {
                     resposta.json().then(function (linhas) {
                         let anos = [];
@@ -423,6 +438,9 @@
     function carregarPerfil(curso) {
         fetch('/dashboard/perfil?curso=' + encodeURIComponent(curso))
             .then(function (resposta) {
+                if (sessaoExpirada(resposta)) {
+                    return;
+                }
                 if (resposta.status == 200) {
                     resposta.json().then(function (p) {
                         graficoIdade.data.datasets[0].data = [
@@ -453,7 +471,7 @@
             tituloGraficoPrincipal.innerHTML = 'Evolução da evasão - ' + curso + ' (%)';
         }
 
-        // marca o card selecionado
+       
         let cards = document.querySelectorAll('.caixa-curso');
         cards.forEach(function (card) {
             if (card.dataset.curso == curso) {

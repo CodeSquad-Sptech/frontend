@@ -106,6 +106,7 @@ CREATE TABLE quantidade_matriculas_outros (
     financiamento INT,
     deficiencia INT,
     alunosApoioSocial INT,
+    quantidadeAlunosSituacaoTrancada INT,
     fkInfoMatriculas INT NOT NULL,
     CONSTRAINT fkQuantidadeMatriculasOutrosInfoMatriculas
         FOREIGN KEY (fkInfoMatriculas) REFERENCES info_matriculas(idInfoMatriculas)
