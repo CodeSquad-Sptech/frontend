@@ -1,12 +1,21 @@
 const database = require("../config/config");
 
-function CriarLog(nivel, mensagem, dataHora) {
+function CriarLog(nivel, mensagem) {
+    console.log("bateu no model")
     const instrucaoSql = `
         INSERT INTO logs (empresa, funcionario, nivel, mensagem, dataHora) VALUES
-        ("Evolua", "Admin", ?, ?, ?);
+        ("Evolua", "Sistema", ?, ?, Now());
         `;
+    console.log("fez a instrução")
+    database.executar(instrucaoSql, [nivel, mensagem])
+    .then(function() {
+        console.log("deu certo???")
+    })
+    .catch(function(erro) {
+        console.log("deu ruim = " + erro)
+    })
 
-    return database.executar(instrucaoSql, [nivel, mensagem, dataHora]);
+    return;
 }
 
 module.exports = {

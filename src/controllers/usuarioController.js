@@ -46,7 +46,7 @@ function autenticar(req, res) {
       res.setHeader(
         "Set-Cookie",
         "evolua_sessao=" + token + "; HttpOnly; SameSite=Lax; Path=/; Max-Age=" +
-          (sessoes.DURACAO_SESSAO / 1000)
+        (sessoes.DURACAO_SESSAO / 1000)
       );
 
       return res.json({
@@ -200,15 +200,14 @@ function cadastrar(req, res) {
         return null;
       }
 
-      return usuarioModel.criarConfiguracao(resultadoCadastro.insertId);
-    })
-    .then(function (resultadoConfiguracao) {
-      if (!resultadoConfiguracao) {
-        return;
-      }
-
-      return res.status(201).json({ mensagem: "Cadastro realizado!" });
-    })
+      /* return criarConfiguracao(resultadoCadastro.insertId, "img/usuarioSemFoto.png"); */
+      /* return (function (resultadoConfiguracao) {
+        if (!resultadoConfiguracao) {
+          return;
+        }
+ */
+        return res.status(201).json({ mensagem: "Cadastro realizado!" });
+      })
     .catch(function (erro) {
       console.error(erro);
       if (!res.headersSent) {

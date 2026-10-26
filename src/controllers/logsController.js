@@ -1,23 +1,25 @@
-var logsdModel = require("../models/logsModel");
+var logsModel = require("../models/logsModel");
 
 function CriarLog(req, res) {
+    console.log("bateu no controller")
     const nivel = req.body.nivelServer;
     const mensagem = req.body.mensagemServer;
-    const constData = new Date();
-    const dataHora = `${constData.getFullYear}-${String(constData.getMonth() + 1).padStart(2, '0')}-${String(constData.getDate()).padStart(2, '0')} ${constData.getHours}:${constData.getMinutes}:${constData.getSeconds}`
+    
+    console.log(nivel + " ------- " + mensagem)
 
-   
     if (mensagem.length > 100) {
         console.log("ERRO AO REGISTRAR LOG: Mensagem muito grande.")
         return;
     }
 
-    logsdModel.CriarLog(nivel, mensagem, dataHora)
-    .then(function() {
-        res.status(200)
-    })
-    .catch(function(erro) {
+    logsModel.CriarLog(nivel, mensagem).then(function() {
+        console.log("passou do then controller")
+        res.ok
+        return;
+    }).catch(function(erro) {
+        console.log("deu ruim no then controller / " + erro)
         res.status(500)
+        return;
     })
 }
 

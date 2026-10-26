@@ -146,11 +146,23 @@
               sessionStorage.TEMA = json.tema;
               sessionStorage.MODO_ESCURO = json.modoEscuro;
               sessionStorage.TAMANHO_FONTE = json.tamanhoFonte;
-
+          })
+        }).then(function () {
+          fetch("/logs/log", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+              nivelServer: "Informação",
+              mensagemServer: `LOGIN REALIZADO: email = ${emailVar}`
+            })
+          })
+          .then(function () {
               setTimeout(function () {
                 window.location = "dashboard.html";
-              }, 1000);
-          });
+              }, 500);
+          })
         })
         .catch(function (erro) {
           console.error("Erro ao tentar realizar o login:", erro);

@@ -186,13 +186,9 @@
               erro_codigo.textContent = "ⓘ " + (textoDoErro || "Não foi possível criar a conta.");
             });
           }
-
+          
           mensagem.textContent =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(function () {
-            window.location = "login.html";
-          }, 2000);
         })
         .then(function () {
           fetch("/logs/log", {
@@ -205,15 +201,20 @@
               mensagemServer: `CADASTRO REALIZADO: email = ${emailVar} / codigo = ${codigoVar}`
             })
           })
-        })
-        .catch(function (resposta) {
-          console.error("Erro ao tentar realizar o cadastro:", resposta);
-          erro_codigo.textContent = "ⓘ Não foi possível conectar ao servidor. Tente novamente.";
+          .then(function () {
+            console.log("passou do fetch")
+            setTimeout(function () {window.location="login.html"}, 500);
+          })
+          })
+          .catch(function (resposta) {
+            console.error("Erro ao tentar realizar o cadastro:", resposta);
+            erro_codigo.textContent = "ⓘ Não foi possível conectar ao servidor. Tente novamente.";
+            return false;
         });
-
-
+        
+        
       return false;
-    }
+    } 
   }
 
   function limparErros() {

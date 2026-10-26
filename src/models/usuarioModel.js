@@ -8,14 +8,10 @@ function autenticar(email, senha) {
             u.email,
             u.administrador,
             u.fkInstituicao,
-            i.nome AS nomeInstituicao,
-            c.fotoPerfil,
-            c.tamanhoFonte,
-            c.modoEscuro
+            i.nome nomeInstituicao
         FROM usuario u
         JOIN instituicao i ON i.idInstituicao = u.fkInstituicao
-        LEFT JOIN configuracao c ON c.fkUsuario = u.idUsuario
-        WHERE u.email = ? AND u.senha = ?;
+        WHERE u.email = 'email@gmail.com' AND u.senha = 'Senha(segur4)';
     `;
 
     return database.executar(instrucaoSql, [email, senha]);
@@ -47,7 +43,7 @@ function cadastrar(nome, email, senha, idInstituicao) {
     return database.executar(instrucaoSql, [nome, email, senha, idInstituicao]);
 }
 
-function criarConfiguracao(idUsuario) {
+/* function criarConfiguracao(idUsuario) {
     const instrucaoSql = `
         INSERT INTO configuracao (fkUsuario, fotoPerfil)
         VALUES (?, ?);
@@ -57,9 +53,9 @@ function criarConfiguracao(idUsuario) {
         instrucaoSql,
         [idUsuario, "img/usuarioSemFoto.png"]
     );
-}
+} */
 
-function obterConfiguracoes(idUsuario) {
+/* function obterConfiguracoes(idUsuario) {
     const instrucaoSql = `
         SELECT
             c.fotoPerfil,
@@ -73,9 +69,9 @@ function obterConfiguracoes(idUsuario) {
     `;
 
     return database.executar(instrucaoSql, [idUsuario]);
-}
+} */
 
-function salvarPerfil(idUsuario, nomeInstituicao, fotoPerfil) {
+/* function salvarPerfil(idUsuario, nomeInstituicao, fotoPerfil) {
     const instrucaoSql = `
         UPDATE instituicao i
         JOIN usuario u ON u.fkInstituicao = i.idInstituicao
@@ -85,9 +81,9 @@ function salvarPerfil(idUsuario, nomeInstituicao, fotoPerfil) {
     `;
 
     return database.executar(instrucaoSql, [nomeInstituicao, fotoPerfil, idUsuario]);
-}
+} */
 
-function salvarPreferencias(idUsuario, tema, tamanhoFonte) {
+/* function salvarPreferencias(idUsuario, tema, tamanhoFonte) {
     const modoEscuro = tema == "escuro" ? 1 : 0;
     const tamanhosFonte = {
         pequena: 14,
@@ -104,14 +100,14 @@ function salvarPreferencias(idUsuario, tema, tamanhoFonte) {
         instrucaoSql,
         [modoEscuro, tamanhosFonte[tamanhoFonte], idUsuario]
     );
-}
+} */
 
 module.exports = {
     autenticar,
     buscarInstituicaoPorCodigo,
     cadastrar,
-    criarConfiguracao,
-    obterConfiguracoes,
-    salvarPerfil,
-    salvarPreferencias
+    /* criarConfiguracao, */
+    /* obterConfiguracoes, */
+    /* salvarPerfil, */
+    /* salvarPreferencias */
 };
