@@ -119,6 +119,55 @@ header {
   color: var(--laranja);
 }
 
+/* MASCOTE FIXO */
+
+.mascote-fixo {
+  --tam: 320px;                      
+  position: fixed;
+  left: calc(var(--tam) * -0.20);    
+  bottom: calc(var(--tam) * -0.27); 
+  z-index: 40;
+  width: var(--tam);
+  text-decoration: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.mascote-fixo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: balancar 3s ease-in-out infinite;
+}
+
+.balao-duvida {
+  position: absolute;
+  left: 80%;                
+  bottom: 66%;               
+  transform: translateX(-50%);
+  padding: 8px 14px;
+  background: var(--branco);
+  color: var(--azul-escuro);
+  border: 1px solid var(--borda);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(11, 27, 63, 0.15);
+}
+
+/* setinha do balão apontando para o dedo */
+.balao-duvida::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  background: var(--branco);
+  border-right: 1px solid var(--borda);
+  border-bottom: 1px solid var(--borda);
+  transform: translateX(-50%) rotate(45deg);
+}
 
 /* BOTÃO DO HEADER */
 
@@ -666,6 +715,15 @@ blockquote footer {
 
 
 @media (max-width: 760px) {
+
+    .mascote-fixo {
+    --tam: 110px;
+  }
+
+  .balao-duvida {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
 
   section {
     padding: 64px 0;
