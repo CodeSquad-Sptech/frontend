@@ -74,7 +74,11 @@ function buscarPerfil(idInstituicao, nomeCurso) {
             SUM(mr.indigena - cr.indigena) AS etnia_indigena,
             SUM(mr.naoDeclarada - cr.corNaoDeclarada) AS etnia_nao_declarada,
             SUM(ms.feminino - cs.feminino) AS sexo_feminino,
-            SUM(ms.masculino - cs.masculino) AS sexo_masculino
+            SUM(ms.masculino - cs.masculino) AS sexo_masculino,
+            SUM(mo.alunosApoioSocial) AS apoio_com,
+            SUM((ms.feminino + ms.masculino) - mo.alunosApoioSocial) AS apoio_sem,
+            SUM(mrd.redePublica - crd.redePublica) AS rede_publica,
+            SUM(mrd.redePrivada - crd.redePrivada) AS rede_privada
         ${JUNCOES_BASE}
         JOIN quantidade_matriculas_idade mi ON mi.fkInfoMatriculas = m.idInfoMatriculas
         JOIN quantidade_concluintes_idade ci ON ci.fkInfoConcluintes = k.idInfoConcluintes
@@ -82,6 +86,9 @@ function buscarPerfil(idInstituicao, nomeCurso) {
         JOIN quantidade_concluintes_raca cr ON cr.fkInfoConcluintes = k.idInfoConcluintes
         JOIN quantidade_matriculas_sexo ms ON ms.fkInfoMatriculas = m.idInfoMatriculas
         JOIN quantidade_concluintes_sexo cs ON cs.fkInfoConcluintes = k.idInfoConcluintes
+        JOIN quantidade_matriculas_outros mo ON mo.fkInfoMatriculas = m.idInfoMatriculas
+        JOIN quantidade_matriculas_rede mrd ON mrd.fkInfoMatriculas = m.idInfoMatriculas
+        JOIN quantidade_concluintes_rede crd ON crd.fkInfoConcluintes = k.idInfoConcluintes
         WHERE u.fkInstituicao = ?
           AND c.ano = (
               SELECT MAX(c2.ano)

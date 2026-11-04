@@ -6,29 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de evasão</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/evolua.css">
+    <link rel="stylesheet" href="css/preferencias.css">
 </head>
 
 <body>
     <header class="head">
         <div class="menu">
-            <img src="assets/imgDash/Captura de tela 2026-08-30 221500.png" alt="Menu">
-            <span class="logo-texto">EVOLUA</span>
+            <button class="botao-menu" id="botaoMenu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuLateral">
+                <img data-icone-menu src="img/menuPreto.png" alt="">
+            </button>
+            <img class="logo-evolua" src="img/logoEvolua.png" alt="">
+            <span class="logo-texto" data-nome-empresa>EVOLUA</span>
         </div>
         <div class="resto">
             <div class="sino">
-                <img src="assets/imgDash/Captura de tela 2026-08-30 232901.png" alt="Notificações">
-            </div>
-            <div class="switch">
-                <img src="assets/imgDash/Captura de tela 2026-08-30 232907.png" alt="Tema">
+                <img data-icone-notificacao src="img/sinoPreto.png" alt="Notificações">
             </div>
             <div class="pfp">
-                <img src="assets/imgDash/Captura de tela 2026-08-30 232910.png" alt="Perfil">
+                <img data-foto-perfil src="img/usuarioSemFoto.png" alt="Foto de perfil">
             </div>
         </div>
     </header>
+
+    <div class="fundo-menu" id="fundoMenu" hidden></div>
+    <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal" hidden>
+        <nav>
+            <a href="./dashboard.html" aria-current="page">Dashboard</a>
+            <a href="./upload.html">Enviar arquivos</a>
+            <a href="./configuracao.html">Configurações</a>
+            <button id="botaoSair" type="button">Sair</button>
+        </nav>
+    </aside>
     <main class="corpo">
         <div class="cabecalho-dashboard">
+            <span class="subtitulo">Visão geral</span>
             <h1>Dashboard de evasão</h1>
             <p>Acompanhe os principais indicadores e o perfil dos alunos.</p>
         </div>
@@ -111,6 +126,8 @@
             </div>
         </div>
     </main>
+    <script src="js/preferencias.js"></script>
+    <script src="js/menu.js"></script>
     <script>
     let ctxEvolucao = document.getElementById("grafico1").getContext('2d');
     let ctxIdade = document.getElementById("grafico2").getContext('2d');
@@ -126,13 +143,13 @@
             datasets: [{
                 label: 'Taxa de evasão (%)',
                 data: [12.4, 14.1, 16.8, 18.2, 19.1, 21.4],
-                backgroundColor: 'rgba(104, 70, 217, 0.15)',
-                borderColor: '#6846D9',
+                backgroundColor: 'rgba(46, 91, 215, 0.12)',
+                borderColor: '#2E5BD7',
                 borderWidth: 2,
                 tension: 0.35,
                 fill: true,
                 pointBackgroundColor: '#FFFFFF',
-                pointBorderColor: '#6846D9',
+                pointBorderColor: '#2E5BD7',
                 pointBorderWidth: 3,
                 pointRadius: 4
             }]
@@ -152,7 +169,7 @@
                         }
                     },
                     grid: {
-                        color: '#F0EEF7'
+                        color: '#E3E6ED'
                     }
                 },
                 x: {
@@ -181,8 +198,8 @@
             datasets: [{
                 label: 'Alunos evadidos',
                 data: [12, 480, 310, 190, 110, 95, 60, 27],
-                backgroundColor: 'rgba(6, 182, 164, 0.5)',
-                borderColor: 'rgba(6, 182, 164, 1)',
+                backgroundColor: 'rgba(31, 169, 139, 0.5)',
+                borderColor: 'rgba(31, 169, 139, 1)',
                 borderWidth: 1
             }]
         },
@@ -233,8 +250,8 @@
             datasets: [{
                 label: 'Alunos evadidos',
                 data: [690, 594],
-                backgroundColor: ['rgba(255, 105, 180, 0.8)', 'rgba(255, 105, 180, 0.8)'],
-                borderColor: ['rgba(255, 105, 180, 1)', 'rgba(255, 105, 180, 1)'],
+                backgroundColor: ['rgba(245, 166, 35, 0.8)', 'rgba(245, 166, 35, 0.8)'],
+                borderColor: ['rgba(245, 166, 35, 1)', 'rgba(245, 166, 35, 1)'],
                 borderWidth: 1
             }]
         },
@@ -260,8 +277,8 @@
             datasets: [{
                 label: 'Alunos evadidos',
                 data: [480, 804],
-                backgroundColor: ['rgba(46, 91, 215, 0.7)', 'rgba(233, 162, 59, 0.7)'],
-                borderColor: ['rgba(46, 91, 215, 1)', 'rgba(233, 162, 59, 1)'],
+                backgroundColor: ['rgba(46, 91, 215, 0.7)', 'rgba(245, 166, 35, 0.7)'],
+                borderColor: ['rgba(46, 91, 215, 1)', 'rgba(245, 166, 35, 1)'],
                 borderWidth: 1
             }]
         },
@@ -287,8 +304,8 @@
             datasets: [{
                 label: 'Alunos evadidos',
                 data: [812, 472],
-                backgroundColor: ['rgba(6, 182, 164, 0.7)', 'rgba(139, 92, 246, 0.7)'],
-                borderColor: ['rgba(6, 182, 164, 1)', 'rgba(139, 92, 246, 1)'],
+                backgroundColor: ['rgba(31, 169, 139, 0.7)', 'rgba(19, 39, 90, 0.7)'],
+                borderColor: ['rgba(31, 169, 139, 1)', 'rgba(19, 39, 90, 1)'],
                 borderWidth: 1
             }]
         },
