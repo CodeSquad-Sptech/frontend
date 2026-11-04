@@ -93,6 +93,7 @@ header {
   width: 130px;
   height: 60px;
   object-fit: contain;
+  object-position: left center;
 }
 
 
@@ -129,6 +130,9 @@ header {
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
+}
+.login-mobile {
+  display: none;
 }
 
 .botao-contato:hover {
@@ -691,9 +695,27 @@ blockquote footer {
     display: block;
     padding: 16px 24px;
   }
+    .login-mobile {
+    display: block;
+    padding: 16px 24px;
+  }
 
-  .botao-contato {
-    display: none;
+  .links-menu .login-mobile a {
+    padding: 12px 24px;
+    background: var(--azul-escuro);
+    color: #FFFFFF;
+    border-radius: 100px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .links-menu .login-mobile a:hover {
+    background:#E2971A;
+    color: #FFFFFF;
+  }
+
+    .botao-contato {
+   display: none;
   }
 
   .botao-menu {
