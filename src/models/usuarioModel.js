@@ -8,10 +8,10 @@ function autenticar(email, senha) {
             u.email,
             u.administrador,
             u.fkInstituicao,
-            i.nome nomeInstituicao
+            i.nome AS nomeInstituicao
         FROM usuario u
         JOIN instituicao i ON i.idInstituicao = u.fkInstituicao
-        WHERE u.email = 'email@gmail.com' AND u.senha = 'Senha(segur4)';
+        WHERE u.email = ? AND u.senha = ?;
     `;
 
     return database.executar(instrucaoSql, [email, senha]);

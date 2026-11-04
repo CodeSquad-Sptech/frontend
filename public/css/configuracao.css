@@ -1,39 +1,63 @@
 .pagina-configuracao {
     width: min(760px, 92%);
-    margin: 32px auto;
+    margin: 48px auto 72px;
     display: grid;
-    gap: 16px;
+    gap: 20px;
 }
 
-.titulo-configuracao h1,
-.cartao-configuracao h2 {
-    margin: 0 0 8px;
-    color: #101828;
+/* TÍTULO DA PÁGINA */
+
+.titulo-configuracao {
+    margin-bottom: 12px;
+}
+
+.titulo-configuracao h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.12;
 }
 
 .titulo-configuracao p,
 .descricao-admin {
-    margin: 0;
-    color: #667085;
+    max-width: 52ch;
+    margin: 14px 0 0;
+    color: var(--texto-claro);
+    font-size: 1.05rem;
 }
 
+/* CARTÕES */
+
 .cartao-configuracao {
-    padding: 20px;
-    background: #FFFFFF;
-    border: 1px solid #E3E6ED;
-    border-radius: 10px;
+    padding: 28px;
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+}
+
+.cartao-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--borda);
 }
 
 .cartao-configuracao h2 {
-    margin-bottom: 16px;
-    font-size: 18px;
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
 }
+
+/* CAMPOS */
 
 .cartao-configuracao > label,
 #formAdministrador label {
     display: block;
-    margin: 14px 0 6px;
-    color: #344054;
+    margin: 18px 0 6px;
+    color: var(--azul-escuro);
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
@@ -41,25 +65,43 @@
 .cartao-configuracao input[type="email"],
 .cartao-configuracao select {
     width: 100%;
-    min-height: 40px;
-    padding: 8px 10px;
-    color: #101828;
-    background: #FFFFFF;
-    border: 1px solid #D0D5DD;
-    border-radius: 6px;
+    min-height: 44px;
+    padding: 10px 14px;
+    color: var(--texto);
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 12px;
     font: inherit;
 }
 
+.cartao-configuracao input:focus,
+.cartao-configuracao select:focus {
+    outline: none;
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(46, 91, 215, 0.15);
+}
+
+/* FOTO DE PERFIL */
+
 .rotulo-foto {
-    margin: 0 0 10px;
-    color: #344054;
+    margin: 0 0 4px;
+    color: var(--azul-escuro);
+    font-size: 0.9rem;
     font-weight: 600;
+}
+
+.ajuda-foto {
+    display: block;
+    margin: 0 0 16px;
+    color: var(--texto-claro);
+    font-size: 0.85rem;
 }
 
 .opcoes-foto {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .opcao-foto {
@@ -69,13 +111,17 @@
     overflow: hidden;
     border-radius: 50%;
     border: 3px solid transparent;
-    background: #E3E6ED;
+    background: var(--borda);
     cursor: pointer;
+}
+
+.opcao-foto:hover {
+    border-color: var(--laranja);
 }
 
 .opcao-foto[aria-pressed="true"],
 .opcao-enviar-foto.selecionada {
-    border-color: #2E5BD7;
+    border-color: var(--azul);
 }
 
 .opcao-foto img {
@@ -88,8 +134,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #475467;
-    font-size: 32px;
+    color: var(--azul);
+    font-size: 30px;
 }
 
 .opcao-enviar-foto input {
@@ -101,38 +147,33 @@
 }
 
 .opcao-enviar-foto:focus-within {
-    outline: 2px solid #2E5BD7;
+    outline: 2px solid var(--azul);
     outline-offset: 3px;
 }
 
-.ajuda-foto {
-    display: block;
-    margin: 8px 0 16px;
-    color: #667085;
-}
+/* BOTÕES (pílula, como na home) */
 
 .botao-adicionar,
 .botao-remover,
 .botao-salvar {
-    min-height: 38px;
-    padding: 8px 12px;
+    min-height: 44px;
+    padding: 12px 24px;
     border: 0;
-    border-radius: 6px;
-    font: inherit;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
 }
 
-.botao-adicionar {
-    margin-top: 16px;
-    color: #FFFFFF;
-    background: #2E5BD7;
+.botao-salvar {
+    margin-top: 24px;
+    color: var(--azul-escuro);
+    background: var(--laranja);
 }
 
-.botao-salvar {
-    margin-top: 16px;
-    color: #FFFFFF;
-    background: #2E5BD7;
+.botao-salvar:hover {
+    background: #E2971A;
 }
 
 .botao-salvar:disabled {
@@ -140,15 +181,34 @@
     cursor: wait;
 }
 
+.botao-adicionar {
+    margin-top: 24px;
+    color: #FFFFFF;
+    background: var(--azul-escuro);
+}
+
+.botao-adicionar:hover {
+    background: var(--azul);
+}
+
 .botao-remover {
+    min-height: 36px;
+    padding: 8px 16px;
     color: #B42318;
     background: #FEF3F2;
+    font-size: 0.85rem;
 }
+
+.botao-remover:hover {
+    background: #FDE2DF;
+}
+
+/* ADMINISTRADORES */
 
 .lista-administradores {
     display: grid;
-    gap: 8px;
-    margin-top: 16px;
+    gap: 10px;
+    margin: 24px 0 0;
     padding: 0;
     list-style: none;
 }
@@ -158,9 +218,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 12px;
-    border: 1px solid #E3E6ED;
-    border-radius: 6px;
+    padding: 14px 16px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
 }
 
 .administrador-item strong,
@@ -169,17 +229,24 @@
 }
 
 .administrador-item strong {
-    color: #101828;
+    color: var(--azul-escuro);
+    font-family: 'Sora', sans-serif;
+    font-size: 0.94rem;
 }
 
 .administrador-item span {
     flex: 1;
-    color: #475467;
+    color: var(--texto-claro);
+    font-size: 0.9rem;
 }
 
+/* MENSAGENS */
+
 .mensagem-configuracao {
-    margin: 10px 0 0;
-    color: #175CD3;
+    margin: 14px 0 0;
+    color: var(--azul);
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .aviso-somente-leitura {
@@ -197,11 +264,11 @@ body[data-administrador="false"] .cartao-configuracao.somente-leitura {
 
 @media (max-width: 600px) {
     .pagina-configuracao {
-        margin: 22px auto;
+        margin: 32px auto 56px;
     }
 
     .cartao-configuracao {
-        padding: 16px;
+        padding: 20px;
     }
 
     .administrador-item {

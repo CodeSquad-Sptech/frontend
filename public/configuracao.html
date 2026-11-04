@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurações - Evolua</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/configuracao.css">
-    <link rel="stylesheet" href="css/preferencias.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/evolua.css">
+    <link rel="stylesheet" href="./css/configuracao.css">
+    <link rel="stylesheet" href="./css/preferencias.css">
 </head>
 <body>
     <header class="head">
@@ -39,12 +42,16 @@
 
     <main class="pagina-configuracao">
         <header class="titulo-configuracao">
+            <span class="subtitulo">Sua conta</span>
             <h1>Configurações</h1>
             <p>Personalize a aparência e as informações exibidas no seu navegador.</p>
         </header>
 
         <form class="cartao-configuracao" id="formPerfilEmpresa">
-            <h2>Perfil</h2>
+            <div class="cartao-cabecalho">
+                <span class="icone-recurso">01</span>
+                <h2>Perfil</h2>
+            </div>
             <p class="rotulo-foto">Escolha uma foto de perfil</p>
             <small class="ajuda-foto">Ou envie sua própria foto. Limite: 2 MB.</small>
             <div class="opcoes-foto" id="opcoesFoto">
@@ -70,7 +77,10 @@
         </form>
 
         <form class="cartao-configuracao" id="formAparencia">
-            <h2>Aparência</h2>
+            <div class="cartao-cabecalho">
+                <span class="icone-recurso">02</span>
+                <h2>Aparência</h2>
+            </div>
             <label for="tamanhoFonte">Tamanho da fonte</label>
             <select id="tamanhoFonte">
                 <option value="pequena">Pequena</option>
@@ -88,10 +98,15 @@
         </form>
 
         <section class="cartao-configuracao">
-            <h2>Administradores</h2>
+            <div class="cartao-cabecalho">
+                <span class="icone-recurso">03</span>
+                <h2>Administradores</h2>
+            </div>
             <form id="formAdministrador">
                 <label for="nomeEmpresa">Nome da empresa</label>
                 <input id="nomeEmpresa" type="text" maxlength="45" placeholder="Ex.: EVOLUA (opcional)">
+                <label for="nomeAdministrador">Nome</label>
+                <input id="nomeAdministrador" type="text" maxlength="100" required>
                 <label for="emailAdministrador">E-mail</label>
                 <input id="emailAdministrador" type="email" maxlength="120" required>
                 <button class="botao-adicionar" type="submit">Adicionar administrador</button>

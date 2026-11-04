@@ -1,0 +1,309 @@
+/* =====================================================
+   EVOLUA — design compartilhado (mesmo padrão da home)
+   Carregue depois do dashboard.css e antes do preferencias.css
+   ===================================================== */
+
+:root {
+    --azul-escuro: #0B1B3F;
+    --azul-escuro-2: #13275A;
+    --azul: #2E5BD7;
+    --laranja: #F5A623;
+    --verde: #1FA98B;
+    --fundo: #F6F7FB;
+    --branco: #FFFFFF;
+    --texto: #101828;
+    --texto-claro: #5B6472;
+    --borda: #E3E6ED;
+}
+
+/* TIPOGRAFIA */
+
+body {
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    line-height: 1.55;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Sora', sans-serif;
+    letter-spacing: -0.01em;
+}
+
+.cabecalho-dashboard h1,
+.kpi-cursos h2,
+.grafico h2,
+.graficos h3,
+.graficos-mini h4,
+.secao-titulo,
+.titulo-configuracao h1,
+.cartao-configuracao h2 {
+    color: var(--azul-escuro);
+    font-family: 'Sora', sans-serif;
+}
+
+.cabecalho-dashboard p,
+.kpi-label,
+.kpi-meta {
+    color: var(--texto-claro);
+}
+
+.subtitulo {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 6px 0;
+    color: var(--texto-claro);
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--borda);
+}
+
+/* CABEÇALHO (igual ao da home) */
+
+.head {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 70px;
+    padding: 0 28px;
+    background: rgba(246, 247, 251, 0.95);
+    border-bottom: 1px solid var(--borda);
+    backdrop-filter: blur(6px);
+}
+
+.menu .logo-texto {
+    color: var(--azul-escuro);
+    font-family: 'Sora', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.menu .logo-evolua {
+    width: 52px;
+    height: 34px;
+}
+
+.resto img {
+    width: 24px;
+    height: 24px;
+}
+
+.pfp img {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    border: 2px solid var(--borda);
+}
+
+/* MENU LATERAL */
+
+.fundo-menu {
+    inset: 70px 0 0;
+    z-index: 40;
+    background: rgba(11, 27, 63, 0.4);
+}
+
+.menu-lateral {
+    top: 70px;
+    z-index: 45;
+    padding: 20px 14px;
+    background: var(--branco);
+    border-right: 1px solid var(--borda);
+    box-shadow: none;
+}
+
+.menu-lateral a,
+.menu-lateral button {
+    padding: 12px 16px;
+    color: var(--azul-escuro);
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.94rem;
+    font-weight: 500;
+}
+
+.menu-lateral a:hover,
+.menu-lateral button:hover {
+    color: var(--laranja);
+    background: var(--fundo);
+}
+
+.menu-lateral a[aria-current="page"] {
+    color: var(--azul);
+    background: rgba(46, 91, 215, 0.08);
+    font-weight: 600;
+}
+
+/* NÚMERO EM CAIXA (mesmo ícone da seção "Solução" da home) */
+
+.icone-recurso {
+    width: 44px;
+    height: 44px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(46, 91, 215, 0.08);
+    color: var(--azul);
+    border-radius: 12px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* DASHBOARD */
+
+.cabecalho-dashboard h1 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 800;
+}
+
+.cabecalho-dashboard p {
+    font-size: 0.95rem;
+}
+
+.kpi-card,
+.kpi-cursos,
+.grafico,
+.graficos {
+    box-shadow: none;
+}
+
+.kpi-card {
+    border-radius: 16px;
+}
+
+.kpi-cursos,
+.grafico,
+.graficos {
+    border-radius: 20px;
+}
+
+.kpi-card-azul    { box-shadow: inset 0 3px 0 var(--azul); }
+.kpi-card-roxo    { box-shadow: inset 0 3px 0 var(--azul-escuro-2); }
+.kpi-card-vermelho { box-shadow: inset 0 3px 0 var(--laranja); }
+.kpi-card-verde   { box-shadow: inset 0 3px 0 var(--verde); }
+.kpi-card-amarelo { box-shadow: inset 0 3px 0 var(--azul-escuro); }
+
+.kpi-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.kpi-valor {
+    color: var(--azul-escuro);
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+}
+
+.kpi-cursos h2,
+.grafico h2,
+.graficos h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.secao-titulo {
+    margin: 32px 0 16px;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.select-cursos select {
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+}
+
+.select-cursos select:focus {
+    border-color: var(--azul);
+}
+
+.caixa-curso {
+    border-radius: 12px;
+    border-left-color: var(--azul);
+}
+
+.caixa-curso:hover {
+    border-color: var(--azul);
+}
+
+.caixa-curso.selecionado {
+    background-color: rgba(46, 91, 215, 0.08);
+}
+
+.caixa-curso .nome-curso {
+    font-size: 0.94rem;
+}
+
+/* TEMA ESCURO — complementa o preferencias.css */
+
+body[data-tema="escuro"] .head {
+    background-color: rgba(29, 41, 57, 0.95);
+}
+
+body[data-tema="escuro"] .menu .logo-texto,
+body[data-tema="escuro"] .kpi-valor {
+    color: #F2F4F7;
+}
+
+body[data-tema="escuro"] .menu-lateral {
+    border-right-color: #344054;
+}
+
+body[data-tema="escuro"] .menu-lateral a[aria-current="page"] {
+    color: #8FB0FF;
+    background: rgba(46, 91, 215, 0.25);
+}
+
+body[data-tema="escuro"] .icone-recurso {
+    color: #8FB0FF;
+    background: rgba(46, 91, 215, 0.25);
+}
+
+body[data-tema="escuro"] .subtitulo {
+    color: #D0D5DD;
+    border-bottom-color: #344054;
+}
+
+body[data-tema="escuro"] .pfp img {
+    border-color: #344054;
+}
+
+body[data-tema="escuro"] .caixa-curso.selecionado {
+    background-color: rgba(46, 91, 215, 0.25);
+}
+
+@media (max-width: 600px) {
+    .head {
+        padding: 0 15px;
+    }
+}
+
+body[data-tema="escuro"] .cartao-cabecalho {
+    border-bottom-color: #344054;
+}
+
+body[data-tema="escuro"] .botao-adicionar {
+    background: var(--azul);
+}
+
+body[data-tema="escuro"] .botao-adicionar:hover {
+    background: #4A74E6;
+}
+
+body[data-tema="escuro"] .botao-remover {
+    color: #FDA29B;
+    background: rgba(180, 35, 24, 0.25);
+}
+
+body[data-tema="escuro"] .administrador-item strong {
+    color: #F2F4F7;
+}
+
+body[data-tema="escuro"] .mensagem-configuracao {
+    color: #8FB0FF;
+}
