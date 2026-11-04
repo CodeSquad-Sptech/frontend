@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="./css/index.css">
 </head>
 
+
+
 <body>
 
 <header>
@@ -386,20 +388,20 @@
 
         <div class="conteudo-rodape">
 
-            <div>
-                <h2><br>Quer conhecer o projeto?</h2>
+    <div>
+        <h2>Quer conhecer o projeto?</h2>
 
-                <p>
-                    Fale com a equipe para conhecer o sistema
-                    e entender como ele pode ajudar instituições de ensino.
-                </p>
-            </div>
+        <p>
+            Fale com a equipe para conhecer o sistema
+            e entender como ele pode ajudar instituições de ensino.
+        </p>
+    </div>
 
-            <a href="mailto:contato@codesquad.com" class="botao botao-principal">
-                Falar com o time
-            </a>
+    <a href="mailto:contato@codesquad.com" class="botao botao-principal">
+        Falar com o time
+    </a>
 
-        </div>
+</div>
 
         <div class="final-rodape">
         </div>
@@ -407,8 +409,14 @@
     </div>
 </footer>
 
+<a href="#contato" class="mascote-fixo" id="mascoteFixo" aria-label="Dúvidas? Fale com a equipe">
+    <span class="balao-duvida">Dúvidas?</span>
+    <img src="./img/duvida.png" alt="">
+</a>
 
 <script>
+    
+    
     const botaoMenu = document.getElementById("botaoMenu");
     const linksMenu = document.getElementById("linksMenu");
 
@@ -421,9 +429,21 @@
     links.forEach(function (link) {
         link.addEventListener("click", function () {
             linksMenu.classList.remove("aberto");
+
+            
         });
     });
+
+        const mascote = document.getElementById("mascoteFixo");
+    const secaoContato = document.getElementById("contato");
+
+    const observador = new IntersectionObserver(function (entradas) {
+        mascote.classList.toggle("oculto", entradas[0].isIntersecting);
+    });
+
+    observador.observe(secaoContato);
 </script>
 
 </body>
+
 </html>
