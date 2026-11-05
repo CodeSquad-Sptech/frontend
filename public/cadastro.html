@@ -8,30 +8,21 @@
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 
-<body>
+<body class="pagina-cadastro">
   <main class="pagina">
-    <section class="lado-esquerdo">
+    <section class="painel-apresentacao">
       <div class="logo">
-        <img src="./img/CodeSquad.png" alt="CodeSquad">
+        <img src="./img/logoEvolua.png" alt="Evolua">
       </div>
 
       <div class="apresentacao">
-        <h2>Comece a transformar dados em decisões.</h2>
+        <h2>Dados que ajudam a transformar a educação.</h2>
         <p>
-          Crie sua conta no Evolua e tenha acesso a uma plataforma desenvolvida
-          para organizar dados acadêmicos, acompanhar indicadores e apoiar
-          decisões no ensino superior público.
+          O Evolua reúne e organiza dados acadêmicos para facilitar a análise
+          das turmas, acompanhar indicadores e apoiar decisões que contribuem
+          para a redução da evasão no ensino superior público.
         </p>
-
-        <div class="equipe">
-          <div class="foto">JS</div>
-          <div class="foto">AB</div>
-          <div class="foto">RC</div>
-          <span>Desenvolvido pela equipe CodeSquad</span>
-        </div>
       </div>
-
-      <footer>© 2026 CodeSquad. Todos os direitos reservados.</footer>
     </section>
 
     <section class="lado-direito">
@@ -70,7 +61,7 @@
           </div>
 
           <div class="campo">
-            <label for="confirmar-senha">CONFIRMAR SENHA<span class="erro_campo"
+            <label for="confirmacao_senha">CONFIRMAR SENHA<span class="erro_campo"
                 id="erro_confirmacao_senha"></span></label>
             <div class="campo-input">
               <span class="icone">🔒︎</span>
@@ -81,7 +72,7 @@
           </div>
 
           <div class="campo">
-            <label for="senha">CÓDIGO DE ACESSO<span class="erro_campo" id="erro_codigo"></span></label>
+            <label for="codigo">CÓDIGO DE ACESSO<span class="erro_campo" id="erro_codigo"></span></label>
             <div class="campo-input">
               <input type="text" id="codigo" placeholder="SPRINT1-CARAMICO" />
             </div>
@@ -122,8 +113,8 @@
   });
 
   function cadastrar() {
-    const nomeVar = nome.value;
-    const emailVar = email.value;
+    const nomeVar = nome.value.trim();
+    const emailVar = email.value.trim();
     const senhaVar = senha.value;
     const confirmacaoSenhaVar = confirmacao_senha.value;
     const codigoVar = codigo.value;
@@ -132,38 +123,34 @@
 
     let valido = true;
 
-    if (nomeVar == "") {
+    if (!nomeVar) {
       erro_nome.textContent = "ⓘ Informe seu nome.";
       valido = false;
     }
 
-    if (emailVar == "") {
+    if (!emailVar) {
       erro_email.textContent = "ⓘ Informe seu e-mail.";
       valido = false;
-    } else if (!emailVar.includes('@')) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVar)) {
       erro_email.textContent = "ⓘ Informe um e-mail válido.";
       valido = false;
     }
 
-    if (senhaVar == "") {
-      erro_senha.textContent = "ⓘ Informe uma senha.";
+    if (!senhaVar) {
+      erro_senha.textContent = "ⓘ Informe sua senha.";
+      valido = false;
+    } else if (senhaVar.length < 8) {
+      erro_senha.textContent = "ⓘ A senha deve ter pelo menos 8 caracteres.";
       valido = false;
     }
 
-    if (confirmacaoSenhaVar == "") {
+    if (!confirmacaoSenhaVar) {
       erro_confirmacao_senha.textContent = "ⓘ Confirme sua senha.";
       valido = false;
-    } else if (senhaVar != confirmacaoSenhaVar) {
+    } else if (senhaVar !== confirmacaoSenhaVar) {
       erro_confirmacao_senha.textContent = "ⓘ As senhas não coincidem.";
       valido = false;
     }
-
-    if (codigoVar == "") {
-      erro_codigo.textContent = "ⓘ Informe o código de acesso.";
-      valido = false;
-    }
-
-
 
     if (valido) {
       fetch("/usuarios/cadastrar", {

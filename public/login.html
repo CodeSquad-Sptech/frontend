@@ -8,77 +8,65 @@
   </head>
   <body>
     <main class="pagina">
-      <section class="lado-esquerdo">
+    <section class="painel-apresentacao">
         <div class="logo">
-          <img src="./img/CodeSquad.png" alt="CodeSquad">
+            <img src="./img/logoEvolua.png" alt="Evolua">
         </div>
 
         <div class="apresentacao">
-          <h2>Dados que ajudam a transformar a educação.</h2>
-          <p>
-            O Evolua reúne e organiza dados acadêmicos para facilitar a análise
-            das turmas, acompanhar indicadores e apoiar decisões que contribuem
-            para a redução da evasão no ensino superior público.
-          </p>
-
-          <div class="equipe">
-            <div class="foto">JS</div>
-            <div class="foto">AB</div>
-            <div class="foto">RC</div>
-            <span>Desenvolvido pela equipe CodeSquad</span>
-          </div>
+            <h2>Dados que ajudam a transformar a educação.</h2>
+            <p>
+                O Evolua reúne e organiza dados acadêmicos para facilitar a análise
+                das turmas, acompanhar indicadores e apoiar decisões que contribuem
+                para a redução da evasão no ensino superior público.
+            </p>
         </div>
+    </section>
 
-        <footer>Evolua © 2026 — CodeSquad</footer>
-      </section>
-
-      <section class="lado-direito">
+    <section class="lado-direito">
         <div class="area-login">
-          <div class="titulo-login">
-            <h2>Bem-vindo ao Evolua</h2>
-            <p>Entre na sua conta para acessar o sistema.</p>
-          </div>
-
-          <form class="formulario">
-            <div class="campo">
-              <label for="email"
-                >E-MAIL<span class="erro_campo" id="erro_email"></span
-              ></label>
-              <div class="campo-input">
-                <span class="icone">✉</span>
-                <input type="email" id="email" placeholder="voce@empresa.com" />
-              </div>
+            <div class="titulo-login">
+                <h2>Bem-vindo ao Evolua</h2>
+                <p>Entre na sua conta para acessar o sistema.</p>
             </div>
 
-            <div class="campo">
-              <label for="senha"
-                >SENHA<span class="erro_campo" id="erro_senha"></span
-              ></label>
-              <div class="campo-input">
-                <span class="icone">🔒︎</span>
-                <input type="password" id="senha" placeholder="********" />
-                <button class="mostrar-senha" type="button" data-campo-senha="senha" aria-label="Mostrar senha" aria-pressed="false">◉</button>
-              </div>
-            </div>
+            <form class="formulario">
+                <div class="campo">
+                    <label for="email">
+                        E-MAIL<span class="erro_campo" id="erro_email"></span>
+                    </label>
+                    <div class="campo-input">
+                        <span class="icone">✉</span>
+                        <input type="email" id="email" placeholder="voce@empresa.com">
+                    </div>
+                </div>
 
-            <div class="opcoes">
-              <a href="#">Esqueci minha senha</a>
-            </div>
+                <div class="campo">
+                    <label for="senha">
+                        SENHA<span class="erro_campo" id="erro_senha"></span>
+                    </label>
+                    <div class="campo-input">
+                        <span class="icone">🔒</span>
+                        <input type="password" id="senha" placeholder="********">
+                        <button class="mostrar-senha" type="button"
+                            data-campo-senha="senha"
+                            aria-label="Mostrar senha"
+                            aria-pressed="false">◉</button>
+                    </div>
+                </div>
 
-            <button class="botao-entrar" type="button" onclick="entrar()">
-              Entrar
-            </button>
-          </form>
+                <button class="botao-entrar" type="button" onclick="entrar()">
+                    Entrar
+                </button>
+            </form>
 
-          <p class="criar-conta">
-            Não tem uma conta?
-            <a href="./cadastro.html">Criar conta</a>
-          </p>
+            <p class="criar-conta">
+                Não tem uma conta?
+                <a href="./cadastro.html">Criar conta</a>
+            </p>
         </div>
-      </section>
-    </main>
-  </body>
-</html>
+    </section>
+</main>
 
 <script>
   const camposSenha = document.querySelectorAll("[data-campo-senha]");
@@ -180,3 +168,8 @@
   }
   
 </script>
+
+  </body>
+</html>
+
+
