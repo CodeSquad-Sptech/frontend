@@ -19,35 +19,42 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f7f7fc;
-    color: #111827;
+    background:
+        linear-gradient(rgba(11, 27, 63, 0.75), rgba(11, 27, 63, 0.75)),
+        url("../img/ImagemCadastro.png") center/cover fixed;
+    background-repeat: no-repeat;
+    background-color: var(--azul-escuro);
 }
 
 .pagina {
-    min-height: 100vh;
+     width: calc(100% - 90px);
+    min-height: calc(100vh - 90px);
+    margin: 50px auto;
     display: flex;
+    background: var(--branco);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.25);
 }
 
-.lado-esquerdo {
-    position: relative;
-    width: 27%;
-    min-height: 100vh;
-    padding: 50px;
-    color: white;
-    background-color: var(--azul-escuro);
-    background-image:
-        linear-gradient(rgba(11, 27, 63, 0.88), rgba(11, 27, 63, 0.88)),
-        url("../img/ImagemCadastro.png");
-    background-size: cover;
-    background-position: center;
+.painel-apresentacao {
+    width: 40%;
+    padding: 55px;
+    background: linear-gradient(145deg, #f1f5ff, #ffffff);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
     overflow: hidden;
 }
 
 .logo {
+    width: 100%;
+    margin-bottom: 30px;
     display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 .logo img {
@@ -58,98 +65,192 @@ body {
 }
 
 .apresentacao {
-    margin-top: 80px;
-    max-width: 410px;
-}
-
-.icone-seguranca {
-    width: 58px;
-    height: 58px;
-    border-radius: 18px;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 38px;
-    margin-bottom: 30px;
+    max-width: 430px;
 }
 
 .apresentacao h2 {
     font-size: 30px;
     line-height: 1.3;
-    margin-bottom: 28px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 25px;
+    color: var(--azul-escuro);
 }
+
 
 .apresentacao p {
     font-size: 17px;
     line-height: 1.65;
-    color: white;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-}
-
-.equipe {
-    margin-top: 35px;
-    display: flex;
-    align-items: center;
-}
-
-.foto {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: var(--laranja);
-    border: 2px solid white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 10px;
-    font-weight: bold;
-}
-
-.foto:first-child {
-    margin-left: 0;
-}
-
-.equipe span {
-    margin-left: 10px;
-    font-size: 13px;
-    color: #d9d5ff;
-}
-
-footer {
-    margin-top: auto;
-    color: #aaa4e9;
-    font-size: 13px;
+    color: var(--texto-claro);
 }
 
 .lado-direito {
-    width: 73%;
-    min-height: 100vh;
+    width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f8f8fc;
+    padding: 30px;
 }
 
 .area-login {
-    width: 465px;
+    width: 100%;
+    max-width: 455px;
+    margin: 0 auto;
+}
+
+.titulo-login {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.formulario {
+    width: 100%;
+}
+
+.criar-conta {
+    text-align: center;
+    margin-top: 30px;
+}
+.formulario .campo {
+    margin-bottom: 20px;
+}
+.area-login {
+    width: 100%;
+    max-width: 465px;
 }
 
 .titulo-login {
     margin-bottom: 45px;
+    text-align: center;
 }
 
 .titulo-login h2 {
     font-size: 29px;
     margin-bottom: 12px;
+    color: var(--azul-escuro);
 }
 
 .titulo-login p {
     font-size: 16px;
-    color: #6b7280;
+    color: var(--texto-claro);
 }
 
+
+@media (max-width: 900px) {
+    .pagina {
+        flex-direction: column;
+    }
+
+    .painel-apresentacao {
+        width: 100%;
+        padding: 35px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo {
+        margin-bottom: 25px;
+    }
+
+    .logo img {
+        max-width: 180px;
+    }
+
+    .apresentacao {
+        max-width: 500px;
+    }
+
+    .apresentacao h2 {
+        font-size: 25px;
+    }
+
+    .apresentacao p {
+        font-size: 15px;
+    }
+
+    .lado-direito {
+        width: 100%;
+        padding: 40px 30px;
+    }
+
+    .area-login {
+        max-width: 465px;
+    }
+}
+
+@media (max-width: 600px) {
+    .pagina-cadastro .painel-apresentacao {
+        margin-bottom: 0;
+    }
+
+    .pagina-cadastro .logo img {
+        transform: none;
+    }
+
+    .pagina {
+        flex-direction: column;
+        justify-content: flex-start;
+        width: calc(100% - 24px);
+        min-height: calc(100vh - 24px);
+        margin: 12px auto;
+        position: relative;
+        top: 26px;
+    }
+
+    .painel-apresentacao {
+        width: 100%;
+        min-height: auto;
+        padding: 0 20px;
+        margin-bottom: -20px;
+        background: transparent;
+        box-shadow: none;
+        align-items: center;
+        overflow: visible;
+    }
+
+    .logo {
+        margin: 30px 0 0;
+        width: auto;
+        display: block;
+    }
+
+    .logo img {
+        display: block;
+        width: 120px;
+        max-width: 120px;
+        height: auto;
+        transform: translateY(75px);
+    }
+
+    .apresentacao {
+        display: none;
+    }
+
+    .lado-direito {
+        width: 100%;
+        flex: 1;
+        align-items: center;
+        padding: 12px 20px 40px;
+        background: var(--branco);
+    }
+
+    .area-login {
+        padding-top: 0;
+    }
+
+    .titulo-login {
+        margin-bottom: 35px;
+    }
+}
+@media (max-width: 400px) {
+    .painel-apresentacao {
+        padding: 25px 20px;
+    }
+
+    .lado-direito {
+        padding: 30px 20px;
+    }
+}
+    
+/* Formulário de login */
 .formulario {
     width: 100%;
 }
@@ -159,18 +260,26 @@ footer {
 }
 
 .campo label {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     font-size: 14px;
     font-weight: bold;
     color: #374151;
     margin-bottom: 10px;
 }
 
+.erro_campo {
+    color: #e53935;
+    font-size: 0.75em;
+    font-weight: 400;
+}
+
 .campo-input {
     height: 51px;
     width: 100%;
     background-color: white;
-    border: 1px solid #dddde8;
+    border: 1px solid var(--borda);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -178,10 +287,16 @@ footer {
     gap: 8px;
 }
 
+.campo-input:focus-within {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(46, 91, 215, 0.10);
+}
+
 .icone {
     color: #9ca3af;
     font-size: 18px;
     margin-right: 13px;
+    flex-shrink: 0;
 }
 
 .campo-input input {
@@ -191,22 +306,12 @@ footer {
     height: 100%;
     font-size: 15px;
     color: #374151;
+    background: transparent;
 }
 
-.icone-usuario {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  background-color: var(--texto-claro);
- -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M19%2021v-2a4%204%200%200%200-4-4H9a4%204%200%200%200-4%204v2%27/%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%277%27%20r%3D%274%27/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M19%2021v-2a4%204%200%200%200-4-4H9a4%204%200%200%200-4%204v2%27/%3E%3Ccircle%20cx%3D%2712%27%20cy%3D%277%27%20r%3D%274%27/%3E%3C/svg%3E");
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+.campo-input input::placeholder {
+    color: #9ca3af;
 }
-
 
 .mostrar-senha {
     padding: 0;
@@ -223,21 +328,6 @@ footer {
     outline-offset: 3px;
 }
 
-.opcoes {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 3px;
-    margin-bottom: 28px;
-}
-
-.opcoes a,
-.criar-conta a {
-    color: black;
-    text-decoration: none;
-    font-weight: 500;
-}
-
 .botao-entrar {
     width: 100%;
     height: 50px;
@@ -248,6 +338,7 @@ footer {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .botao-entrar:hover {
@@ -257,114 +348,51 @@ footer {
 .criar-conta {
     text-align: center;
     margin-top: 40px;
-    color: #6b7280;
+    color: var(--texto-claro);
     font-size: 15px;
 }
 
-.campo label {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+.criar-conta a {
+    color: var(--azul-escuro);
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.erro_campo {
-  color: #e53935;
-  font-size: 0.75em;
-  font-weight: 400;
+.criar-conta a:hover {
+    color: var(--azul);
+    text-decoration: underline;
 }
 
-@media (max-width: 900px) {
-    .pagina {
-        flex-direction: column;
-    }
-
-    .lado-esquerdo {
-        width: 100%;
-        min-height: auto;
-        padding: 35px 40px;
-    }
-
-    .apresentacao {
-        margin-top: 60px;
-        max-width: 600px;
-    }
-
-    .apresentacao h2 {
-        font-size: 27px;
-    }
-
-    footer {
-        margin-top: 50px;
-    }
-
-    .lado-direito {
-        width: 100%;
-        min-height: 600px;
-        padding: 50px 30px;
-    }
-}
-
+/* Ajustes responsivos do formulário */
 @media (max-width: 600px) {
-    .lado-esquerdo {
-        padding: 30px 25px;
+    .campo {
+        margin-bottom: 22px;
     }
 
-    .apresentacao {
-        margin-top: 45px;
+    .campo-input {
+        height: 48px;
     }
 
-    .apresentacao h2 {
-        font-size: 25px;
+    .botao-entrar {
+        height: 48px;
     }
 
-    .apresentacao p {
-        font-size: 15px;
-    }
-
-    .equipe {
-        margin-top: 25px;
-    }
-
-    .lado-direito {
-        padding: 45px 25px;
-    }
-
-    .area-login {
-        width: 100%;
-    }
-
-    .titulo-login {
-        margin-bottom: 35px;
-    }
-
-    .titulo-login h2 {
-        font-size: 25px;
-    }
-
-    .opcoes {
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .opcoes a {
-        text-align: right;
+    .criar-conta {
+        margin-top: 30px;
+        font-size: 14px;
     }
 }
 
 @media (max-width: 400px) {
-    .lado-esquerdo {
-        padding: 25px 20px;
+    .campo-input {
+        padding: 0 10px;
     }
 
-    .lado-direito {
-        padding: 40px 20px;
+    .icone {
+        margin-right: 5px;
     }
 
-    .opcoes {
-        flex-direction: column;
-    }
-
-    .opcoes a {
-        text-align: left;
+    .campo-input input {
+        font-size: 14px;
     }
 }
