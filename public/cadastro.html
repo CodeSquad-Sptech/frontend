@@ -168,12 +168,6 @@
       })
 
         .then(function (resposta) {
-          if (!resposta.ok) {
-            return resposta.text().then(function (textoDoErro) {
-              erro_codigo.textContent = "ⓘ " + (textoDoErro || "Não foi possível criar a conta.");
-            });
-          }
-          
           mensagem.textContent =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
         })
