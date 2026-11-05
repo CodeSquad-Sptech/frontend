@@ -59,20 +59,15 @@
                 <strong class="kpi-valor" id="kpi_trancadas">--</strong>
                 <span class="kpi-meta" id="meta_trancadas"></span>
             </div>
-            <div class="kpi-card kpi-card-vermelho">
-                <span class="kpi-label">Evadidos</span>
-                <strong class="kpi-valor" id="kpi_evadidos">--</strong>
-                <span class="kpi-meta" id="meta_evadidos"></span>
-            </div>
             <div class="kpi-card kpi-card-verde">
                 <span class="kpi-label">Concluintes</span>
                 <strong class="kpi-valor" id="kpi_concluintes">--</strong>
                 <span class="kpi-meta" id="meta_concluintes"></span>
             </div>
             <div class="kpi-card kpi-card-amarelo">
-                <span class="kpi-label">Taxa de evasão</span>
-                <strong class="kpi-valor" id="kpi_taxa">--</strong>
-                <span class="kpi-meta" id="meta_taxa"></span>
+                <span class="kpi-label">Proporção de trancadas</span>
+                <strong class="kpi-valor" id="kpi_proporcao_trancadas">--</strong>
+                <span class="kpi-meta" id="meta_proporcao_trancadas"></span>
             </div>
         </div>
 
@@ -88,7 +83,8 @@
                 </div>
             </div>
             <div class="grafico">
-                <h2 id="titulo-grafico-principal">Evolução da evasão - Engenharia de Software (%)</h2>
+                <h2 id="titulo-grafico-principal">Proporção de matrículas trancadas - Todos os cursos (%)</h2>
+                <p class="grafico-descricao">Trancamentos reportados ÷ matrículas reportadas; não representa evasão.</p>
                 <canvas id="grafico1"></canvas>
             </div>
         </div>
@@ -100,11 +96,11 @@
         <div class="bot">
             <div class="graficos-bot graficos-bot-primeira">
                 <div class="graficos">
-                    <h3>Perfil por idade - alunos evadidos</h3>
+                    <h3>Perfil por idade - matrículas</h3>
                     <canvas id="grafico2"></canvas>
                 </div>
                 <div class="graficos">
-                    <h3>Etnia dos alunos evadidos</h3>
+                    <h3>Distribuição de matrículas por raça</h3>
                     <canvas id="grafico3"></canvas>
                 </div>
                 <div class="graficos graficos-sexo">
@@ -122,7 +118,7 @@
     </div>
 </div>
 <div class="graficos-mini">
-    <h4>Escolaridade</h4>
+    <h4>Rede de ensino</h4>
     <div class="caixa-mini">
         <canvas id="grafico6"></canvas>
     </div>
@@ -145,10 +141,10 @@
     let graficoEvolucao = new Chart(ctxEvolucao, {
         type: 'line',
         data: {
-            labels: ['2021', '2022', '2023', '2024', '2025', '2026'],
+            labels: [],
             datasets: [{
-                label: 'Taxa de evasão (%)',
-                data: [12.4, 14.1, 16.8, 18.2, 19.1, 21.4],
+                label: 'Proporção de trancadas (%)',
+                data: [],
                 backgroundColor: 'rgba(46, 91, 215, 0.12)',
                 borderColor: '#2E5BD7',
                 borderWidth: 2,
@@ -202,8 +198,8 @@
         data: {
             labels: ['0-17', '18-24', '25-29', '30-34', '35-39', '40-49', '50-59', '60+'],
             datasets: [{
-                label: 'Alunos evadidos',
-                data: [12, 480, 310, 190, 110, 95, 60, 27],
+                label: 'Matrículas',
+                data: [],
                 backgroundColor: 'rgba(31, 169, 139, 0.5)',
                 borderColor: 'rgba(31, 169, 139, 1)',
                 borderWidth: 1
@@ -228,8 +224,8 @@
         data: {
             labels: ['Brancos', 'Pretos', 'Pardos', 'Amarelos', 'Indígenas', 'Não declarado'],
             datasets: [{
-                label: 'Alunos evadidos',
-                data: [520, 310, 380, 40, 15, 19],
+                label: 'Matrículas',
+                data: [],
                 backgroundColor: 'rgba(46, 91, 215, 0.5)',
                 borderColor: 'rgba(46, 91, 215, 1)',
                 borderWidth: 1
@@ -254,8 +250,8 @@
         data: {
             labels: ['Feminino', 'Masculino'],
             datasets: [{
-                label: 'Alunos evadidos',
-                data: [690, 594],
+                label: 'Matrículas',
+                data: [],
                 backgroundColor: ['rgba(245, 166, 35, 0.8)', 'rgba(245, 166, 35, 0.8)'],
                 borderColor: ['rgba(245, 166, 35, 1)', 'rgba(245, 166, 35, 1)'],
                 borderWidth: 1
@@ -281,8 +277,8 @@
         data: {
             labels: ['Com apoio', 'Sem apoio'],
             datasets: [{
-                label: 'Alunos evadidos',
-                data: [480, 804],
+                label: 'Matrículas',
+                data: [],
                 backgroundColor: ['rgba(46, 91, 215, 0.7)', 'rgba(245, 166, 35, 0.7)'],
                 borderColor: ['rgba(46, 91, 215, 1)', 'rgba(245, 166, 35, 1)'],
                 borderWidth: 1
@@ -308,8 +304,8 @@
         data: {
             labels: ['Pública', 'Particular'],
             datasets: [{
-                label: 'Alunos evadidos',
-                data: [812, 472],
+                label: 'Matrículas',
+                data: [],
                 backgroundColor: ['rgba(31, 169, 139, 0.7)', 'rgba(19, 39, 90, 0.7)'],
                 borderColor: ['rgba(31, 169, 139, 1)', 'rgba(19, 39, 90, 1)'],
                 borderWidth: 1
@@ -340,10 +336,28 @@
         return Number(numero).toLocaleString('pt-BR');
     }
 
+    function limparDashboard() {
+    graficoEvolucao.data.labels = [];
+    graficoEvolucao.data.datasets[0].data = [];
+    graficoEvolucao.update();
+
+    [graficoIdade, graficoEtnia, graficoSocioeconomico, graficoApoio, graficoEscolaridade].forEach(function (g) {
+        g.data.datasets[0].data = [];
+        g.update();
+    });
+
+    ['matriculas', 'trancadas', 'concluintes', 'proporcao_trancadas'].forEach(function (nome) {
+        document.getElementById('kpi_' + nome).innerHTML = '--';
+        document.getElementById('meta_' + nome).innerHTML = '';
+    });
+}
     
     function variacaoPercentual(atual, anterior) {
-        if (!anterior) {
+        if (anterior === undefined || anterior === null) {
             return '';
+        }
+        if (anterior === 0) {
+            return atual === 0 ? '0,0% vs. ano anterior' : 'Sem base percentual no ano anterior';
         }
         let variacao = ((atual - anterior) / anterior) * 100;
         let sinal = variacao >= 0 ? '+' : '';
@@ -405,20 +419,21 @@
                 if (resposta.status == 200) {
                     resposta.json().then(function (linhas) {
                         let anos = [];
-                        let taxas = [];
+                        let proporcoesTrancamento = [];
 
                         for (let i = 0; i < linhas.length; i++) {
                             let matriculas = Number(linhas[i].matriculas);
-                            let concluintes = Number(linhas[i].concluintes);
-                            let evadidos = matriculas - concluintes;
+                            let trancadas = Number(linhas[i].trancadas);
 
                             anos.push(linhas[i].ano);
-                            taxas.push(matriculas > 0 ? Number((evadidos / matriculas * 100).toFixed(1)) : 0);
+                            proporcoesTrancamento.push(
+                                matriculas > 0 ? Number((trancadas / matriculas * 100).toFixed(1)) : null
+                            );
                         }
 
                        
                         graficoEvolucao.data.labels = anos;
-                        graficoEvolucao.data.datasets[0].data = taxas;
+                        graficoEvolucao.data.datasets[0].data = proporcoesTrancamento;
                         graficoEvolucao.update();
 
                      
@@ -428,27 +443,36 @@
                         let matAtual = Number(atual.matriculas);
                         let tranAtual = Number(atual.trancadas);
                         let concAtual = Number(atual.concluintes);
-                        let evaAtual = matAtual - concAtual;
-                        let taxaAtual = taxas[taxas.length - 1];
+                        let proporcaoAtual = proporcoesTrancamento[proporcoesTrancamento.length - 1];
+                        let anoAtual = atual.ano;
 
                         document.getElementById('kpi_matriculas').innerHTML = formatar(matAtual);
                         document.getElementById('kpi_trancadas').innerHTML = formatar(tranAtual);
-                        document.getElementById('kpi_evadidos').innerHTML = formatar(evaAtual);
                         document.getElementById('kpi_concluintes').innerHTML = formatar(concAtual);
-                        document.getElementById('kpi_taxa').innerHTML = String(taxaAtual).replace('.', ',') + '%';
+                        document.getElementById('kpi_proporcao_trancadas').innerHTML = proporcaoAtual === null
+                            ? '--'
+                            : String(proporcaoAtual).replace('.', ',') + '%';
+
+                        document.getElementById('meta_matriculas').innerHTML = 'Ano ' + anoAtual;
+                        document.getElementById('meta_trancadas').innerHTML = 'Ano ' + anoAtual;
+                        document.getElementById('meta_concluintes').innerHTML = 'Ano ' + anoAtual;
+                        document.getElementById('meta_proporcao_trancadas').innerHTML = 'Ano ' + anoAtual;
 
                         if (anterior) {
                             let matAnt = Number(anterior.matriculas);
-                            let concAnt = Number(anterior.concluintes);
+                            let trancadasAnt = Number(anterior.trancadas);
 
-                            document.getElementById('meta_matriculas').innerHTML = variacaoPercentual(matAtual, matAnt);
-                            document.getElementById('meta_trancadas').innerHTML = variacaoPercentual(tranAtual, Number(anterior.trancadas));
-                            document.getElementById('meta_evadidos').innerHTML = variacaoPercentual(evaAtual, matAnt - concAnt);
-                            document.getElementById('meta_concluintes').innerHTML = variacaoPercentual(concAtual, concAnt);
+                            document.getElementById('meta_matriculas').innerHTML += ' | ' + variacaoPercentual(matAtual, matAnt);
+                            document.getElementById('meta_trancadas').innerHTML += ' | ' + variacaoPercentual(tranAtual, trancadasAnt);
+                            document.getElementById('meta_concluintes').innerHTML += ' | ' + variacaoPercentual(concAtual, Number(anterior.concluintes));
 
-                            let diferenca = taxaAtual - taxas[taxas.length - 2];
-                            let sinal = diferenca >= 0 ? '+' : '';
-                            document.getElementById('meta_taxa').innerHTML = sinal + diferenca.toFixed(1).replace('.', ',') + ' p.p. no ano';
+                            let proporcaoAnterior = proporcoesTrancamento[proporcoesTrancamento.length - 2];
+                            if (proporcaoAtual !== null && proporcaoAnterior !== null) {
+                                let diferenca = proporcaoAtual - proporcaoAnterior;
+                                let sinal = diferenca >= 0 ? '+' : '';
+                                document.getElementById('meta_proporcao_trancadas').innerHTML +=
+                                    ' | ' + sinal + diferenca.toFixed(1).replace('.', ',') + ' p.p. vs. ano anterior';
+                            }
                         }
                     });
                 }
@@ -474,11 +498,16 @@
                             p.etnia_branca, p.etnia_preta, p.etnia_parda,
                             p.etnia_amarela, p.etnia_indigena, p.etnia_nao_declarada
                         ];
+
                         graficoSocioeconomico.data.datasets[0].data = [p.sexo_feminino, p.sexo_masculino];
+                        graficoApoio.data.datasets[0].data = [p.apoio_com, p.apoio_sem];
+                        graficoEscolaridade.data.datasets[0].data = [p.rede_publica, p.rede_privada];
 
                         graficoIdade.update();
                         graficoEtnia.update();
                         graficoSocioeconomico.update();
+                        graficoApoio.update();
+                        graficoEscolaridade.update();
                     });
                 }
             })
@@ -489,9 +518,9 @@
 
     function atualizarDashboard(curso) {
         if (curso == 'todos') {
-            tituloGraficoPrincipal.innerHTML = 'Evolução da evasão - Todos os cursos (%)';
+            tituloGraficoPrincipal.innerHTML = 'Proporção de matrículas trancadas - Todos os cursos (%)';
         } else {
-            tituloGraficoPrincipal.innerHTML = 'Evolução da evasão - ' + curso + ' (%)';
+            tituloGraficoPrincipal.innerHTML = 'Proporção de matrículas trancadas - ' + curso + ' (%)';
         }
 
        
@@ -504,6 +533,7 @@
             }
         });
 
+        limparDashboard();
         carregarEvolucao(curso);
         carregarPerfil(curso);
     }

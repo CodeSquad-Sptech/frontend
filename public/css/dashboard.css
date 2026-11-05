@@ -155,7 +155,7 @@ body {
 
 .kpis-topo {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
     width: 100%;
     margin-bottom: 16px;
@@ -234,6 +234,12 @@ body {
     color: #101828;
     font-size: 16px;
     font-weight: 600;
+}
+
+.grafico-descricao {
+    margin: -4px 0 8px;
+    color: #667085;
+    font-size: 12px;
 }
 
 .select-cursos {
