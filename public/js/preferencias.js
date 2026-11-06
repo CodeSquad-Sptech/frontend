@@ -15,6 +15,25 @@ function atualizarIconesTema(tema) {
     }
 }
 
+function chaveConfiguracao() {
+    return "evolua_config_" + (sessionStorage.ID_USUARIO || "anonimo");
+}
+
+function restaurarPreferenciasSalvas() {
+    try {
+        const salvo = JSON.parse(localStorage.getItem(chaveConfiguracao()) || "{}");
+
+        if (salvo.nomeEmpresa) sessionStorage.NOME_EMPRESA = salvo.nomeEmpresa;
+        if (salvo.fotoPerfil) sessionStorage.FOTO_PERFIL = salvo.fotoPerfil;
+        if (salvo.tema) sessionStorage.TEMA = salvo.tema;
+        if (salvo.tamanhoFonte) sessionStorage.TAMANHO_FONTE = salvo.tamanhoFonte;
+    } catch (erro) {
+        console.error("Erro ao ler configurações salvas:", erro);
+    }
+}
+
+restaurarPreferenciasSalvas();
+
 function aplicarPreferencias() {
     const nomeEmpresa = sessionStorage.NOME_EMPRESA || "EVOLUA";
     const fotoPerfil = sessionStorage.FOTO_PERFIL &&

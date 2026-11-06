@@ -17,6 +17,7 @@ const botaoSalvarPerfil = document.getElementById("botaoSalvarPerfil");
 const usuarioAdministrador =
     sessionStorage.ADMINISTRADOR == "1" ||
     sessionStorage.ADMINISTRADOR == "true";
+const TAMANHO_MAXIMO_FOTO = 1024 * 1024; // 1 MB (a foto vira texto no localStorage)
 let fotoSelecionada = sessionStorage.FOTO_PERFIL || "img/usuarioSemFoto.png";
 let arquivoFotoSelecionado = null;
 
@@ -75,25 +76,28 @@ function carregarCamposConfiguracao(configuracoes) {
     aplicarPreferencias();
 }
 
-function carregarConfiguracoes() {
-    fetch("/usuarios/configuracoes")
-        .then(function (resposta) {
-            if (!resposta.ok) {
-                return resposta.text().then(function (mensagem) {
-                    throw new Error(mensagem);
-                });
-            }
+// ---------- Configurações salvas no navegador (localStorage, por usuário) ----------
 
-            return resposta.json();
-        })
-        .then(carregarCamposConfiguracao)
-        .catch(function (erro) {
-            console.error("Erro ao carregar configurações:", erro);
-            mostrarMensagemConfiguracao(
-                mensagemPerfil,
-                erro.message || "Não foi possível carregar as configurações."
-            );
-        });
+function lerConfiguracaoSalva() {
+    try {
+        return JSON.parse(localStorage.getItem(chaveConfiguracao()) || "{}");
+    } catch (erro) {
+        return {};
+    }
+}
+
+function gravarConfiguracaoSalva(novos) {
+    const atual = lerConfiguracaoSalva();
+    localStorage.setItem(chaveConfiguracao(), JSON.stringify(Object.assign(atual, novos)));
+}
+
+function carregarConfiguracoes() {
+    carregarCamposConfiguracao({
+        nomeInstituicao: sessionStorage.NOME_EMPRESA,
+        fotoPerfil: sessionStorage.FOTO_PERFIL,
+        tema: sessionStorage.TEMA,
+        tamanhoFonte: sessionStorage.TAMANHO_FONTE
+    });
 }
 
 function clicarNasOpcoesDeFoto(evento) {
@@ -116,8 +120,8 @@ function escolherFoto() {
         return;
     }
 
-    if (arquivo.size > 2 * 1024 * 1024) {
-        mostrarMensagemConfiguracao(mensagemPerfil, "A imagem deve ter no máximo 2 MB.");
+    if (arquivo.size > TAMANHO_MAXIMO_FOTO) {
+        mostrarMensagemConfiguracao(mensagemPerfil, "A imagem deve ter no máximo 1 MB.");
         campoFoto.value = "";
         return;
     }
@@ -136,56 +140,46 @@ function escolherFoto() {
 function salvarPerfilEmpresa(evento) {
     evento.preventDefault();
 
-    botaoSalvarPerfil.disabled = true;
     mostrarMensagemConfiguracao(mensagemPerfil, "");
 
-    const dados = new FormData();
-    dados.append("nomeInstituicao", campoNomeEmpresa.value.trim());
+    const nome = campoNomeEmpresa.value.trim() || "EVOLUA";
 
-    if (arquivoFotoSelecionado) {
-        dados.append("foto", arquivoFotoSelecionado);
-    } else {
-        dados.append("fotoPerfil", fotoSelecionada);
-    }
-
-    fetch("/usuarios/configuracoes/perfil", {
-            method: "PUT",
-            body: dados
-        })
-        .then(function (resposta) {
-            if (!resposta.ok) {
-                return resposta.text().then(function (mensagem) {
-                    throw new Error(mensagem);
-                });
-            }
-
-            return resposta.json();
-        })
-        .then(function (resultado) {
-            if (resultado.nomeInstituicao) {
-                sessionStorage.NOME_EMPRESA = resultado.nomeInstituicao;
-            }
-
-            sessionStorage.FOTO_PERFIL = resultado.fotoPerfil;
-            fotoSelecionada = resultado.fotoPerfil;
-            arquivoFotoSelecionado = null;
-
-            campoFoto.value = "";
-            mostrarFotoSelecionada(fotoSelecionada);
-            campoNomeEmpresa.value = sessionStorage.NOME_EMPRESA || "";
-            aplicarPreferencias();
-            mostrarMensagemConfiguracao(mensagemPerfil, "Foto salva.");
-        })
-        .catch(function (erro) {
-            console.error("Erro ao salvar perfil e empresa:", erro);
+    function concluir(foto) {
+        try {
+            gravarConfiguracaoSalva({ nomeEmpresa: nome, fotoPerfil: foto });
+        } catch (erro) {
+            console.error("Erro ao salvar perfil:", erro);
             mostrarMensagemConfiguracao(
                 mensagemPerfil,
-                erro.message || "Não foi possível salvar o perfil e a empresa."
+                "Não foi possível salvar. Tente uma imagem menor."
             );
-        })
-        .finally(function () {
-            botaoSalvarPerfil.disabled = false;
-        });
+            return;
+        }
+
+        sessionStorage.NOME_EMPRESA = nome;
+        sessionStorage.FOTO_PERFIL = foto;
+        fotoSelecionada = foto;
+        arquivoFotoSelecionado = null;
+        campoFoto.value = "";
+        mostrarFotoSelecionada(foto);
+        campoNomeEmpresa.value = nome;
+        aplicarPreferencias();
+        mostrarMensagemConfiguracao(mensagemPerfil, "Perfil salvo neste navegador.");
+    }
+
+    if (arquivoFotoSelecionado) {
+        const leitor = new FileReader();
+
+        leitor.onload = function () {
+            concluir(leitor.result);
+        };
+        leitor.onerror = function () {
+            mostrarMensagemConfiguracao(mensagemPerfil, "Não foi possível ler a imagem.");
+        };
+        leitor.readAsDataURL(arquivoFotoSelecionado);
+    } else {
+        concluir(fotoSelecionada);
+    }
 }
 
 function salvarAparencia(evento) {
@@ -193,38 +187,25 @@ function salvarAparencia(evento) {
 
     mostrarMensagemConfiguracao(mensagemAparencia, "");
 
-    fetch("/usuarios/configuracoes/aparencia", {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                tema: campoTema.value,
-                tamanhoFonte: campoTamanhoFonte.value
-            })
-        })
-        .then(function (resposta) {
-            if (!resposta.ok) {
-                return resposta.text().then(function (mensagem) {
-                    throw new Error(mensagem);
-                });
-            }
-
-            return resposta.json();
-        })
-        .then(function (resultado) {
-            sessionStorage.TEMA = resultado.tema;
-            sessionStorage.MODO_ESCURO = resultado.modoEscuro;
-            sessionStorage.TAMANHO_FONTE = resultado.tamanhoFonte;
-            aplicarPreferencias();
-            mostrarMensagemConfiguracao(mensagemAparencia, "Aparência salva.");
-        })
-        .catch(function (erro) {
-            console.error("Erro ao salvar a aparência:", erro);
-            mostrarMensagemConfiguracao(
-                mensagemAparencia,
-                erro.message || "Não foi possível salvar a aparência."
-            );
+    try {
+        gravarConfiguracaoSalva({
+            tema: campoTema.value,
+            tamanhoFonte: campoTamanhoFonte.value
         });
+    } catch (erro) {
+        console.error("Erro ao salvar a aparência:", erro);
+        mostrarMensagemConfiguracao(mensagemAparencia, "Não foi possível salvar a aparência.");
+        return;
+    }
+
+    sessionStorage.TEMA = campoTema.value;
+    sessionStorage.MODO_ESCURO = campoTema.value == "escuro";
+    sessionStorage.TAMANHO_FONTE = campoTamanhoFonte.value;
+    aplicarPreferencias();
+    mostrarMensagemConfiguracao(mensagemAparencia, "Aparência salva neste navegador.");
 }
+
+// ---------- Administradores (localStorage) ----------
 
 function carregarAdministradores() {
     const dados = localStorage.getItem(configuracoes_preferenciais.administradores);
