@@ -52,35 +52,24 @@
       <div class="icone-upload">↑</div>
       <h3>Envie seus arquivos</h3>
       <p>Arraste seus arquivos para esta área ou clique no botão abaixo.</p>
-      <div class="botao-arquivo">Escolher arquivo</div>
+      <input id="arquivoUpload" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
+      <button class="botao-arquivo" id="botaoEscolherArquivo" type="button">Escolher arquivo</button>
       <span class="formatos">XLSX — até 10 MB</span>
+      <p id="mensagemUpload" aria-live="polite"></p>
     </section>
 
 
     <section class="arquivos">
       <h3>Arquivos recentes</h3>
-      <div class="arquivo">
-        <div class="icone-arquivo">XLS</div>
-        <div class="informacoes">
-          <strong>turmaMatematica2025.xlsx</strong>
-          <span>2.4 MB</span>
-        </div>
-        <span class="status">Enviado</span>
-      </div>
-
-      <div class="arquivo">
-        <div class="icone-arquivo">XLS</div>
-        <div class="informacoes">
-          <strong>turmaPortugues2026.xlsx</strong>
-          <span>1.8 MB</span>
-        </div>
-        <span class="status">Enviado</span>
+      <div id="listaArquivos">
+        <p>Carregando arquivos...</p>
       </div>
     </section>
   </main>
 
   <script src="js/preferencias.js"></script>
   <script src="js/menu.js"></script>
+  <script src="js/upload.js"></script>
 
 </body>
 </html>
