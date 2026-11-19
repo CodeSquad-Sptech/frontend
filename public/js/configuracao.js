@@ -92,12 +92,25 @@ function gravarConfiguracaoSalva(novos) {
 }
 
 function carregarConfiguracoes() {
-    carregarCamposConfiguracao({
-        nomeInstituicao: sessionStorage.NOME_EMPRESA,
-        fotoPerfil: sessionStorage.FOTO_PERFIL,
-        tema: sessionStorage.TEMA,
-        tamanhoFonte: sessionStorage.TAMANHO_FONTE
-    });
+    fetch("/usuarios/configuracoes")
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                throw new Error("Não foi possível carregar as configurações.");
+            }
+            return resposta.json();
+        })
+        .then(function (configuracoes) {
+            carregarCamposConfiguracao(configuracoes);
+        })
+        .catch(function (erro) {
+            console.error(erro);
+            carregarCamposConfiguracao({
+                nomeInstituicao: sessionStorage.NOME_EMPRESA,
+                fotoPerfil: sessionStorage.FOTO_PERFIL,
+                tema: sessionStorage.TEMA,
+                tamanhoFonte: sessionStorage.TAMANHO_FONTE
+            });
+        });
 }
 
 function clicarNasOpcoesDeFoto(evento) {
@@ -145,6 +158,7 @@ function salvarPerfilEmpresa(evento) {
     const nome = campoNomeEmpresa.value.trim() || "EVOLUA";
 
     function concluir(foto) {
+        const arquivoSelecionado = arquivoFotoSelecionado;
         try {
             gravarConfiguracaoSalva({ nomeEmpresa: nome, fotoPerfil: foto });
         } catch (erro) {
@@ -164,7 +178,34 @@ function salvarPerfilEmpresa(evento) {
         mostrarFotoSelecionada(foto);
         campoNomeEmpresa.value = nome;
         aplicarPreferencias();
-        mostrarMensagemConfiguracao(mensagemPerfil, "Perfil salvo neste navegador.");
+
+        const dados = new FormData();
+        dados.append("nomeInstituicao", nome);
+        dados.append("fotoPerfil", foto);
+        if (arquivoSelecionado) {
+            dados.delete("fotoPerfil");
+            dados.append("foto", arquivoSelecionado);
+        }
+
+        fetch("/usuarios/configuracoes/perfil", {
+            method: "PUT",
+            body: dados
+        })
+            .then(function (resposta) {
+                if (!resposta.ok) {
+                    throw new Error("Não foi possível salvar o perfil.");
+                }
+                return resposta.json();
+            })
+            .then(function (resultado) {
+                sessionStorage.NOME_EMPRESA = resultado.nomeInstituicao;
+                sessionStorage.FOTO_PERFIL = resultado.fotoPerfil;
+                mostrarMensagemConfiguracao(mensagemPerfil, "Perfil salvo.");
+            })
+            .catch(function (erro) {
+                console.error(erro);
+                mostrarMensagemConfiguracao(mensagemPerfil, erro.message);
+            });
     }
 
     if (arquivoFotoSelecionado) {
@@ -202,7 +243,28 @@ function salvarAparencia(evento) {
     sessionStorage.MODO_ESCURO = campoTema.value == "escuro";
     sessionStorage.TAMANHO_FONTE = campoTamanhoFonte.value;
     aplicarPreferencias();
-    mostrarMensagemConfiguracao(mensagemAparencia, "Aparência salva neste navegador.");
+
+    fetch("/usuarios/configuracoes/aparencia", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            tema: campoTema.value,
+            tamanhoFonte: campoTamanhoFonte.value
+        })
+    })
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                throw new Error("Não foi possível salvar a aparência.");
+            }
+            return resposta.json();
+        })
+        .then(function () {
+            mostrarMensagemConfiguracao(mensagemAparencia, "Aparência salva.");
+        })
+        .catch(function (erro) {
+            console.error(erro);
+            mostrarMensagemConfiguracao(mensagemAparencia, erro.message);
+        });
 }
 
 // ---------- Administradores (localStorage) ----------

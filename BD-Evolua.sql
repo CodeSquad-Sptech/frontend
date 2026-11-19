@@ -34,6 +34,15 @@ CREATE TABLE usuario (
         FOREIGN KEY (fkCargo) REFERENCES cargo(idCargo)
 );
 
+CREATE TABLE configuracao (
+    fkUsuario INT PRIMARY KEY,
+    fotoPerfil VARCHAR(255) DEFAULT 'img/usuarioSemFoto.png',
+    modoEscuro TINYINT DEFAULT 0,
+    tamanhoFonte INT DEFAULT 16,
+    CONSTRAINT fkConfiguracaoUsuario
+        FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
+);
+
 CREATE TABLE importacao (
     idImportacao INT PRIMARY KEY AUTO_INCREMENT,
     nomeArquivo VARCHAR(255),

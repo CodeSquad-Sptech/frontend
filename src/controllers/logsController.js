@@ -1,26 +1,23 @@
 var logsModel = require("../models/logsModel");
 
 function CriarLog(req, res) {
-    console.log("bateu no controller")
     const nivel = req.body.nivelServer;
     const mensagem = req.body.mensagemServer;
-    
-    console.log(nivel + " ------- " + mensagem)
 
-    if (mensagem.length > 100) {
-        console.log("ERRO AO REGISTRAR LOG: Mensagem muito grande.")
-        return;
+    if (!nivel || !mensagem) {
+        return res.status(400).send("Informe o nível e a mensagem do log.");
     }
 
-    logsModel.CriarLog(nivel, mensagem).then(function() {
-        console.log("passou do then controller")
-        res.ok
-        return;
+    if (mensagem.length > 100) {
+        return res.status(400).send("ERRO AO REGISTRAR LOG: Mensagem muito grande.");
+    }
+
+    logsModel.CriarLog(nivel, mensagem).then(function () {
+        return res.status(201).json({ mensagem: "Log registrado." });
     }).catch(function(erro) {
-        console.log("deu ruim no then controller / " + erro)
-        res.status(500)
-        return;
-    })
+        console.error("Erro ao registrar log:", erro);
+        return res.status(500).send("Não foi possível registrar o log.");
+    });
 }
 
 module.exports = {
