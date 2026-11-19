@@ -71,13 +71,6 @@
             </div>
           </div>
 
-          <div class="campo">
-            <label for="codigo">CÓDIGO DE ACESSO</label>
-            <div class="campo-input">
-              <input type="text" id="codigo" placeholder="SPRINT2-CARAMICO" />
-            </div>
-          </div>
-
           <button class="botao-entrar" type="button" onclick="cadastrar()">
             Criar conta
           </button>
@@ -97,6 +90,9 @@
 
 <script>
   const camposSenha = document.querySelectorAll("[data-campo-senha]");
+  const params = new URLSearchParams(window.location.search);
+  const codigoVar = params.get("code");
+  console.log(codigoVar)
 
   function alternarVisibilidadeSenha(evento) {
     const botao = evento.currentTarget;
@@ -117,7 +113,6 @@
     const emailVar = email.value.trim();
     const senhaVar = senha.value;
     const confirmacaoSenhaVar = confirmacao_senha.value;
-    const codigoVar = codigo.value;
 
     limparErros();
 
