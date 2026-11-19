@@ -26,6 +26,15 @@ CREATE TABLE usuario (
         FOREIGN KEY (fkInstituicao) REFERENCES instituicao(idInstituicao)
 );
 
+CREATE TABLE configuracao (
+    fkUsuario INT PRIMARY KEY,
+    fotoPerfil VARCHAR(255) DEFAULT 'img/usuarioSemFoto.png',
+    modoEscuro TINYINT DEFAULT 0,
+    tamanhoFonte INT DEFAULT 16,
+    CONSTRAINT fkConfiguracaoUsuario
+        FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
+);
+
 CREATE TABLE importacao (
     idImportacao INT PRIMARY KEY AUTO_INCREMENT,
     nomeArquivo VARCHAR(255),
@@ -207,6 +216,9 @@ VALUES (1, 'Evolua', '00000000000008', 'SP', 'São Paulo', 'GRUPO8', '2020-01-01
 
 INSERT INTO usuario (idUsuario, nome, email, senha, administrador, ativo, fkInstituicao)
 VALUES (1, 'Julia Yamasaki', 'julia.a.yamasaki@sptech.school', '123', 1, 1, 1);
+
+INSERT INTO configuracao (fkUsuario, fotoPerfil, modoEscuro, tamanhoFonte)
+VALUES (1, 'img/usuarioSemFoto.png', 0, 16);
   
 -- Importações (1 por ano)
 INSERT INTO importacao (idImportacao, nomeArquivo, dataImportacao, fkUsuario) VALUES

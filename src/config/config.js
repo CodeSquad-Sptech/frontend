@@ -6,8 +6,11 @@ var mySqlConfig = {
     database: process.env.DB_DATABASE,
     user:     process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    port:     process.env.DB_PORT
+    port:     process.env.DB_PORT,
+    charset:  "utf8mb4",
 };
+
+const pool = mysql.createPool(mySqlConfig);
 
 function executar(instrucao, parametros = []) {
     if (
@@ -18,11 +21,7 @@ function executar(instrucao, parametros = []) {
     }
 
     return new Promise(function (resolve, reject) {
-        const conexao = mysql.createConnection(mySqlConfig);
-
-        conexao.query(instrucao, parametros, function (erro, resultados) {
-            conexao.end();
-
+                pool.query(instrucao, parametros, function (erro, resultados) {
             if (erro) {
                 return reject(erro);
             }
