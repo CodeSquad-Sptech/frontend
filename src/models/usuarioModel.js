@@ -8,6 +8,7 @@ function autenticar(email, senha) {
             u.email,
             u.administrador,
             u.fkInstituicao,
+            (u.imagem IS NOT NULL) AS temFoto,
             i.nome AS nomeInstituicao
         FROM usuario u
         JOIN instituicao i ON i.idInstituicao = u.fkInstituicao
@@ -41,6 +42,27 @@ function cadastrar(nome, email, senha, idInstituicao) {
     `;
 
     return database.executar(instrucaoSql, [nome, email, senha, idInstituicao]);
+}
+
+function salvarImagem(idUsuario, buffer, tipo) {
+    return database.executar(
+        "UPDATE usuario SET imagem = ?, tipoImagem = ? WHERE idUsuario = ?;",
+        [buffer, tipo, idUsuario]
+    );
+}
+
+function buscarImagem(idUsuario) {
+    return database.executar(
+        "SELECT imagem, tipoImagem FROM usuario WHERE idUsuario = ?;",
+        [idUsuario]
+    );
+}
+
+function salvarNomeInstituicao(idInstituicao, nome) {
+    return database.executar(
+        "UPDATE instituicao SET nome = ? WHERE idInstituicao = ?;",
+        [nome, idInstituicao]
+    );
 }
 
 /* function criarConfiguracao(idUsuario) {

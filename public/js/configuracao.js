@@ -17,7 +17,7 @@ const botaoSalvarPerfil = document.getElementById("botaoSalvarPerfil");
 const usuarioAdministrador =
     sessionStorage.ADMINISTRADOR == "1" ||
     sessionStorage.ADMINISTRADOR == "true";
-const TAMANHO_MAXIMO_FOTO = 1024 * 1024; // 1 MB (a foto vira texto no localStorage)
+const TAMANHO_MAXIMO_FOTO = 2 * 1024 * 1024; // 2 MB (a foto vira texto no localStorage)
 let fotoSelecionada = sessionStorage.FOTO_PERFIL || "img/usuarioSemFoto.png";
 let arquivoFotoSelecionado = null;
 
@@ -100,12 +100,14 @@ function carregarConfiguracoes() {
     });
 }
 
-function clicarNasOpcoesDeFoto(evento) {
+ async function clicarNasOpcoesDeFoto(evento) {
     const botaoFoto = evento.target.closest("[data-foto]");
 
     if (botaoFoto) {
         fotoSelecionada = botaoFoto.dataset.foto;
-        arquivoFotoSelecionado = null;
+        const resposta = await fetch(fotoSelecionada);
+        const blob = await resposta.blob();
+        arquivoFotoSelecionado = new File([blob], "foto.png", { type: blob.type });
         campoFoto.value = "";
         mostrarFotoSelecionada(fotoSelecionada);
         mostrarMensagemConfiguracao(mensagemPerfil, "");
@@ -137,48 +139,46 @@ function escolherFoto() {
     mostrarFotoSelecionada("foto-enviada");
 }
 
-function salvarPerfilEmpresa(evento) {
+   async function salvarPerfilEmpresa(evento) {
     evento.preventDefault();
-
     mostrarMensagemConfiguracao(mensagemPerfil, "");
 
-    const nome = campoNomeEmpresa.value.trim() || "EVOLUA";
+    const nome = campoNomeEmpresa.value.trim();
+    const dados = new FormData();
+    dados.append("nomeInstituicao", nome);
+    if (arquivoFotoSelecionado) {
+        dados.append("foto", arquivoFotoSelecionado);
+    }
 
-    function concluir(foto) {
-        try {
-            gravarConfiguracaoSalva({ nomeEmpresa: nome, fotoPerfil: foto });
-        } catch (erro) {
-            console.error("Erro ao salvar perfil:", erro);
-            mostrarMensagemConfiguracao(
-                mensagemPerfil,
-                "Não foi possível salvar. Tente uma imagem menor."
-            );
+    try {
+        const resposta = await fetch("/usuarios/configuracoes/perfil", {
+            method: "PUT",
+            body: dados
+        });
+
+        if (!resposta.ok) {
+            mostrarMensagemConfiguracao(mensagemPerfil, await resposta.text());
             return;
         }
 
-        sessionStorage.NOME_EMPRESA = nome;
-        sessionStorage.FOTO_PERFIL = foto;
-        fotoSelecionada = foto;
+        const resultado = await resposta.json();
+
+        if (resultado.fotoPerfil) {
+            sessionStorage.FOTO_PERFIL = resultado.fotoPerfil;
+        }
+        if (resultado.nomeInstituicao) {
+            sessionStorage.NOME_EMPRESA = resultado.nomeInstituicao;
+        }
+
+        fotoSelecionada = sessionStorage.FOTO_PERFIL;
         arquivoFotoSelecionado = null;
         campoFoto.value = "";
-        mostrarFotoSelecionada(foto);
-        campoNomeEmpresa.value = nome;
+        mostrarFotoSelecionada(fotoSelecionada);
         aplicarPreferencias();
-        mostrarMensagemConfiguracao(mensagemPerfil, "Perfil salvo neste navegador.");
-    }
-
-    if (arquivoFotoSelecionado) {
-        const leitor = new FileReader();
-
-        leitor.onload = function () {
-            concluir(leitor.result);
-        };
-        leitor.onerror = function () {
-            mostrarMensagemConfiguracao(mensagemPerfil, "Não foi possível ler a imagem.");
-        };
-        leitor.readAsDataURL(arquivoFotoSelecionado);
-    } else {
-        concluir(fotoSelecionada);
+        mostrarMensagemConfiguracao(mensagemPerfil, "Perfil salvo!");
+    } catch (erro) {
+        console.error("Erro ao salvar perfil:", erro);
+        mostrarMensagemConfiguracao(mensagemPerfil, "Não foi possível salvar o perfil.");
     }
 }
 

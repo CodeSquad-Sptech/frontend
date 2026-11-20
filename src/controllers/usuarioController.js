@@ -2,15 +2,7 @@ const usuarioModel = require("../models/usuarioModel");
 const fs = require("fs");
 const sessoes = require("../config/sessoes");
 
-function removerFotoEnviada(arquivo) {
-  if (arquivo) {
-    fs.unlink(arquivo.path, function (erro) {
-      if (erro) {
-        console.error("Não foi possível remover a foto não salva:", erro);
-      }
-    });
-  }
-}
+
 
 function converterTamanhoFonte(tamanhoFonte) {
   if (tamanhoFonte <= 14) {
@@ -55,9 +47,9 @@ function autenticar(req, res) {
         nome: usuario.nome,
         administrador: usuario.administrador,
         nomeInstituicao: usuario.nomeInstituicao,
-        fotoPerfil: usuario.fotoPerfil && usuario.fotoPerfil != "perfil_padrao.png"
-          ? usuario.fotoPerfil
-          : "img/usuarioSemFoto.png",
+        fotoPerfil: usuario.temFoto
+        ? "/usuarios/foto?v=" + Date.now()
+        : "img/usuarioSemFoto.png",
         modoEscuro: modoEscuro,
         tema: modoEscuro ? "escuro" : "claro",
         tamanhoFonte: converterTamanhoFonte(usuario.tamanhoFonte || 16)
@@ -120,37 +112,55 @@ function salvarPreferencias(req, res) {
 
 function salvarPerfil(req, res) {
   const nomeInstituicao = req.body.nomeInstituicao
-    ? req.body.nomeInstituicao.trim() || null
-    : null;
-  const fotoPerfil = req.file
-    ? "/uploads/perfil/" + req.file.filename
-    : req.body.fotoPerfil;
-  const fotosDisponiveis = [
-    "img/pessoa1.png",
-    "img/pessoa2.png",
-    "img/pessoa3.png",
-    "img/usuarioSemFoto.png"
-  ];
-  const fotoValida = fotosDisponiveis.includes(fotoPerfil) ||
-    /^\/uploads\/perfil\/[a-f0-9-]+\.(jpg|png|webp)$/.test(fotoPerfil || "");
+    ? req.body.nomeInstituicao.trim()
+    : "";
 
-  if ((nomeInstituicao && nomeInstituicao.length > 45) || !fotoValida) {
-    removerFotoEnviada(req.file);
-    return res.status(400).send("Confira a foto selecionada e o nome da empresa.");
+  if (nomeInstituicao.length > 45) {
+    return res.status(400).send("O nome da empresa deve ter no máximo 45 caracteres.");
   }
 
-  usuarioModel
-    .salvarPerfil(req.sessao.idUsuario, nomeInstituicao, fotoPerfil)
+  const tarefas = [];
+
+  if (req.file) {
+    tarefas.push(usuarioModel.salvarImagem(
+      req.sessao.idUsuario, req.file.buffer, req.file.mimetype));
+  }
+
+  if (req.sessao.administrador && nomeInstituicao) {
+    tarefas.push(usuarioModel.salvarNomeInstituicao(
+      req.sessao.fkInstituicao, nomeInstituicao));
+  }
+
+  if (tarefas.length == 0) {
+    return res.status(400).send("Não há nada para salvar.");
+  }
+
+  Promise.all(tarefas)
     .then(function () {
       return res.json({
-        nomeInstituicao: nomeInstituicao,
-        fotoPerfil: fotoPerfil
+        nomeInstituicao: req.sessao.administrador ? nomeInstituicao : null,
+        fotoPerfil: req.file ? "/usuarios/foto?v=" + Date.now() : null
       });
     })
     .catch(function (erro) {
-      removerFotoEnviada(req.file);
       console.error(erro);
-      return res.status(500).send("Não foi possível salvar a foto e o perfil.");
+      return res.status(500).send("Não foi possível salvar o perfil.");
+    });
+}
+
+function obterFoto(req, res) {
+  usuarioModel
+    .buscarImagem(req.sessao.idUsuario)
+    .then(function (resultado) {
+      if (resultado.length == 0 || !resultado[0].imagem) {
+        return res.status(404).send("Sem foto.");
+      }
+      res.set("Content-Type", resultado[0].tipoImagem);
+      return res.send(resultado[0].imagem);
+    })
+    .catch(function (erro) {
+      console.error(erro);
+      return res.status(500).send("Erro no servidor.");
     });
 }
 
@@ -222,5 +232,6 @@ module.exports = {
   salvarPerfil,
   salvarPreferencias,
   sair,
-  cadastrar
+  cadastrar,
+  obterFoto
 };

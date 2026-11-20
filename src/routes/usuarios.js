@@ -16,20 +16,16 @@ var extensoesFoto = {
 
 fs.mkdirSync(pastaFotos, { recursive: true });
 
+var tiposFoto = ["image/jpeg", "image/png", "image/webp"];
+
 var enviarFoto = multer({
-    storage: multer.diskStorage({
-        destination: pastaFotos,
-        filename: function (req, file, callback) {
-            callback(null, crypto.randomUUID() + extensoesFoto[file.mimetype]);
-        }
-    }),
+    storage: multer.memoryStorage(),
     limits: { fileSize: 2 * 1024 * 1024 },
     fileFilter: function (req, file, callback) {
-        if (!extensoesFoto[file.mimetype]) {
+        if (!tiposFoto.includes(file.mimetype)) {
             callback(new Error("Use uma imagem JPG, PNG ou WebP."));
             return;
         }
-
         callback(null, true);
     }
 });
@@ -44,6 +40,8 @@ function exigirSessao(req, res, next) {
     req.sessao = sessao.dados;
     next();
 }
+
+router.get("/foto", exigirSessao, usuarioController.obterFoto);
 
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
