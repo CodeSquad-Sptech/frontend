@@ -34,6 +34,15 @@ CREATE TABLE usuario (
         FOREIGN KEY (fkCargo) REFERENCES cargo(idCargo)
 );
 
+CREATE TABLE configuracao (
+    fkUsuario INT PRIMARY KEY,
+    fotoPerfil VARCHAR(255) DEFAULT 'img/usuarioSemFoto.png',
+    modoEscuro TINYINT DEFAULT 0,
+    tamanhoFonte INT DEFAULT 16,
+    CONSTRAINT fkConfiguracaoUsuario
+        FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
+);
+
 CREATE TABLE importacao (
     idImportacao INT PRIMARY KEY AUTO_INCREMENT,
     nomeArquivo VARCHAR(255),
@@ -53,6 +62,19 @@ CREATE TABLE info_curso (
     fkImportacao INT NOT NULL,
     CONSTRAINT fkInfoCursoImportacao
         FOREIGN KEY (fkImportacao) REFERENCES importacao(idImportacao)
+);
+
+CREATE TABLE anotacao (
+    idAnotacao INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(150) NOT NULL,
+    dataAnotacao DATE NOT NULL,
+    texto TEXT NOT NULL,
+    fkInfoCurso INT NULL,
+    fkUsuario INT NOT NULL,
+    CONSTRAINT fk_anotacao_info_curso
+        FOREIGN KEY (fkInfoCurso) REFERENCES info_curso(idInfoCurso),
+    CONSTRAINT fk_anotacao_usuario
+        FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
 );
 
 CREATE TABLE info_matriculas (
@@ -226,7 +248,6 @@ INSERT INTO usuario
 VALUES
 (1, 'Julia Yamasaki', 'julia.a.yamasaki@sptech.school', '123', 1, 1, 1, 1);
 
- (1 por ano)
 INSERT INTO importacao (idImportacao, nomeArquivo, dataImportacao, fkUsuario) VALUES
 (1, 'cursos_2021.xlsx', '2021-12-31', 1),
 (2, 'cursos_2022.xlsx', '2022-12-31', 1),
@@ -268,6 +289,11 @@ INSERT INTO info_curso (idInfoCurso, ano, nomeCurso, tipoGrauAcademico, tipoModa
 (31, 2023, 'Psicologia', '1', '1', '1', 3),
 (32, 2024, 'Psicologia', '1', '1', '1', 4);
 
+INSERT INTO anotacao (idAnotacao, titulo, dataAnotacao, texto, fkInfoCurso, fkUsuario) VALUES
+(1, 'Conceitos de Administração', '2026-11-10', 'Revisar os principais conceitos de planejamento, organização, direção e controle.', 1, 1),
+(2, 'Estudos sobre desenvolvimento', '2026-11-12', 'Anotar os pontos importantes sobre lógica de programação, estruturas condicionais e laços de repetição.', 13, 1),
+(3, 'Ideias gerais', '2026-11-15', 'Registrar ideias e observações que não estão relacionadas a um curso específico.', NULL, 1);
+
 
 INSERT INTO info_matriculas (idInfoMatriculas, fkInfoCurso) VALUES
 (1, 1), (2, 2), (3, 3), (4, 4),
@@ -290,7 +316,6 @@ INSERT INTO info_concluintes (idInfoConcluintes, fkInfoCurso) VALUES
 (25, 25), (26, 26), (27, 27), (28, 28),
 (29, 29), (30, 30), (31, 31), (32, 32);
 
- por idade
 INSERT INTO quantidade_matriculas_idade (matriculas0a17, matriculas18a24, matriculas25a29, matriculas30a34, matriculas35a39, matriculas40a49, matriculas50a59, matriculas60Mais, fkInfoMatriculas) VALUES
 (3, 168, 98, 58, 47, 29, 13, 4, 1),
 (9, 169, 103, 60, 44, 25, 8, 5, 2),
@@ -325,7 +350,6 @@ INSERT INTO quantidade_matriculas_idade (matriculas0a17, matriculas18a24, matric
 (3, 119, 63, 36, 28, 26, 7, 1, 31),
 (6, 112, 60, 53, 38, 22, 10, 2, 32);
 
- por raça
 INSERT INTO quantidade_matriculas_raca (branca, preta, parda, amarela, indigena, naoDeclarada, fkInfoMatriculas) VALUES
 (174, 49, 158, 15, 3, 21, 1),
 (203, 43, 149, 8, 2, 18, 2),
@@ -360,7 +384,6 @@ INSERT INTO quantidade_matriculas_raca (branca, preta, parda, amarela, indigena,
 (130, 35, 99, 7, 1, 11, 31),
 (148, 21, 110, 7, 2, 15, 32);
 
- por sexo
 INSERT INTO quantidade_matriculas_sexo (feminino, masculino, fkInfoMatriculas) VALUES
 (230, 190, 1), (233, 190, 2), (234, 192, 3), (229, 197, 4),
 (136, 124, 5), (128, 120, 6), (122, 124, 7), (132, 111, 8),
@@ -371,7 +394,6 @@ INSERT INTO quantidade_matriculas_sexo (feminino, masculino, fkInfoMatriculas) V
 (196, 184, 25), (200, 176, 26), (219, 158, 27), (194, 191, 28),
 (196, 44, 29), (199, 56, 30), (215, 68, 31), (240, 63, 32);
 
- por turno
 INSERT INTO quantidade_matriculas_turno (diurno, noturno, fkInfoMatriculas) VALUES
 (122, 298, 1), (139, 284, 2), (131, 295, 3), (147, 279, 4),
 (56, 204, 5), (76, 172, 6), (60, 186, 7), (75, 168, 8),
@@ -382,7 +404,6 @@ INSERT INTO quantidade_matriculas_turno (diurno, noturno, fkInfoMatriculas) VALU
 (134, 246, 25), (120, 256, 26), (121, 256, 27), (130, 255, 28),
 (140, 100, 29), (144, 111, 30), (165, 118, 31), (166, 137, 32);
 
- - outros
 INSERT INTO quantidade_matriculas_outros (estrangeiro, financiamento, deficiencia, alunosApoioSocial, quantidadeAlunosSituacaoTrancada, fkInfoMatriculas) VALUES
 (2, 109, 7, 76, 15, 1), (5, 140, 7, 120, 21, 2),
 (3, 114, 9, 74, 18, 3), (3, 128, 11, 112, 20, 4),
@@ -401,7 +422,6 @@ INSERT INTO quantidade_matriculas_outros (estrangeiro, financiamento, deficienci
 (2, 92, 3, 49, 9, 29), (1, 92, 6, 39, 9, 30),
 (0, 91, 8, 55, 9, 31), (1, 120, 5, 64, 14, 32);
 
- por rede
 INSERT INTO quantidade_matriculas_rede (redePublica, redePrivada, fkInfoMatriculas) VALUES
 (55, 365, 1), (48, 375, 2), (63, 363, 3), (58, 368, 4),
 (28, 232, 5), (21, 227, 6), (30, 216, 7), (28, 215, 8),
@@ -412,7 +432,6 @@ INSERT INTO quantidade_matriculas_rede (redePublica, redePrivada, fkInfoMatricul
 (61, 319, 25), (58, 318, 26), (53, 324, 27), (69, 316, 28),
 (36, 204, 29), (37, 218, 30), (45, 238, 31), (51, 252, 32);
 
- por idade
 INSERT INTO quantidade_concluintes_idade (concluintes0a17, concluintes18a24, concluintes25a29, concluintes30a34, concluintes35a39, concluintes40a49, concluintes50a59, concluintes60Mais, fkInfoConcluintes) VALUES
 (0, 43, 20, 7, 3, 2, 0, 0, 1), (0, 48, 26, 10, 3, 1, 0, 0, 2),
 (0, 51, 16, 12, 8, 3, 1, 0, 3), (0, 33, 20, 6, 7, 4, 0, 0, 4),
@@ -431,7 +450,6 @@ INSERT INTO quantidade_concluintes_idade (concluintes0a17, concluintes18a24, con
 (0, 18, 12, 9, 4, 1, 0, 0, 29), (0, 30, 15, 5, 0, 2, 0, 0, 30),
 (0, 29, 16, 4, 3, 1, 0, 0, 31), (0, 19, 16, 11, 3, 0, 0, 0, 32);
 
- por raça
 INSERT INTO quantidade_concluintes_raca (branca, preta, parda, amarela, indigena, corNaoDeclarada, fkInfoConcluintes) VALUES
 (42, 4, 26, 0, 0, 3, 1), (51, 4, 31, 0, 0, 2, 2),
 (51, 3, 35, 0, 0, 2, 3), (44, 3, 23, 0, 0, 0, 4),
@@ -450,7 +468,6 @@ INSERT INTO quantidade_concluintes_raca (branca, preta, parda, amarela, indigena
 (26, 0, 18, 0, 0, 0, 29), (33, 1, 18, 0, 0, 0, 30),
 (30, 2, 21, 0, 0, 0, 31), (27, 0, 22, 0, 0, 0, 32);
 
- por sexo
 INSERT INTO quantidade_concluintes_sexo (feminino, masculino, fkInfoConcluintes) VALUES
 (45, 30, 1), (59, 29, 2), (55, 36, 3), (41, 29, 4),
 (28, 19, 5), (16, 17, 6), (27, 22, 7), (26, 25, 8),
@@ -461,7 +478,6 @@ INSERT INTO quantidade_concluintes_sexo (feminino, masculino, fkInfoConcluintes)
 (42, 33, 25), (36, 30, 26), (37, 21, 27), (32, 43, 28),
 (39, 5, 29), (46, 6, 30), (52, 1, 31), (44, 5, 32);
 
- por turno
 INSERT INTO quantidade_concluintes_turno (diurno, noturno, fkInfoConcluintes) VALUES
 (15, 60, 1), (20, 68, 2), (17, 74, 3), (13, 57, 4),
 (1, 46, 5), (5, 28, 6), (4, 45, 7), (8, 43, 8),
@@ -472,7 +488,6 @@ INSERT INTO quantidade_concluintes_turno (diurno, noturno, fkInfoConcluintes) VA
 (14, 61, 25), (16, 50, 26), (18, 40, 27), (16, 59, 28),
 (31, 13, 29), (35, 17, 30), (37, 16, 31), (28, 21, 32);
 
- - outros
 INSERT INTO quantidade_concluintes_outros (estrangeiro, financiamento, deficiencia, fkInfoConcluintes) VALUES
 (2, 23, 3, 1), (5, 29, 3, 2), (3, 30, 4, 3), (3, 22, 5, 4),
 (3, 12, 3, 5), (1, 11, 1, 6), (0, 11, 3, 7), (2, 11, 3, 8),
@@ -483,7 +498,6 @@ INSERT INTO quantidade_concluintes_outros (estrangeiro, financiamento, deficienc
 (5, 20, 5, 25), (5, 19, 3, 26), (2, 17, 3, 27), (1, 23, 2, 28),
 (2, 10, 1, 29), (1, 14, 3, 30), (0, 16, 4, 31), (1, 10, 2, 32);
 
- por rede
 INSERT INTO quantidade_concluintes_rede (redePublica, redePrivada, fkInfoConcluintes) VALUES
 (0, 75, 1), (1, 87, 2), (4, 87, 3), (0, 70, 4),
 (0, 47, 5), (1, 32, 6), (0, 49, 7), (0, 51, 8),
