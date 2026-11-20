@@ -13,6 +13,65 @@ let anotacoes = [];
 let anotacaoSelecionada = null;
 let modoEdicao = false;
 
+let ordemCrescente = false;
+
+const filtroOrdenacao = document.getElementById("filtroOrdenacao");
+const filtroCurso = document.getElementById("filtroCurso");
+
+const botaoDirecaoOrdenacao = document.getElementById("botaoDirecaoOrdenacao");
+
+
+function aplicarFiltros(lista) {
+    let resultado = [...lista];
+
+    const cursoSelecionado = filtroCurso.value;
+    const tipoOrdenacao = filtroOrdenacao.value;
+
+    if (cursoSelecionado !== "") {
+        resultado = resultado.filter(function (anotacao) {
+            return String(anotacao.fkInfoCurso) === cursoSelecionado;
+        });
+    }
+
+    resultado.sort(function (a, b) {
+        let comparacao;
+
+        if (tipoOrdenacao === "data") {
+            comparacao = String(a.dataAnotacao).slice(0, 10)
+                .localeCompare(String(b.dataAnotacao).slice(0, 10));
+        } else {
+            comparacao = a.titulo.localeCompare(
+                b.titulo,
+                "pt-BR",
+                { sensitivity: "base" }
+            );
+        }
+
+        return ordemCrescente ? comparacao : -comparacao;
+    });
+
+    return resultado;
+}
+
+function atualizarDirecaoOrdenacao() {
+    ordemCrescente = !ordemCrescente;
+
+    botaoDirecaoOrdenacao.textContent = ordemCrescente ? "↑" : "↓";
+
+    botaoDirecaoOrdenacao.setAttribute(
+        "aria-label",
+        ordemCrescente ? "Ordem crescente" : "Ordem decrescente"
+    );
+
+    carregarAnotacoes();
+}
+
+filtroOrdenacao.addEventListener("change", carregarAnotacoes);
+filtroCurso.addEventListener("change", carregarAnotacoes);
+
+botaoDirecaoOrdenacao.addEventListener("click", atualizarDirecaoOrdenacao);
+
+
 function sessaoExpirada(resposta) {
     if (resposta.status === 401) {
         window.location.href = "./login.html";
@@ -30,48 +89,65 @@ function formatarData(data) {
 function carregarCursos() {
     fetch("/anotacoes/cursos")
         .then(function (resposta) {
-            if (sessaoExpirada(resposta)) return;
-            if (!resposta.ok) throw new Error("Não foi possível carregar os cursos.");
+            if (!resposta.ok) {
+                throw new Error("Erro ao carregar cursos.");
+            }
+
             return resposta.json();
         })
         .then(function (cursos) {
-            if (!cursos) return;
-            cursos.forEach(function (curso) {
-                const opcao = document.createElement("option");
-                opcao.value = curso.idInfoCurso;
-                opcao.textContent = curso.nomeCurso;
-                campoCurso.appendChild(opcao);
-            });
+            preencherFiltroCursos(cursos);
         })
         .catch(function (erro) {
-            console.error(erro);
-            mensagemAnotacoes.textContent = "Não foi possível carregar os cursos relacionados.";
+            console.error("Erro ao carregar cursos:", erro);
         });
+}
+
+function preencherFiltroCursos(cursos) {
+    filtroCurso.innerHTML = '<option value="">Todos os cursos</option>';
+
+    cursos.forEach(function (curso) {
+        const opcao = document.createElement("option");
+
+        opcao.value = curso.idInfoCurso;
+        opcao.textContent = curso.nomeCurso;
+
+        filtroCurso.appendChild(opcao);
+    });
 }
 
 function carregarAnotacoes() {
     fetch("/anotacoes")
         .then(function (resposta) {
-            if (sessaoExpirada(resposta)) return;
-            if (!resposta.ok) throw new Error("Não foi possível carregar as anotações.");
+            if (sessaoExpirada(resposta)) return null;
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possível carregar as anotações.");
+            }
+
             return resposta.json();
         })
-        .then(function (dados) {
-            if (!dados) return;
-            anotacoes = dados;
-            renderizarAnotacoes();
+        .then(function (resultado) {
+            if (!resultado) return;
+
+            anotacoes = resultado;
+
+            const anotacoesFiltradas = aplicarFiltros(anotacoes);
+
+            renderizarAnotacoes(anotacoesFiltradas);
         })
         .catch(function (erro) {
-            console.error(erro);
-            mensagemAnotacoes.textContent = "Ocorreu um erro ao carregar suas anotações.";
+            console.error("Erro ao carregar anotações:", erro);
         });
 }
 
-function renderizarAnotacoes() {
+function renderizarAnotacoes(anotacoesParaExibir) {
     listaAnotacoes.innerHTML = "";
-    mensagemAnotacoes.textContent = anotacoes.length === 0 ? "Você ainda não possui anotações." : "";
+    mensagemAnotacoes.textContent = anotacoesParaExibir.length === 0
+    ? "Nenhuma anotação encontrada."
+    : "";
 
-    anotacoes.forEach(function (anotacao) {
+anotacoesParaExibir.forEach(function (anotacao) {
         const card = document.createElement("article");
         card.className = "card-anotacao";
         card.tabIndex = 0;
