@@ -14,6 +14,7 @@ const mensagemAdministrador = document.getElementById("mensagemAdministrador");
 const campoNomeAdministrador = document.getElementById("nomeAdministrador");
 const campoEmailAdministrador = document.getElementById("emailAdministrador");
 const botaoSalvarPerfil = document.getElementById("botaoSalvarPerfil");
+const cartaoAdm = document.getElementById("cartaoAdm");
 const usuarioAdministrador =
     sessionStorage.ADMINISTRADOR == "1" ||
     sessionStorage.ADMINISTRADOR == "true";
@@ -351,6 +352,14 @@ function adicionarAdministrador(evento) {
     );
 }
 
+function mostrarAdm() {
+    if (usuarioAdministrador) {
+        cartaoAdm.style.display = "block";
+    } else {
+        cartaoAdm.style.display = "none";
+    }
+}
+
 opcoesFoto.addEventListener("click", clicarNasOpcoesDeFoto);
 campoFoto.addEventListener("change", escolherFoto);
 campoTema.addEventListener("change", atualizarTemaSelecionado);
@@ -361,3 +370,4 @@ formularioAdministrador.addEventListener("submit", adicionarAdministrador);
 configurarAcessoConfiguracoes();
 mostrarAdministradores();
 carregarConfiguracoes();
+mostrarAdm();
