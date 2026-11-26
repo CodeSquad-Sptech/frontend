@@ -188,6 +188,111 @@ body {
     letter-spacing: 0.04em;
 }
 
+.kpi-label-com-info,
+.titulo-com-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.kpi-label-com-info {
+    justify-content: space-between;
+}
+
+.titulo-com-info h1,
+.titulo-com-info h2,
+.titulo-com-info h3,
+.titulo-com-info h4 {
+    min-width: 0;
+    margin: 0;
+}
+
+.titulo-com-info h1,
+.titulo-com-info h2,
+.titulo-com-info h3,
+.titulo-com-info h4 {
+    flex: 1;
+}
+
+.titulo-pagina {
+    justify-content: flex-start;
+}
+
+.titulo-pagina h1 {
+    flex: 0 1 auto;
+}
+
+.titulo-com-info .indicador-info,
+.kpi-label-com-info .indicador-info {
+    flex: 0 0 20px;
+}
+
+.indicador-info {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    color: #475467;
+    background: #F2F4F7;
+    border: 1px solid #D0D5DD;
+    border-radius: 50%;
+    font: 600 12px/1 'Barlow', sans-serif;
+    cursor: help;
+}
+
+.indicador-info:hover,
+.indicador-info:focus-visible {
+    color: #FFFFFF;
+    background: #2E5BD7;
+    border-color: #2E5BD7;
+}
+
+.indicador-info:focus-visible {
+    outline: 2px solid #2E5BD7;
+    outline-offset: 2px;
+}
+
+.dica-indicador {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 8px);
+    left: 0;
+    width: min(250px, calc(100vw - 32px));
+    padding: 10px 12px;
+    color: #FFFFFF;
+    background: #101828;
+    border-radius: 7px;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.2);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: normal;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.dica-alinhar-direita {
+    right: 0;
+    left: auto;
+}
+
+.indicador-info:hover .dica-indicador,
+.indicador-info:focus .dica-indicador,
+.indicador-info:focus-visible .dica-indicador,
+.titulo-com-info:hover .dica-indicador,
+.kpi-label-com-info:hover .dica-indicador {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .kpi-valor {
     color: #101828;
     font-size: 28px;
@@ -223,17 +328,25 @@ body {
 }
 
 .kpi-cursos h2 {
-    margin: 0 0 11px;
+    margin: 0;
     color: #101828;
     font-size: 16px;
     font-weight: 600;
 }
 
+.kpi-cursos > .titulo-com-info {
+    margin-bottom: 11px;
+}
+
 .grafico h2 {
-    margin: 0 0 10px;
+    margin: 0;
     color: #101828;
     font-size: 16px;
     font-weight: 600;
+}
+
+.grafico > .titulo-com-info {
+    margin-bottom: 10px;
 }
 
 .grafico-descricao {
@@ -378,7 +491,7 @@ body {
 }
 
 .graficos-mini h4 {
-    margin: 0 0 6px;
+    margin: 0;
     color: #101828;
     font-size: 15px;
     font-weight: 600;
@@ -390,6 +503,14 @@ body {
     color: #101828;
     font-size: 15px;
     font-weight: 600;
+}
+
+.graficos > .titulo-com-info {
+    margin-bottom: 14px;
+}
+
+.graficos-mini > .titulo-com-info {
+    margin-bottom: 6px;
 }
 
 .grafico canvas,
@@ -404,6 +525,10 @@ body {
     color: #101828;
     font-size: 16px;
     font-weight: 600;
+}
+
+.secao-titulo .titulo-com-info {
+    justify-content: flex-start;
 }
 
 .graficos-bot {
@@ -425,6 +550,10 @@ body {
     color: #101828;
     font-size: 16px;
     font-weight: 600;
+}
+
+.graficos > .titulo-com-info h3 {
+    margin: 0;
 }
 
 .grafico canvas,
