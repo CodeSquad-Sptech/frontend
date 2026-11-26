@@ -1,0 +1,311 @@
+const listaAnotacoes = document.getElementById("listaAnotacoes");
+const mensagemAnotacoes = document.getElementById("mensagemAnotacoes");
+const modalDetalhes = document.getElementById("modalDetalhes");
+const modalFormulario = document.getElementById("modalFormulario");
+const formAnotacao = document.getElementById("formAnotacao");
+const campoTitulo = document.getElementById("campoTitulo");
+const campoData = document.getElementById("campoData");
+const campoCurso = document.getElementById("campoCurso");
+const campoTexto = document.getElementById("campoTexto");
+const erroFormulario = document.getElementById("erroFormulario");
+
+let anotacoes = [];
+let anotacaoSelecionada = null;
+let modoEdicao = false;
+
+let ordemCrescente = false;
+
+const filtroOrdenacao = document.getElementById("filtroOrdenacao");
+const filtroCurso = document.getElementById("filtroCurso");
+
+const botaoDirecaoOrdenacao = document.getElementById("botaoDirecaoOrdenacao");
+
+
+function aplicarFiltros(lista) {
+    let resultado = [...lista];
+
+    const cursoSelecionado = filtroCurso.value;
+    const tipoOrdenacao = filtroOrdenacao.value;
+
+    if (cursoSelecionado !== "") {
+        resultado = resultado.filter(function (anotacao) {
+            return String(anotacao.fkInfoCurso) === cursoSelecionado;
+        });
+    }
+
+    resultado.sort(function (a, b) {
+        let comparacao;
+
+        if (tipoOrdenacao === "data") {
+            comparacao = String(a.dataAnotacao).slice(0, 10)
+                .localeCompare(String(b.dataAnotacao).slice(0, 10));
+        } else {
+            comparacao = a.titulo.localeCompare(
+                b.titulo,
+                "pt-BR",
+                { sensitivity: "base" }
+            );
+        }
+
+        return ordemCrescente ? comparacao : -comparacao;
+    });
+
+    return resultado;
+}
+
+function atualizarDirecaoOrdenacao() {
+    ordemCrescente = !ordemCrescente;
+
+    botaoDirecaoOrdenacao.textContent = ordemCrescente ? "↑" : "↓";
+
+    botaoDirecaoOrdenacao.setAttribute(
+        "aria-label",
+        ordemCrescente ? "Ordem crescente" : "Ordem decrescente"
+    );
+
+    carregarAnotacoes();
+}
+
+filtroOrdenacao.addEventListener("change", carregarAnotacoes);
+filtroCurso.addEventListener("change", carregarAnotacoes);
+
+botaoDirecaoOrdenacao.addEventListener("click", atualizarDirecaoOrdenacao);
+
+
+function sessaoExpirada(resposta) {
+    if (resposta.status === 401) {
+        window.location.href = "./login.html";
+        return true;
+    }
+    return false;
+}
+
+function formatarData(data) {
+    if (!data) return "";
+    const parteData = String(data).slice(0, 10).split("-");
+    return parteData.length === 3 ? parteData[2] + "/" + parteData[1] + "/" + parteData[0] : data;
+}
+
+function carregarCursos() {
+    fetch("/anotacoes/cursos")
+        .then(function (resposta) {
+            if (!resposta.ok) {
+                throw new Error("Erro ao carregar cursos.");
+            }
+
+            return resposta.json();
+        })
+        .then(function (cursos) {
+            preencherFiltroCursos(cursos);
+        })
+        .catch(function (erro) {
+            console.error("Erro ao carregar cursos:", erro);
+        });
+}
+
+function preencherFiltroCursos(cursos) {
+    filtroCurso.innerHTML = '<option value="">Todos os cursos</option>';
+    campoCurso.innerHTML = '<option value="">Sem referência</option>';
+
+    cursos.forEach(function (curso) {
+        const opcaoFiltro = document.createElement("option");
+
+        opcaoFiltro.value = curso.idInfoCurso;
+        opcaoFiltro.textContent = curso.nomeCurso;
+
+        filtroCurso.appendChild(opcaoFiltro);
+
+        const opcaoFormulario = document.createElement("option");
+
+        opcaoFormulario.value = curso.idInfoCurso;
+        opcaoFormulario.textContent = curso.nomeCurso;
+
+        campoCurso.appendChild(opcaoFormulario);
+    });
+}
+
+function carregarAnotacoes() {
+    fetch("/anotacoes")
+        .then(function (resposta) {
+            if (sessaoExpirada(resposta)) return null;
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possível carregar as anotações.");
+            }
+
+            return resposta.json();
+        })
+        .then(function (resultado) {
+            if (!resultado) return;
+
+            anotacoes = resultado;
+
+            const anotacoesFiltradas = aplicarFiltros(anotacoes);
+
+            renderizarAnotacoes(anotacoesFiltradas);
+        })
+        .catch(function (erro) {
+            console.error("Erro ao carregar anotações:", erro);
+        });
+}
+
+function renderizarAnotacoes(anotacoesParaExibir) {
+    listaAnotacoes.innerHTML = "";
+    mensagemAnotacoes.textContent = anotacoesParaExibir.length === 0
+        ? "Nenhuma anotação encontrada."
+        : "";
+
+    anotacoesParaExibir.forEach(function (anotacao) {
+        const card = document.createElement("article");
+        card.className = "card-anotacao";
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", "Abrir anotação " + anotacao.titulo);
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = anotacao.titulo;
+
+        const curso = document.createElement("p");
+        curso.textContent = "Curso: " + (anotacao.nomeCurso || "Sem referência");
+
+        const data = document.createElement("p");
+        data.textContent = "Data: " + formatarData(anotacao.dataAnotacao);
+
+        const texto = document.createElement("p");
+        const palavras = anotacao.texto.trim().split(/\s+/);
+
+        texto.className = "resumo-anotacao";
+        texto.textContent = palavras.length > 12
+            ? palavras.slice(0, 12).join(" ") + "..."
+            : anotacao.texto;
+
+        card.append(titulo, curso, data, texto);
+        card.addEventListener("click", function () { abrirDetalhes(anotacao); });
+        card.addEventListener("keydown", function (evento) {
+            if (evento.key === "Enter" || evento.key === " ") {
+                evento.preventDefault();
+                abrirDetalhes(anotacao);
+            }
+        });
+        listaAnotacoes.appendChild(card);
+    });
+}
+
+function abrirDetalhes(anotacao) {
+    anotacaoSelecionada = anotacao;
+    document.getElementById("tituloDetalhe").textContent = anotacao.titulo;
+    document.getElementById("cursoDetalhe").textContent = "Curso: " + (anotacao.nomeCurso || "Sem referência");
+    document.getElementById("dataDetalhe").textContent = "Data: " + formatarData(anotacao.dataAnotacao);
+    document.getElementById("textoDetalhe").textContent = anotacao.texto;
+    modalDetalhes.hidden = false;
+}
+
+function fecharDetalhes() {
+    modalDetalhes.hidden = true;
+}
+
+function abrirFormulario(anotacao) {
+    modoEdicao = Boolean(anotacao);
+    document.getElementById("tituloFormulario").textContent = modoEdicao ? "Editar anotação" : "Nova anotação";
+    document.getElementById("botaoSalvar").textContent = modoEdicao ? "Salvar alterações" : "Salvar anotação";
+    campoTitulo.value = anotacao ? anotacao.titulo : "";
+    const hoje = new Date();
+    const dataLocal = hoje.getFullYear() + "-" +
+        String(hoje.getMonth() + 1).padStart(2, "0") + "-" +
+        String(hoje.getDate()).padStart(2, "0");
+    campoData.value = anotacao ? String(anotacao.dataAnotacao).slice(0, 10) : dataLocal;
+    campoCurso.value = anotacao && anotacao.fkInfoCurso ? String(anotacao.fkInfoCurso) : "";
+    campoTexto.value = anotacao ? anotacao.texto : "";
+    erroFormulario.textContent = "";
+    modalFormulario.hidden = false;
+    campoTitulo.focus();
+}
+
+function fecharFormulario() {
+    modalFormulario.hidden = true;
+    formAnotacao.reset();
+    erroFormulario.textContent = "";
+}
+
+function enviarFormulario(evento) {
+    evento.preventDefault();
+    const dados = {
+        titulo: campoTitulo.value,
+        dataAnotacao: campoData.value,
+        fkInfoCurso: campoCurso.value || null,
+        texto: campoTexto.value
+    };
+    const url = modoEdicao ? "/anotacoes/" + anotacaoSelecionada.idAnotacao : "/anotacoes";
+    const metodo = modoEdicao ? "PUT" : "POST";
+
+    fetch(url, {
+        method: metodo,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    })
+        .then(function (resposta) {
+            if (sessaoExpirada(resposta)) return null;
+            if (!resposta.ok) {
+                return resposta.text().then(function (mensagem) { throw new Error(mensagem); });
+            }
+            return resposta.json();
+        })
+        .then(function (resultado) {
+            if (!resultado) return;
+            fecharFormulario();
+            fecharDetalhes();
+            carregarAnotacoes();
+        })
+        .catch(function (erro) {
+            erroFormulario.textContent = erro.message || "Não foi possível salvar a anotação.";
+        });
+}
+
+function deletarAnotacao() {
+    if (!anotacaoSelecionada || !window.confirm("Deseja realmente excluir esta anotação?")) return;
+
+    fetch("/anotacoes/" + anotacaoSelecionada.idAnotacao, { method: "DELETE" })
+        .then(function (resposta) {
+            if (sessaoExpirada(resposta)) return null;
+            if (!resposta.ok) {
+                return resposta.text().then(function (mensagem) { throw new Error(mensagem); });
+            }
+            return resposta.json();
+        })
+        .then(function (resultado) {
+            if (!resultado) return;
+            fecharDetalhes();
+            anotacaoSelecionada = null;
+            carregarAnotacoes();
+        })
+        .catch(function (erro) {
+            window.alert(erro.message || "Não foi possível excluir a anotação.");
+        });
+}
+
+document.getElementById("botaoNovaAnotacao").addEventListener("click", function () { abrirFormulario(null); });
+document.getElementById("fecharDetalhes").addEventListener("click", fecharDetalhes);
+document.getElementById("botaoEditar").addEventListener("click", function () {
+    const anotacao = anotacaoSelecionada;
+    fecharDetalhes();
+    abrirFormulario(anotacao);
+});
+document.getElementById("botaoDeletar").addEventListener("click", deletarAnotacao);
+document.getElementById("fecharFormulario").addEventListener("click", fecharFormulario);
+document.getElementById("cancelarFormulario").addEventListener("click", fecharFormulario);
+formAnotacao.addEventListener("submit", enviarFormulario);
+
+[modalDetalhes, modalFormulario].forEach(function (modal) {
+    modal.addEventListener("click", function (evento) {
+        if (evento.target === modal) modal.hidden = true;
+    });
+});
+document.addEventListener("keydown", function (evento) {
+    if (evento.key === "Escape") {
+        fecharDetalhes();
+        fecharFormulario();
+    }
+});
+
+carregarCursos();
+carregarAnotacoes();

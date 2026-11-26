@@ -38,8 +38,10 @@ const usuarioRouter = require("./src/routes/usuarios");
 const dashboardRouter = require("./src/routes/dashboard");
 const logsRouter = require("./src/routes/logs.js");
 const importacoesRouter = require("./src/routes/importacoes");
+const anotacoesRouter = require("./src/routes/anotacoes");
 
 app.use("/importacoes", importacoesRouter);
+app.use("/anotacoes", anotacoesRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/dashboard", dashboardRouter); 
 app.use("/logs", logsRouter);

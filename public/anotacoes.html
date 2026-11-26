@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhas anotações | EVOLUA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/anotacoes.css" />
+  </head>
+  <body>
+    <header class="head">
+      <div class="menu">
+        <button
+          class="botao-menu"
+          id="botaoMenu"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="menuLateral"
+        >
+          <img data-icone-menu src="img/menuPreto.png" alt="" />
+        </button>
+        <img class="logo-evolua" src="img/logoEvolua.png" alt="" />
+        <span class="logo-texto" data-nome-empresa>EVOLUA</span>
+      </div>
+      <div class="resto">
+        <div class="pfp">
+          <img
+            data-foto-perfil
+            src="img/usuarioSemFoto.png"
+            alt="Foto de perfil"
+          />
+        </div>
+      </div>
+    </header>
+
+    <div class="fundo-menu" id="fundoMenu" hidden></div>
+    <aside
+      class="menu-lateral"
+      id="menuLateral"
+      aria-label="Menu principal"
+      hidden
+    >
+      <nav>
+        <a href="./dashboard.html">Dashboard</a>
+        <a href="./upload.html">Enviar arquivos</a>
+        <a href="./anotacoes.html" aria-current="page">Minhas anotações</a>
+        <a href="./configuracao.html">Configurações</a>
+        <button id="botaoSair" type="button">Sair</button>
+      </nav>
+    </aside>
+
+    <main class="corpo anotacoes-corpo">
+      <div class="cabecalho-anotacoes">
+        <div>
+          <span class="subtitulo">Organização pessoal</span>
+          <h1>Minhas anotações</h1>
+          <p>Registre ideias e informações importantes sobre seus cursos.</p>
+        </div>
+        <button class="botao-principal" id="botaoNovaAnotacao" type="button">
+          + Nova anotação
+        </button>
+      </div>
+      <div class="filtros-anotacoes">
+        <div class="grupo-filtro">
+          <label for="filtroCurso">Curso</label>
+          <select id="filtroCurso">
+            <option value="">Todos os cursos</option>
+          </select>
+        </div>
+
+        <div class="grupo-filtro">
+          <label for="filtroOrdenacao">Ordenar por</label>
+          <select id="filtroOrdenacao">
+            <option value="data">Data</option>
+            <option value="alfabetica">Ordem alfabética</option>
+          </select>
+        </div>
+
+        <button
+          type="button"
+          class="botao-direcao"
+          id="botaoDirecaoOrdenacao"
+          aria-label="Ordem decrescente"
+          title="Alterar direção da ordenação"
+        >
+          ↓
+        </button>
+      </div>
+
+      <div
+        id="mensagemAnotacoes"
+        class="mensagem-anotacoes"
+        aria-live="polite"
+      ></div>
+
+      <section
+        id="listaAnotacoes"
+        class="lista-anotacoes"
+        aria-label="Lista de anotações"
+      ></section>
+    </main>
+
+    <div class="modal-fundo" id="modalDetalhes" hidden>
+      <section
+        class="modal-anotacao"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloDetalhe"
+      >
+        <button
+          class="modal-fechar"
+          id="fecharDetalhes"
+          type="button"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+        <span class="modal-legenda">Detalhes da anotação</span>
+        <h2 id="tituloDetalhe"></h2>
+        <div class="detalhes-metadados">
+          <span id="cursoDetalhe"></span>
+          <span id="dataDetalhe"></span>
+        </div>
+        <div class="texto-detalhe" id="textoDetalhe"></div>
+        <div class="acoes-modal">
+          <button class="botao-secundario" id="botaoEditar" type="button">
+            Editar
+          </button>
+          <button class="botao-perigo" id="botaoDeletar" type="button">
+            Excluir
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-fundo" id="modalFormulario" hidden>
+      <section
+        class="modal-anotacao modal-formulario"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloFormulario"
+      >
+        <button
+          class="modal-fechar"
+          id="fecharFormulario"
+          type="button"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+        <span class="modal-legenda">Anotações</span>
+        <h2 id="tituloFormulario">Nova anotação</h2>
+        <form id="formAnotacao">
+          <label for="campoTitulo">Título</label>
+          <input
+            id="campoTitulo"
+            name="titulo"
+            type="text"
+            maxlength="150"
+            required
+          />
+          <div class="campos-linha">
+            <div>
+              <label for="campoData">Data</label>
+              <input id="campoData" name="dataAnotacao" type="date" required />
+            </div>
+            <div>
+              <label for="campoCurso">Curso relacionado</label>
+              <select id="campoCurso" name="fkInfoCurso">
+                <option value="">Sem referência</option>
+              </select>
+            </div>
+          </div>
+          <label for="campoTexto">Texto da anotação</label>
+          <textarea id="campoTexto" name="texto" rows="8" required></textarea>
+          <div class="acoes-modal">
+            <button
+              class="botao-secundario"
+              id="cancelarFormulario"
+              type="button"
+            >
+              Cancelar
+            </button>
+            <button class="botao-principal" type="submit" id="botaoSalvar">
+              Salvar anotação
+            </button>
+          </div>
+          <p class="erro-formulario" id="erroFormulario" role="alert"></p>
+        </form>
+      </section>
+    </div>
+
+    <script src="js/preferencias.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/anotacoes.js"></script>
+  </body>
+</html>
