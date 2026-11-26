@@ -12,6 +12,15 @@ function mostrarMensagem(mensagem, erro = false) {
     mensagemUpload.dataset.erro = erro ? "true" : "false";
 }
 
+function sessaoExpirada(resposta) {
+    if (resposta.status === 401) {
+        window.location.href = "./login.html";
+        return true;
+    }
+
+    return false;
+}
+
 function formatarData(valor) {
     if (!valor) {
         return "";
@@ -32,6 +41,10 @@ function escaparHtml(valor) {
 async function carregarArquivos() {
     try {
         const resposta = await fetch("/importacoes");
+        if (sessaoExpirada(resposta)) {
+            return;
+        }
+
         if (!resposta.ok) {
             throw new Error("Não foi possível carregar os arquivos.");
         }
@@ -87,6 +100,10 @@ async function enviarArquivo(arquivo) {
             method: "POST",
             body: dados
         });
+
+        if (sessaoExpirada(resposta)) {
+            return;
+        }
 
         const texto = await resposta.text();
         let resultado = null;

@@ -44,28 +44,58 @@
     <main class="corpo">
         <div class="cabecalho-dashboard">
             <span class="subtitulo">Visão geral</span>
-            <h1>Dashboard de evasão</h1>
+            <div class="titulo-com-info titulo-pagina">
+                <h1>Dashboard de evasão</h1>
+                <button class="indicador-info" type="button" aria-label="Informações sobre o dashboard" aria-describedby="dica-dashboard">
+                    <span aria-hidden="true">i</span>
+                    <span class="dica-indicador" id="dica-dashboard" role="tooltip">Resumo de matrículas, trancamentos, concluintes e características dos alunos com base nos dados importados.</span>
+                </button>
+            </div>
             <p>Acompanhe os principais indicadores e o perfil dos alunos.</p>
         </div>
 
         <div class="kpis-topo">
             <div class="kpi-card kpi-card-azul">
-                <span class="kpi-label">Matrículas</span>
+                <div class="kpi-label-com-info">
+                    <span class="kpi-label">Matrículas</span>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre matrículas" aria-describedby="dica-matriculas">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador" id="dica-matriculas" role="tooltip">Total de matrículas no ano mais recente disponível. A variação, quando exibida, compara com o ano anterior.</span>
+                    </button>
+                </div>
                 <strong class="kpi-valor" id="kpi_matriculas">--</strong>
                 <span class="kpi-meta" id="meta_matriculas"></span>
             </div>
             <div class="kpi-card kpi-card-roxo">
-                <span class="kpi-label">Trancadas</span>
+                <div class="kpi-label-com-info">
+                    <span class="kpi-label">Trancadas</span>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre matrículas trancadas" aria-describedby="dica-trancadas">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador" id="dica-trancadas" role="tooltip">Total de matrículas com situação trancada no ano mais recente disponível. Não significa necessariamente evasão.</span>
+                    </button>
+                </div>
                 <strong class="kpi-valor" id="kpi_trancadas">--</strong>
                 <span class="kpi-meta" id="meta_trancadas"></span>
             </div>
             <div class="kpi-card kpi-card-verde">
-                <span class="kpi-label">Concluintes</span>
+                <div class="kpi-label-com-info">
+                    <span class="kpi-label">Concluintes</span>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre concluintes" aria-describedby="dica-concluintes">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador" id="dica-concluintes" role="tooltip">Total de alunos que concluíram o curso no ano mais recente disponível.</span>
+                    </button>
+                </div>
                 <strong class="kpi-valor" id="kpi_concluintes">--</strong>
                 <span class="kpi-meta" id="meta_concluintes"></span>
             </div>
             <div class="kpi-card kpi-card-amarelo">
-                <span class="kpi-label">Proporção de trancadas</span>
+                <div class="kpi-label-com-info">
+                    <span class="kpi-label">Proporção de trancadas</span>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre a proporção de trancadas" aria-describedby="dica-proporcao">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador dica-alinhar-direita" id="dica-proporcao" role="tooltip">Percentual calculado dividindo matrículas trancadas pelo total de matrículas. É um indicador de trancamento, não uma medida de evasão.</span>
+                    </button>
+                </div>
                 <strong class="kpi-valor" id="kpi_proporcao_trancadas">--</strong>
                 <span class="kpi-meta" id="meta_proporcao_trancadas"></span>
             </div>
@@ -73,7 +103,13 @@
 
         <div class="top">
             <div class="kpi-cursos">
-                <h2>Cursos monitorados</h2>
+                <div class="titulo-com-info">
+                    <h2>Cursos monitorados</h2>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre cursos monitorados" aria-describedby="dica-cursos">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador" id="dica-cursos" role="tooltip">Cursos com dados importados para a instituição. Selecione um curso para filtrar os indicadores.</span>
+                    </button>
+                </div>
                 <div class="select-cursos">
                     <select name="cursos" id="cursos">
                         <option value="todos">Todos os cursos</option>
@@ -83,42 +119,84 @@
                 </div>
             </div>
             <div class="grafico">
-                <h2 id="titulo-grafico-principal">Proporção de matrículas trancadas - Todos os cursos (%)</h2>
+                <div class="titulo-com-info">
+                    <h2 id="titulo-grafico-principal">Proporção de matrículas trancadas - Todos os cursos (%)</h2>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre a evolução da proporção de trancamentos" aria-describedby="dica-evolucao">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador dica-alinhar-direita" id="dica-evolucao" role="tooltip">Mostra por ano a proporção de matrículas trancadas em relação ao total de matrículas. Não representa evasão.</span>
+                    </button>
+                </div>
                 <p class="grafico-descricao">Trancamentos reportados ÷ matrículas reportadas; não representa evasão.</p>
                 <canvas id="grafico1"></canvas>
             </div>
         </div>
 
         <div class="secao-titulo">
-            Perfil e características
+            <div class="titulo-com-info">
+                <span>Perfil e características</span>
+                <button class="indicador-info" type="button" aria-label="Informações sobre perfil e características" aria-describedby="dica-perfil">
+                    <span aria-hidden="true">i</span>
+                    <span class="dica-indicador" id="dica-perfil" role="tooltip">Distribuição dos alunos por idade, raça/cor, sexo, apoio social e rede de ensino, conforme os dados importados.</span>
+                </button>
+            </div>
         </div>
 
         <div class="bot">
             <div class="graficos-bot graficos-bot-primeira">
                 <div class="graficos">
+                <div class="titulo-com-info">
                     <h3>Perfil por idade - matrículas</h3>
-                    <canvas id="grafico2"></canvas>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre perfil por idade" aria-describedby="dica-idade">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador" id="dica-idade" role="tooltip">Distribuição das matrículas por faixa etária, conforme os dados importados.</span>
+                    </button>
                 </div>
-                <div class="graficos">
+                <canvas id="grafico2"></canvas>
+            </div>
+            <div class="graficos">
+                <div class="titulo-com-info">
                     <h3>Distribuição de matrículas por raça</h3>
-                    <canvas id="grafico3"></canvas>
+                    <button class="indicador-info" type="button" aria-label="Informações sobre distribuição por raça" aria-describedby="dica-raca">
+                        <span aria-hidden="true">i</span>
+                        <span class="dica-indicador" id="dica-raca" role="tooltip">Distribuição por raça/cor declarada, incluindo os registros não declarados.</span>
+                    </button>
+                </div>
+                <canvas id="grafico3"></canvas>
                 </div>
                 <div class="graficos graficos-sexo">
                     <div class="graficos-trio">
                      <div class="graficos-mini">
-    <h4>Sexo</h4>
+    <div class="titulo-com-info">
+        <h4>Sexo</h4>
+        <button class="indicador-info" type="button" aria-label="Informações sobre distribuição por sexo" aria-describedby="dica-sexo">
+            <span aria-hidden="true">i</span>
+            <span class="dica-indicador dica-alinhar-direita" id="dica-sexo" role="tooltip">Distribuição das matrículas por sexo, conforme os dados registrados.</span>
+        </button>
+    </div>
     <div class="caixa-mini">
         <canvas id="grafico4"></canvas>
     </div>
 </div>
 <div class="graficos-mini">
-    <h4>Apoio</h4>
+    <div class="titulo-com-info">
+        <h4>Apoio</h4>
+        <button class="indicador-info" type="button" aria-label="Informações sobre apoio" aria-describedby="dica-apoio">
+            <span aria-hidden="true">i</span>
+            <span class="dica-indicador" id="dica-apoio" role="tooltip">“Com apoio” indica alunos com apoio social registrado, como bolsas ou auxílios. O FIES é financiamento e fica em um campo separado.</span>
+        </button>
+    </div>
     <div class="caixa-mini">
         <canvas id="grafico5"></canvas>
     </div>
 </div>
 <div class="graficos-mini">
-    <h4>Rede de ensino</h4>
+    <div class="titulo-com-info">
+        <h4>Rede de ensino</h4>
+        <button class="indicador-info" type="button" aria-label="Informações sobre rede de ensino" aria-describedby="dica-rede">
+            <span aria-hidden="true">i</span>
+            <span class="dica-indicador dica-alinhar-direita" id="dica-rede" role="tooltip">Distribuição das matrículas conforme a rede de ensino de origem: pública ou particular.</span>
+        </button>
+    </div>
     <div class="caixa-mini">
         <canvas id="grafico6"></canvas>
     </div>
@@ -288,8 +366,21 @@
             indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
+            interaction: {
+                mode: 'nearest',
+                intersect: false
+            },
             plugins: {
-                legend: { display: false }
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function (context) {
+                            return context.dataIndex === 0
+                                ? 'Alunos com apoio social registrado, como bolsas ou auxílios. Financiamentos como o FIES são um campo separado e não entram neste indicador.'
+                                : 'Demais matrículas, calculadas como o total menos os alunos com apoio social registrado.';
+                        }
+                    }
+                }
             },
             scales: {
                 x: {
