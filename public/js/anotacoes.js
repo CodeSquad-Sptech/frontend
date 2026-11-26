@@ -105,14 +105,22 @@ function carregarCursos() {
 
 function preencherFiltroCursos(cursos) {
     filtroCurso.innerHTML = '<option value="">Todos os cursos</option>';
+    campoCurso.innerHTML = '<option value="">Sem referência</option>';
 
     cursos.forEach(function (curso) {
-        const opcao = document.createElement("option");
+        const opcaoFiltro = document.createElement("option");
 
-        opcao.value = curso.idInfoCurso;
-        opcao.textContent = curso.nomeCurso;
+        opcaoFiltro.value = curso.idInfoCurso;
+        opcaoFiltro.textContent = curso.nomeCurso;
 
-        filtroCurso.appendChild(opcao);
+        filtroCurso.appendChild(opcaoFiltro);
+
+        const opcaoFormulario = document.createElement("option");
+
+        opcaoFormulario.value = curso.idInfoCurso;
+        opcaoFormulario.textContent = curso.nomeCurso;
+
+        campoCurso.appendChild(opcaoFormulario);
     });
 }
 
@@ -144,10 +152,10 @@ function carregarAnotacoes() {
 function renderizarAnotacoes(anotacoesParaExibir) {
     listaAnotacoes.innerHTML = "";
     mensagemAnotacoes.textContent = anotacoesParaExibir.length === 0
-    ? "Nenhuma anotação encontrada."
-    : "";
+        ? "Nenhuma anotação encontrada."
+        : "";
 
-anotacoesParaExibir.forEach(function (anotacao) {
+    anotacoesParaExibir.forEach(function (anotacao) {
         const card = document.createElement("article");
         card.className = "card-anotacao";
         card.tabIndex = 0;
@@ -156,12 +164,22 @@ anotacoesParaExibir.forEach(function (anotacao) {
 
         const titulo = document.createElement("h3");
         titulo.textContent = anotacao.titulo;
+
         const curso = document.createElement("p");
         curso.textContent = "Curso: " + (anotacao.nomeCurso || "Sem referência");
+
         const data = document.createElement("p");
         data.textContent = "Data: " + formatarData(anotacao.dataAnotacao);
 
-        card.append(titulo, curso, data);
+        const texto = document.createElement("p");
+        const palavras = anotacao.texto.trim().split(/\s+/);
+
+        texto.className = "resumo-anotacao";
+        texto.textContent = palavras.length > 12
+            ? palavras.slice(0, 12).join(" ") + "..."
+            : anotacao.texto;
+
+        card.append(titulo, curso, data, texto);
         card.addEventListener("click", function () { abrirDetalhes(anotacao); });
         card.addEventListener("keydown", function (evento) {
             if (evento.key === "Enter" || evento.key === " ") {
